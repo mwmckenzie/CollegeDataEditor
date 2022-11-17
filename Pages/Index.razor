@@ -1,0 +1,76 @@
+﻿@page "/"
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.ViewModels
+@using CollegeDataEditor.Enums
+
+@implements IDisposable
+
+@inject DbService _dbService
+@inject ViewModelService _viewModelService
+@inject ISnackbar _snackbar
+
+
+<PageTitle>College Data Editor - Home</PageTitle>
+
+@if (_indexViewModel.isLoading) {
+    <MudPaper Height="80vh" Class="d-flex flex-column flex-grow-1 align-content-space-between py-3">
+        <MudStack Class="d-flex flex-grow-1" AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <MudText Typo="Typo.h1" Align="Align.Center">Loading...</MudText>
+            <MudText Typo="Typo.h1" Align="Align.Center">Building DBs</MudText>
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+        </MudStack>
+        <MudAlert Severity="Severity.Warning" Class="mt-auto mx-auto">
+            This should only take a moment or two
+        </MudAlert>
+    </MudPaper>
+}
+else {
+    <MudPaper Height="80vh" Class="d-flex flex-column flex-grow-1 align-content-space-between py-3">
+        <MudStack Class="d-flex flex-grow-1" AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <MudText Typo="Typo.h1" Align="Align.Center">College Prep</MudText>
+            <MudText Typo="Typo.h1" Align="Align.Center">DB</MudText>
+        </MudStack>
+        <MudAlert Severity="Severity.Info" Class="mt-auto mx-auto">
+            Welcome to the College Prep DB!
+        </MudAlert>
+    </MudPaper>
+}
+
+
+@code {
+
+    private IndexViewModel _indexViewModel;
+    // private bool _isLoading;
+
+    // [Parameter]
+    // public bool isLoading { get; set; } = true;
+    
+    // [Parameter]
+    // public EventCallback finishedLoading { get; set; }
+
+    
+    protected override Task OnInitializedAsync()
+    {
+        _indexViewModel = _viewModelService.IndexViewModel;
+        _dbService.OnStateChange += OnDbServiceStateChange;
+        return Task.CompletedTask;
+    // _isLoading = true;
+    //
+    // await _dbService.TryLoadAllRequiredDbsAsync();
+    // _isLoading = false;
+    //
+    // await finishedLoading.InvokeAsync();
+    }
+
+    private void OnDbServiceStateChange(DbState obj)
+    {
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        _snackbar?.Dispose();
+        _dbService.OnStateChange -= OnDbServiceStateChange;
+    }
+
+}

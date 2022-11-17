@@ -1,0 +1,22 @@
+@if (textList is not null && textList.Count > 0)
+{
+    <MudPaper Class="pa-4  mb-4">
+        <MudText Color="Color.Tertiary" Typo="Typo.subtitle2">@title</MudText>
+        @foreach (var detail in textList)
+        {
+            <DataListViewItem text="@detail"/>
+        }
+    </MudPaper>
+}
+
+
+
+@code {
+
+    [Parameter]
+    public string? title { get; set; }
+
+    [Parameter]
+    public List<string>? textList { get; set; }
+
+}

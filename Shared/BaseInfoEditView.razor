@@ -1,0 +1,92 @@
+﻿@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Interfaces
+
+@inject LookupService _lookupService
+
+<MudText Class="mx-4" Typo="Typo.h5" GutterBottom="true">
+    @baseInfoObj.TypeName() General Info
+</MudText>
+
+<MudPaper Class="d-flex flex-column" Outlined="true">
+    <MudList Clickable="true">
+        
+        <MudListItem Icon="@Icons.Material.Filled.TextFields">
+            <div class="d-flex">
+                <MudTextField @bind-Value="@baseInfoObj.name" 
+                              Label="Name" Variant="Variant.Text"
+                              DebounceInterval="500" 
+                              OnDebounceIntervalElapsed="HandleIntervalElapsed"/>
+            </div>
+        </MudListItem>
+        
+        <MudListItem Icon="@Icons.Material.Filled.TextFields">
+            <div class="d-flex">
+                <MudTextField @bind-Value="@baseInfoObj.displayName"
+                              Label="Display Name" Variant="Variant.Text"
+                              DebounceInterval="500" 
+                              OnDebounceIntervalElapsed="HandleIntervalElapsed"/>
+            </div>
+        </MudListItem>
+        
+        <MudListItem Icon="@Icons.Material.Filled.Link">
+            <div class="d-flex">
+                <MudTextField @bind-Value="@baseInfoObj.url" 
+                              Label="URL" Variant="Variant.Text"
+                              DebounceInterval="500" 
+                              OnDebounceIntervalElapsed="HandleIntervalElapsed"/>
+            </div>
+        </MudListItem>
+
+        <MudDivider Class="my-2"/>
+
+        <EditableFormListView @bind-formList="@baseInfoObj.aliasList"
+                              listName="Alias" itemIcons="@Icons.Material.Filled.AlternateEmail"
+                              dbContext="dbContext"/>
+
+        <MudDivider Class="my-2"/>
+
+        <EditableFormListView @bind-formList="@baseInfoObj.urlList"
+                              listName="Url" itemIcons="@Icons.Material.Filled.Link"
+                              dbContext="dbContext"/>
+
+        <MudDivider Class="my-2"/>
+
+        <EditableFormListView @bind-formList="@baseInfoObj.noteList"
+                              listName="Note" itemIcons="@Icons.Material.Filled.Note"
+                              dbContext="dbContext"/>
+
+        <MudDivider Class="my-2"/>
+
+        <EditableIndexValueListView @bind-idList="@baseInfoObj.tagIdList"
+                                    listName="Tags"
+                                    lookupList="_lookupService.tags"
+                                    itemIcons="@Icons.Material.Filled.Tag"
+                                    dbContext="dbContext"/>
+    </MudList>
+    
+</MudPaper>
+               
+
+
+
+@code {
+    
+    [Parameter]
+    public IDbContext dbContext { get; set; }
+
+    [Parameter]
+    public BaseInfoObj baseInfoObj { get; set; } = new();
+
+
+    private void HandleIntervalElapsed()
+    {
+        OnObjEdited();
+    }
+
+    private void OnObjEdited()
+    {
+        dbContext.SubmitEditsToDbAsync();
+        //baseInfoObj.OnObjEdited();
+    }
+}

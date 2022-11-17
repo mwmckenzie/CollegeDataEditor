@@ -1,0 +1,29 @@
+@using CollegeDataEditor.Models
+@if (baseInfoObj != null && baseInfoObj.isValid)
+{
+    @if (!string.IsNullOrWhiteSpace(objTitle))
+    {
+        <MudText Class="mb-1" Typo="Typo.body2" Color="Color.Tertiary">@objTitle</MudText>
+    }
+    <MudText Typo="Typo.h5">@baseInfoObj.displayName</MudText>
+
+    @if (!string.IsNullOrEmpty(baseInfoObj.url))
+    {
+        <MudStack Row="true" Spacing="3" Class="my-1">
+            <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
+            <MudLink Href="@baseInfoObj.url" Target="_blank" Typo="Typo.body1">@baseInfoObj.url</MudLink>
+        </MudStack>
+    }
+}
+
+
+
+@code {
+
+    [Parameter]
+    public BaseInfoObj? baseInfoObj { get; set; }
+
+    [Parameter]
+    public string? objTitle { get; set; }
+
+}

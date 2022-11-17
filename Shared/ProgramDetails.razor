@@ -1,0 +1,160 @@
+﻿@using System.Collections
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+
+@inject LookupService _lookupService
+@inject ViewModelService _viewModelService
+
+<MudPaper Class="pa-4">
+    
+    <div class="d-flex flex-grow-1 justify-end mb-4">
+        <MudButtonGroup Class="" Color="Color.Primary" Variant="Variant.Filled" OverrideStyles="false">
+            <MudTooltip Text="Send To Editor">
+                <MudButton OnClick="@onEditClickCallback">Edit</MudButton>
+            </MudTooltip>
+            <MudTooltip Text="Send A Copy To Editor">
+                <MudButton OnClick="@onCopyClickCallback">Copy</MudButton>
+            </MudTooltip>
+            <MudTooltip Text="Send To Archives">
+                <MudButton Color="Color.Secondary" OnClick="onDeleteClickCallback">
+                    Archive
+                </MudButton>
+            </MudTooltip>
+        </MudButtonGroup>
+    </div>
+
+    <BaseInfoView baseInfoObj="@summerProgram" objTitle="Summer Program"/>
+
+    @if (summerProgram.programTypeIdList.Count > 0)
+    {
+        <MudPaper Class="pa-4 mb-4">
+            <MudText Typo="Typo.h4">Program Type</MudText>
+            <MudDivider Class="my-2"/>
+            @foreach (var progTypeId in summerProgram.programTypeIdList)
+            {
+                <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
+                    <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
+                    <MudText Typo="Typo.h6">@_lookupService.FindProgramTypeById(progTypeId)</MudText>
+                </MudStack>
+            }
+        </MudPaper>
+    }
+
+    @if (summerProgram.subjectIdList.Count > 0)
+    {
+        <MudPaper Class="pa-4 mb-4">
+            <MudText Typo="Typo.h4">Subjects</MudText>
+            <MudDivider Class="my-2"/>
+            @foreach (var subjId in summerProgram.subjectIdList)
+            {
+                <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
+                    <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
+                    <MudText Typo="Typo.h6">@_lookupService.FindSubjectById(subjId).value</MudText>
+                </MudStack>
+            }
+        </MudPaper>
+    }
+
+    @if (summerProgram.topicIdList.Count > 0)
+    {
+        <MudPaper Class="pa-4 mb-4">
+            <MudText Typo="Typo.h4">Topics</MudText>
+            <MudDivider Class="my-2"/>
+            @foreach (var topicId in summerProgram.topicIdList)
+            {
+                <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
+                    <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
+                    <MudText Typo="Typo.h6">@_lookupService.FindTopicById(topicId).value</MudText>
+                </MudStack>
+            }
+        </MudPaper>
+    }
+
+    @* @if (summerProgram.orgIdList.Count > 0) *@
+    @* { *@
+    @*     foreach (var orgId in summerProgram.orgIdList. *@
+    @*         Where(orgId => _lookupService.GetOrg(orgId).isValid)) *@
+    @*     { *@
+    @*         <OrgView org="@_lookupService.GetOrg(orgId)"/> *@
+    @*     } *@
+    @* } *@
+
+    @* @if (summerProgram.sessionIdList.Count > 0) *@
+    @* { *@
+    @*     <DateRangeView objTitle="Sessions" *@
+    @*                    dateRangeObjList="@GetEnumerable(programDataService.GetSessions(summerProgram)).ToList()"/> *@
+    @*                                                                                                              *@
+    @* *@
+    @* } *@
+
+    @* <MudStack Row="true" Spacing="3"> *@
+    @*     <MudIcon Icon="@Icons.Filled.Map"></MudIcon> *@
+    @*     <MudText Class="mr-4" Typo="Typo.h6">@summerProgram.regionId</MudText> *@
+    @*     <MudText Typo="Typo.h6">@summerProgram.locale</MudText> *@
+    @* </MudStack> *@
+    @* *@
+    @* <MudStack Row="true" Spacing="3"> *@
+    @*     <MudIcon Icon="@Icons.Filled.School"></MudIcon> *@
+    @*     <MudText Class="mr-4" Typo="Typo.h6">@summerProgram.mainCampus</MudText> *@
+    @*     <MudText Typo="Typo.h6">@summerProgram.genderRestriction</MudText> *@
+    @* </MudStack> *@
+    @* *@
+    @* <MudPaper Class="mt-2 mb-2 pa-2"> *@
+    @*     <MudText Typo="Typo.subtitle2">Carnegie Basic</MudText> *@
+    @*     <MudText Typo="Typo.h6">@summerProgram.carnegieBasic</MudText> *@
+    @* *@
+    @*     <MudText Typo="Typo.subtitle2" Class="mt-4">Carnegie Undergrad</MudText> *@
+    @*     <MudText Typo="Typo.h6">@summerProgram.carnegieUndergrad</MudText> *@
+    @* *@
+    @*     <MudText Typo="Typo.subtitle2" Class="mt-4">Carnegie Size & Setting</MudText> *@
+    @*     <MudText Typo="Typo.h6">@summerProgram.carnegieSizeSetting</MudText> *@
+    @* *@
+    @*     <MudText Typo="Typo.subtitle2" Class="mt-4">Type</MudText> *@
+    @*     <MudText Typo="Typo.h6">@summerProgram.ownership</MudText> *@
+    @*     <MudText Typo="Typo.h6">Online Only: @summerProgram.onlineOnly</MudText> *@
+    @* *@
+    @*     @if (summerProgram.aliasListToString != string.Empty) { *@
+    @*         <MudText Typo="Typo.subtitle2" Class="mt-4">Nicknames</MudText> *@
+    @*         <MudText Typo="Typo.body1">@summerProgram.aliasListToString</MudText> *@
+    @*     } *@
+    @* *@
+    @*     @if (summerProgram.priceCalculatorUrl != string.Empty) { *@
+    @*         <MudText Typo="Typo.subtitle2" Class="mt-4">Price Calculator</MudText> *@
+    @*         <MudStack Row="true" Spacing="3"> *@
+    @*             <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon> *@
+    @*             <MudLink Href="@summerProgram.schoolUrl" Target="_blank" Typo="Typo.body1">@summerProgram.priceCalculatorUrl</MudLink> *@
+    @*         </MudStack> *@
+    @*     } *@
+    @* </MudPaper> *@
+
+</MudPaper>
+
+
+@code {
+
+    [Parameter]
+    public SummerProgramObj summerProgram { get; set; } = new();
+    
+    [Parameter]
+    public EventCallback<SummerProgramObj> summerProgramChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> onEditClickCallback { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> onCopyClickCallback { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> onDeleteClickCallback { get; set; }
+
+    // private IEnumerable<DateRangeObj> GetEnumerable(Object obj) {
+    //     if (obj is not IList list) {
+    //         return new List<DateRangeObj>();
+    //     }
+    //     if (list.Count < 1 || list[0] is not DateRangeObj) {
+    //         return new List<DateRangeObj>();
+    //     }
+    //     return list.Cast<DateRangeObj>();
+    // }
+
+}

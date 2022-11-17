@@ -1,0 +1,107 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = browser
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = true
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = CaptrsCardGamePrototype
+build_property.RootNamespace = CaptrsCardGamePrototype
+build_property.ProjectDir = F:\CSharp\CollegeDataEditor\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = F:\CSharp\CollegeDataEditor
+build_property._RazorSourceGeneratorDebug = 
+
+[F:/CSharp/CollegeDataEditor/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/ApiTestPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpVGVzdFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/CardEditor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FyZEVkaXRvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/CollectionEditor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29sbGVjdGlvbkVkaXRvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/PathogenDbView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aG9nZW5EYlZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/PathogenEditor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aG9nZW5FZGl0b3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/SeirParamsView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VpclBhcmFtc1ZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/BaseInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEJhc2VJbmZvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/CardBase.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENhcmRCYXNlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/CardBaseInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENhcmRCYXNlSW5mby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/CardComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENhcmRDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/DataListView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERhdGFMaXN0Vmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/DataListViewItem.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERhdGFMaXN0Vmlld0l0ZW0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/MapOverlay.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1hcE92ZXJsYXkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/PathogenDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBhdGhvZ2VuRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/PathogenEditSections.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBhdGhvZ2VuRWRpdFNlY3Rpb25zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/PathogenSideView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBhdGhvZ2VuU2lkZVZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/TestComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFRlc3RDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 

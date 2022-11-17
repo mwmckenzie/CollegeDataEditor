@@ -1,0 +1,208 @@
+﻿@page "/ProgramEditorView"
+@using CollegeDataEditor.ViewModels
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Models
+
+@inject ViewModelService _viewModelService
+@inject LookupService _lookupService
+@inject DbService _dbService
+@inject ISnackbar _snackbar
+
+<MudGrid Class="mt-16">
+    @if (programEditorVM.selectedProgram is null)
+    {
+        <MudItem xs="12">
+            <div class="d-flex flex-column align-center">
+                <MudPaper Class="pa-4 ma-2 d-flex">
+                    <MudText Class="my-4" Typo="Typo.h4" Color="Color.Primary">No Program Selected</MudText>
+                </MudPaper>
+                <MudPaper Class="pa-4 ma-2">
+                    <MudStack Row="true">
+                        <MudText Typo="Typo.h4" Color="Color.Primary">New Program?</MudText>
+                        <MudSpacer/>
+                        <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="SetNewToEditor">
+                            Create
+                        </MudButton>
+                    </MudStack>
+                </MudPaper>
+            </div>
+        </MudItem>
+    }
+    else
+    {
+        <MudItem xs="8" Class="overflow-scroll">
+            <BaseInfoEditView baseInfoObj="@programEditorVM.selectedProgram"
+                              dbContext="@programEditorVM"/>
+            
+            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
+                Program Elements
+            </MudText>
+            <MudPaper Class="d-flex flex-column" Outlined="true">
+                <MudList Clickable="true">
+                    <EditableBaseInfoListView @bind-idList="@programEditorVM.selectedProgram.orgIdList"
+                                              listName="Organizations"
+                                              lookupList="_lookupService.orgs"
+                                              itemIcons="@Icons.Material.Filled.School"
+                                              dbContext="programEditorVM"/>
+
+                    <EditableApplicationListView listName="Applications"
+                                                 @bind-idList="@programEditorVM.selectedProgram.applicationIdList"
+                                                 lookupList="_lookupService.applications"
+                                                 db="@programEditorVM.dbService.ApplicationsDb"
+                                                 dbContext="programEditorVM"
+                                                 itemIcons="@Icons.Material.Filled.Checklist"
+                                                 ItemClicked="OnApplicationClicked"/>
+                    
+                    <EditableSessionListView listName="Session"
+                                             @bind-idList="@programEditorVM.selectedProgram.sessionIdList"
+                                             lookupList="_lookupService.sessions"
+                                             db="@programEditorVM.dbService.SessionsDb"
+                                             dbContext="programEditorVM"
+                                             itemIcons="@Icons.Material.Filled.CalendarViewWeek"
+                                             ItemClicked="OnSessionClicked"/>
+                    
+                </MudList>
+                </MudPaper>
+        </MudItem>
+        
+        
+        
+        <MudItem xs="4" Class="sticky">
+            <MudText Typo="Typo.h5" GutterBottom="true">Options</MudText>
+            <MudPaper Class="d-flex flex-column" Outlined="true">
+                <MudList Clickable="true">
+                    <MudListItem>
+                        <MudButton FullWidth="true" Color="Color.Warning"
+                                   StartIcon="@Icons.Material.Filled.NewLabel"
+                                   OnClick="SetNewToEditor">
+                            New Program
+                        </MudButton>
+                        @* <div class="d-flex"> *@
+                        @*     <MudText>Save To Database</MudText> *@
+                        @*     <MudButton>Submit</MudButton> *@
+                        @*     $1$ <MudText Inline="true" Class="ml-auto"> #1# *@
+                        @*     $1$      #1# *@
+                        @*     $1$ </MudText> #1# *@
+                        @* </div> *@
+                    </MudListItem>
+                    
+                    <MudListItem>
+                        <MudButton FullWidth="true" Color="Color.Primary"
+                                   StartIcon="@Icons.Material.Filled.NewLabel"
+                                   OnClick="OnSaveEditsToDbPressed">
+                            Save To Database
+                        </MudButton>
+                        @* <div class="d-flex"> *@
+                        @*     <MudText>Save To Database</MudText> *@
+                        @*     <MudButton>Submit</MudButton> *@
+                        @*     $1$ <MudText Inline="true" Class="ml-auto"> #1# *@
+                        @*     $1$      #1# *@
+                        @*     $1$ </MudText> #1# *@
+                        @* </div> *@
+                    </MudListItem>
+                    
+                    @* <MudListItem Icon="@Icons.Material.Filled.AirplanemodeActive"> *@
+                    @*     <div class="d-flex"> *@
+                    @*         <MudText>Model Airplane</MudText> *@
+                    @*         <MudText Class="ml-auto">$20</MudText> *@
+                    @*     </div> *@
+                    @* </MudListItem> *@
+                    @* <MudListItem Icon="@Icons.Material.Filled.Create"> *@
+                    @*     <div class="d-flex"> *@
+                    @*         <MudText>Plastic Glue</MudText> *@
+                    @*         <MudText Class="ml-auto">$12</MudText> *@
+                    @*     </div> *@
+                    @* </MudListItem> *@
+                    @* <MudListItem Icon="@Icons.Material.Filled.ColorLens"> *@
+                    @*     <div class="d-flex"> *@
+                    @*         <MudText>Color set - Modern planes</MudText> *@
+                    @*         <MudText Class="ml-auto">$16</MudText> *@
+                    @*     </div> *@
+                    @* </MudListItem> *@
+                </MudList>
+                @* <div class="mt-auto"> *@
+                @*     <MudDivider /> *@
+                @*     <div class="d-flex pa-4"> *@
+                @*         <MudText>Total:</MudText> *@
+                @*         <MudText Class="ml-auto"><b>$53</b></MudText> *@
+                @*     </div> *@
+                @* </div> *@
+            </MudPaper>
+        </MudItem>
+
+    }
+</MudGrid>
+
+@if (programEditorVM.application is not null)
+{
+    <ApplicationSideView sideViewVM="@programEditorVM.ApplicationSideView" 
+                         application="@programEditorVM.application"
+                         dbContext="@programEditorVM"/>
+}
+
+@if (programEditorVM.session is not null)
+{
+    <SessionSideView sideViewVM="@programEditorVM.SessionSideView" 
+                     session="@programEditorVM.session"
+                     dbContext="@programEditorVM"/>
+}
+
+
+@code {
+
+    private ProgramEditorViewModel programEditorVM { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        programEditorVM = _viewModelService.ProgramEditorViewModel;
+        programEditorVM.dbService = _dbService;
+        programEditorVM.OnSuccessfulSaveToDb += OnSaveToDbSuccess;
+        programEditorVM.OnUnsuccessfulSaveToDb += OnSaveToDbFailed;
+    }
+
+    private void OnSaveToDbFailed()
+    {
+        AddSnackBarUpdate("Save Failed", Severity.Error);
+    }
+
+    private void OnSaveToDbSuccess()
+    {
+        AddSnackBarUpdate("Saved", Severity.Success);
+    }
+
+    private void SetNewToEditor()
+    {
+        programEditorVM.selectedProgram = new();
+    }
+
+    private async Task OnSaveEditsToDbPressed()
+    {
+        await programEditorVM.SubmitEditsToDbAsync();
+    }
+    
+    private void AddSnackBarUpdate(string text, Severity severity = Severity.Info)
+    {
+        _snackbar.Clear();
+        _snackbar.Add(text, severity, config =>
+        {
+            config.CloseAfterNavigation = true;
+            config.ShowCloseIcon = true;
+            config.VisibleStateDuration = 3;
+            config.Onclick = _ => Task.CompletedTask;
+        });
+    }
+    
+    private void OnApplicationClicked(Application obj)
+    {
+        programEditorVM.application = obj;
+        programEditorVM.ApplicationSideView.DisplaySideView();
+    }
+
+    private void OnSessionClicked(Session obj)
+    {
+        programEditorVM.session = obj;
+        programEditorVM.SessionSideView.DisplaySideView();
+    }
+
+}

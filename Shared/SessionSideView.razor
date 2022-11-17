@@ -1,0 +1,89 @@
+@using CollegeDataEditor.ViewModels
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Interfaces
+
+@inject NavigationManager _navigationManager
+@inject ViewModelService _viewModelService
+
+<MudDrawer @bind-Open="@sideViewVM.open"
+           Width="@sideViewVM.width"
+           Height="@sideViewVM.height"
+           Anchor="@sideViewVM.anchor"
+           Elevation="1"
+           Variant="@DrawerVariant.Temporary">
+    
+    <MudItem Class="mt-12 pa-4">
+
+    <BaseInfoEditView baseInfoObj="session"
+                      dbContext="dbContext"/>
+
+
+    <MudText Class="mt-12 mb-4 mx-4" Typo="Typo.h5" GutterBottom="true">
+        @session.TypeName() Dates
+    </MudText>
+
+    <MudPaper Class="mb-6 d-flex flex-column" Outlined="true">
+        <MudList Clickable="true">
+            <MudListItem Icon="@Icons.Material.Filled.EditCalendar">
+                <MudDatePicker Label="Start Date (yyyy-MM-dd)"
+                               Editable="true" @bind-Date="@session.startDateTime"
+                               Mask="@(new DateMask("0000-00-00"))"
+                               DateFormat="yyyy-MM-dd"
+                               Placeholder="ISO Date"
+                               AnchorOrigin="Origin.BottomLeft"
+                               PickerClosed="OnDateChanged"/>
+            </MudListItem>
+            <MudListItem Icon="@Icons.Material.Filled.EditCalendar">
+                <MudDatePicker Label="End Date (yyyy-MM-dd)"
+                               Editable="true" @bind-Date="@session.endDateTime"
+                               Mask="@(new DateMask("0000-00-00"))"
+                               DateFormat="yyyy-MM-dd"
+                               Placeholder="ISO Date"
+                               AnchorOrigin="Origin.BottomLeft"
+                               PickerClosed="OnDateChanged"/>
+            </MudListItem>
+        </MudList>
+    </MudPaper>
+    </MudItem>
+</MudDrawer>
+
+@code {
+
+    [Parameter]
+    public IDbContext dbContext { get; set; }
+    
+    [Parameter]
+    public SideViewViewModel sideViewVM { get; set; } = new();
+
+    [Parameter]
+    public Session session { get; set; }
+    
+    [Parameter]
+    public EventCallback<Session> sessionChanged { get; set; }
+
+    // private void NavigateToEditor()
+    // {
+    //     _viewModelService.ProgramEditorViewModel.selectedProgram = summerProgram;
+    //     _navigationManager.NavigateTo("ProgramEditorView");
+    // }
+    
+    
+
+    private void OnDateChanged()
+    {
+        
+        dbContext.SubmitEditsToDbAsync();
+    }
+
+    private void OnStartDateChanged()
+    {
+        OnDateChanged();
+    }
+
+    private void OnEndDateChanged()
+    {
+        OnDateChanged();
+    }
+
+}

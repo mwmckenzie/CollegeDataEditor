@@ -1,0 +1,11 @@
+{
+  "#numberCitiesAffected#": "3",
+  "#weeksWithInfectionRelatedComplications#": "3",
+  "#initialInfectionRelatedComplications#": "2",
+  "#finalInfectionRelatedComplications#": "10",
+  "#countOfHospitalizations#": "0",
+  "#countOfDeaths#": "0",
+  "#ageRangeOfHospitalizations#": "over age 12",
+  "#ageRangeOfDeaths#": "at any age",
+  "": ""
+}

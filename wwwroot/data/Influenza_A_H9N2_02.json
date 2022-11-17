@@ -1,0 +1,17 @@
+{
+  "typeName": "Influenza A H9N2",
+  "onset": 7,
+  "duration": 7,
+  "acuteSymptoms": [
+    "mild to severe",
+    "typical of influenza",
+    "more serious forms involve bronchitis",
+    "pneumonia",
+    "dehydration",
+    "febrile convulsions"
+  ],
+  "reservoirDetails": [
+    "Similar H9N2 detected in wild avian populations",
+    "Unknown for poultry"
+  ]
+}

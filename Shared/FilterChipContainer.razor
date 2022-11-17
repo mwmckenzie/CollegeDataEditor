@@ -1,0 +1,135 @@
+﻿
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Enums
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.ViewModels
+
+@* @inject DataStateService _dataStateService *@
+@inject ViewModelService _viewModelService
+@inject DbService _dbService
+
+
+<MudPaper Style="padding: 15px"  >
+    
+    @if (selected != null) {
+        <div class="d-flex flex-column align-center">
+            <MudText>
+                You selected <MudText Color="@selected.Color" Inline="true">@selected.Text</MudText>.
+            </MudText>
+        </div>
+    }
+    
+    <MudChipSet @bind-SelectedChip="selected" Filter="true"
+                Mandatory="@mandatory"
+                Class="d-flex flex-wrap justify-center flex-grow-1 gap-0">
+        
+        @* @foreach (var filter in _filters) { *@
+        @*     <MudChip Value="" Text="@filter" Color="Color.Primary" *@
+        @*              OnClick="@(e => _programBrowserVM.selectedFilter = filter)"> *@
+        @*         @filter *@
+        @*     </MudChip> *@
+        @* } *@
+        
+        @foreach (var filter in _filterObjs)
+        {
+            <MudChip 
+                     Value="filter" Text="@filter.value" 
+                     Color="Color.Primary"
+                     OnClick="@(e => _programBrowserVM.selectedFilterObj = filter)">
+                @filter.value
+            </MudChip>
+        }
+    </MudChipSet>
+    
+</MudPaper>
+
+
+@code {
+    
+    [Parameter]
+    public string str { get; set; } = "on";
+
+    [Parameter] 
+    public FilterType filterType { get; set; }
+
+    private ProgramBrowserViewModel _programBrowserVM;
+    //private List<string> _filters = new();
+    private List<IndexedValue> _filterObjs = new();
+    
+    private bool mandatory = true;
+    private MudChip selected;
+
+    protected override async Task OnInitializedAsync() {
+        await base.OnInitializedAsync();
+        _programBrowserVM = _viewModelService.ProgramBrowserVM;
+        await LoadFilterListAsync();
+    }
+
+    private List<IndexedValue> SortAscending(List<IndexedValue> list)
+    {
+        return list.OrderBy(x => x.value).ToList();
+    }
+
+    private async Task LoadFilterListAsync() {
+        switch (filterType) {
+            case FilterType.Subject:
+                //_filters = _dbService.SubjectsDb.dbItems.Select(x => x.value).ToList();
+                _filterObjs = _dbService.SubjectsDb.dbItems;
+                _filterObjs = SortAscending(_filterObjs);
+                break;
+            case FilterType.Topic:
+                //_filters = _dbService.TopicsDb.dbItems.Select(x => x.value).ToList();
+                _filterObjs = _dbService.TopicsDb.dbItems;
+                _filterObjs = SortAscending(_filterObjs);
+                break;
+            case FilterType.ProgramType:
+                //_filters = _dbService.OrgTypesDb.dbItems.Select(x => x.value).ToList();
+                _filterObjs = _dbService.OrgTypesDb.dbItems;
+                _filterObjs = SortAscending(_filterObjs);
+                break;
+            case FilterType.Tag:
+                //_filters = _dbService.TagDb.dbItems.Select(x => x.value).ToList();
+                _filterObjs = _dbService.TagDb.dbItems;
+                _filterObjs = SortAscending(_filterObjs);
+                break;
+            case FilterType.Org:
+                break;
+            case FilterType.State:
+                break;
+            case FilterType.Residence:
+                break;
+            case FilterType.Citizenship:
+                break;
+            default:
+                break;
+        }
+    }
+    
+    // private void OnFilterValueChanged() {
+    //     switch (filterType) {
+    //         case FilterType.Subject:
+    //             _filters = programDataService.subjects.ToList();
+    //             break;
+    //         case FilterType.Topic:
+    //             _filters = programDataService.topics.ToList();
+    //             break;
+    //         case FilterType.ProgramType:
+    //             _filters = programDataService.programTypes.ToList();
+    //             break;
+    //         case FilterType.Tag:
+    //             _filters = programDataService.tags.ToList();
+    //             break;
+    //         case FilterType.Org:
+    //             break;
+    //         case FilterType.State:
+    //             break;
+    //         case FilterType.Residence:
+    //             break;
+    //         case FilterType.Citizenship:
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
+
+}

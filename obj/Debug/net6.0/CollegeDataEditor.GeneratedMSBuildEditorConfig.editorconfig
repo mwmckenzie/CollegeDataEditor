@@ -1,0 +1,143 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = browser
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = true
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = CollegeDataEditor
+build_property.RootNamespace = CollegeDataEditor
+build_property.ProjectDir = F:\CSharp\CollegeDataEditor\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = F:\CSharp\CollegeDataEditor
+build_property._RazorSourceGeneratorDebug = 
+
+[F:/CSharp/CollegeDataEditor/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/LocationTypeEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25UeXBlRWRpdG9yVmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/OrgTypeEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnVHlwZUVkaXRvclZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/ProgramBrowser.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZ3JhbUJyb3dzZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/ProgramEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZ3JhbUVkaXRvclZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/ProgramTypeEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZ3JhbVR5cGVFZGl0b3JWaWV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/SubjectEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3ViamVjdEVkaXRvclZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/TagEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFnRWRpdG9yVmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/TopicEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVG9waWNFZGl0b3JWaWV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/ApplicationSideView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFwcGxpY2F0aW9uU2lkZVZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/BaseInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEJhc2VJbmZvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/BaseInfoEditView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEJhc2VJbmZvRWRpdFZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/BaseInfoView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEJhc2VJbmZvVmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/DataListView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERhdGFMaXN0Vmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/DataListViewItem.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERhdGFMaXN0Vmlld0l0ZW0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/DateRangeObjSideView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERhdGVSYW5nZU9ialNpZGVWaWV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/EditableApplicationListView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEVkaXRhYmxlQXBwbGljYXRpb25MaXN0Vmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/EditableBaseInfoListView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEVkaXRhYmxlQmFzZUluZm9MaXN0Vmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/EditableFormListView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEVkaXRhYmxlRm9ybUxpc3RWaWV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/EditableIndexValueListView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEVkaXRhYmxlSW5kZXhWYWx1ZUxpc3RWaWV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/EditableSessionListView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEVkaXRhYmxlU2Vzc2lvbkxpc3RWaWV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/FilterChipContainer.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEZpbHRlckNoaXBDb250YWluZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/MapOverlay.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1hcE92ZXJsYXkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/ProgramDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFByb2dyYW1EZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/ProgramFilterBar.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFByb2dyYW1GaWx0ZXJCYXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/ProgramSideView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFByb2dyYW1TaWRlVmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Shared/SessionSideView.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFNlc3Npb25TaWRlVmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 

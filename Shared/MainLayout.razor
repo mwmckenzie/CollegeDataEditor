@@ -1,0 +1,128 @@
+﻿@using CollegeDataEditor.Services
+@using CollegeDataEditor.Helpers
+@using CollegeDataEditor.Enums
+@inherits LayoutComponentBase
+
+@inject DbService _dbService
+@inject ViewModelService _viewModelService
+@inject ISnackbar _snackbar
+
+<link rel="stylesheet" 
+      href="https://fonts.googleapis.com/css2?family=Poppins&family=Open+Sans&family=Lato">
+
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+    <MudAppBar Elevation="0">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())"/>
+        <MudSpacer/>
+        <MudText Typo="Typo.h5" Style="font-weight: bold">College Prep DB</MudText>
+        <MudText Typo="Typo.h5" Class="mx-2">Editor</MudText>
+        <MudIconButton Icon="@StaticRefs.sumProgDbIcon" Color="Color.Inherit" Link="https://www.sumprogdb.com/" Target="_blank"/>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6" Class="my-auto">Menu</MudText>
+        </MudDrawerHeader>
+        <MudDivider DividerType="DividerType.Middle"/>
+        <NavMenu isDarkMode="@_isDarkMode" ToggleDarkMode="TryToggleDarkMode"/>
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Medium">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+    <MudScrollToTop>
+        <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.ArrowUpward"/>
+    </MudScrollToTop>
+</MudLayout>
+
+
+@code {
+    
+    private bool _drawerOpen = true;
+    private bool _isLoading;
+    private bool _isDarkMode = true;
+    
+    private readonly MudTheme _theme = new()
+    {
+        Typography = new Typography
+        {
+            Default = new Default
+            {
+                FontFamily = new[] { "Poppins", "Helvetica", "Arial", "sans-serif" }
+            }
+        }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _dbService.OnStateChange += OnDbServiceStateChanged;
+        if (_dbService.state == DbState.Uninitialized)
+        {
+            _drawerOpen = false;
+            AddSnackBarUpdate("Loading Data From The Cloud!");
+            await _dbService.TryLoadAllRequiredDbsAsync();
+            OnLoadCompleted();
+        }
+        
+    }
+
+    private void OnDbServiceStateChanged(DbState state)
+    {
+        switch (state)
+        {
+            case DbState.Uninitialized:
+                _drawerOpen = false;
+                break;
+            case DbState.Loaded:
+                _drawerOpen = true;
+                _viewModelService.IndexViewModel.isLoading = false;
+                break;
+            case DbState.Loading:
+                _drawerOpen = false;
+                _viewModelService.IndexViewModel.isLoading = true;
+                break;
+            case DbState.Failed:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+        }
+    }
+
+    private void DrawerToggle()
+    {
+        if (_dbService.state == DbState.Loading)
+        {
+            _drawerOpen = false;
+            return;
+        }
+        _drawerOpen = !_drawerOpen;
+    }
+    
+    private void TryToggleDarkMode()
+    {
+        _isDarkMode = !_isDarkMode;
+    }
+    
+    private void OnLoadCompleted() {
+        _isLoading = false;
+        _drawerOpen = true;
+    }
+    
+    private void AddSnackBarUpdate(string text, Severity severity = Severity.Info)
+    {
+        _snackbar.Clear();
+        _snackbar.Add(text, severity, config =>
+        {
+            config.CloseAfterNavigation = true;
+            config.ShowCloseIcon = true;
+            config.VisibleStateDuration = 3;
+            config.Onclick = _ => Task.CompletedTask;
+        });
+    }
+
+}

@@ -1,0 +1,94 @@
+﻿@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+
+@inject LookupService _lookupService
+
+@if (baseInfoObj is not null) {
+
+    <MudText Class="mb-1" Typo="Typo.body1" Color="Color.Tertiary">
+        @objTitle
+    </MudText>
+    <MudText Typo="Typo.h4">@baseInfoObj.displayName</MudText>
+    @if (!string.IsNullOrEmpty(baseInfoObj.url)) {
+        <MudStack Row="true" Spacing="3" Class="my-1">
+            <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
+            <MudLink Href="@baseInfoObj.url" Target="_blank" Typo="Typo.body1">@baseInfoObj.url</MudLink>
+        </MudStack>
+    }
+
+        @* <MudStack Row="true" Justify="Justify.SpaceBetween"> *@
+        @*     <MudText Typo="Typo.body1">@baseInfoObj.displayName</MudText> *@
+        @* </MudStack> *@
+
+    @if (hasTags) {
+        @foreach (var tag in baseInfoObj.tagIdList) {
+            <MudChip Text="@_lookupService.FindTagById(tag).value" Color="Color.Primary">
+                @_lookupService.FindTagById(tag).value
+            </MudChip>
+        }
+    }
+
+    @if (hasDetails) {
+        <MudPaper Class="my-2 pa-2">
+            <MudList Clickable="true">
+                @if (hasNotes) {
+                    <MudListItem Icon="@Icons.Material.Filled.List" 
+                                 Text="Notes" InitiallyExpanded="false">
+                        <NestedList>
+                            @foreach (var text in baseInfoObj.noteList) {
+                                <MudListItem Icon="@Icons.Material.Filled.Label">
+                                    @text
+                                </MudListItem>
+                            }
+                        </NestedList>
+                    </MudListItem>
+                }
+                @if (hasAliases) {
+                    <MudListItem Icon="@Icons.Material.Filled.List" 
+                                 Text="Alias List" InitiallyExpanded="false">
+                        <NestedList>
+                            @foreach (var text in baseInfoObj.aliasList.
+                                Where(text => baseInfoObj.displayName != text)) {
+                                    <MudListItem Icon="@Icons.Material.Filled.Label">
+                                        @text
+                                    </MudListItem>
+                                }
+                        </NestedList>
+                    </MudListItem>
+                }
+                @if (hasUrls) {
+                    <MudListItem Icon="@Icons.Material.Filled.List" Text="Additional URLs" InitiallyExpanded="false">
+                        <NestedList>
+                            @foreach (var text in baseInfoObj.urlList.
+                                Where(text => baseInfoObj.url != text)) {
+                                    <MudListItem Icon="@Icons.Material.Filled.Link">
+                                        <MudLink Href="@text" Target="_blank" Typo="Typo.body1">@text</MudLink>
+                                    </MudListItem>
+                                }
+                        </NestedList>
+                    </MudListItem>
+                }
+            </MudList>
+        </MudPaper>
+    }
+}
+
+
+
+@code {
+
+    [Parameter]
+    public BaseInfoObj? baseInfoObj { get; set; }
+    
+    [Parameter]
+    public string objTitle { get; set; }
+    
+    private bool hasTags => baseInfoObj != null &&  baseInfoObj.tagIdList.Count > 0;
+
+    private bool hasNotes => baseInfoObj != null &&  baseInfoObj.noteList.Count > 0;
+    private bool hasAliases => baseInfoObj != null &&  baseInfoObj.aliasList.Count > 1;
+    private bool hasUrls => baseInfoObj != null &&  baseInfoObj.urlList.Count > 1;
+
+    private bool hasDetails => baseInfoObj != null && (hasNotes || hasAliases || hasUrls);
+
+}

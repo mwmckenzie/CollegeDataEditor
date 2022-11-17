@@ -1,0 +1,74 @@
+﻿@page "/ProgramTypeEditorView"
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.Enums
+
+@inject DbService _dbService;
+
+<PageTitle>College Prep DB - Program Types</PageTitle>
+<MudText Class="pa-4 ma-4" Typo="Typo.h3">Program Types Database</MudText>
+
+@if (_programTypeDb.state == DbState.Loading)
+{
+    <MudText Class="pa-4 ma-4" Typo="Typo.h3">LOADING DATABASE</MudText>
+    <MudProgressLinear Color="Color.Secondary" Indeterminate="true"/>
+}
+else
+{
+    @if (_programTypes is not null && _programTypes.Count > 0)
+    {
+        <div class="mx-auto" style="max-width: 400px;">
+            <MudExpansionPanels>
+
+                @foreach (var tag in _programTypes)
+                {
+                    <MudExpansionPanel>
+                        <TitleContent>
+                            <div class="d-flex">
+                                <MudIcon Color="Color.Primary"
+                                         Icon="@Icons.Material.Filled.Info"
+                                         class="mr-3"/>
+                                <MudText>@tag.value</MudText>
+                            </div>
+                        </TitleContent>
+                        <ChildContent>
+                            <MudText>ID: @tag.id</MudText>
+                            <MudText>Data Type: @tag.typeName</MudText>
+                            @* <PathogenDetails pathogen="pathogen" *@
+                            @*                  onEditClickCallback="() => SetSelectedPathogenToEditor(pathogen)" *@
+                            @*                  onCopyClickCallback="() => CopySelectedPathogenToEditor(pathogen)" *@
+                            @*                  onDeleteClickCallback="() => DeleteAsync(pathogen)"/> *@
+                        </ChildContent>
+                    </MudExpansionPanel>
+                @* <MudDivider Class="my-6" DividerType="DividerType.Middle" Light="true"/> *@
+                }
+
+            </MudExpansionPanels>
+        </div>
+    }
+    else if (_programTypes is not null && _programTypes.Count > 0)
+    {
+        <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Empty</MudText>
+    }
+    else
+    {
+        <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Not Found</MudText>
+    }
+}
+
+@code {
+
+    private Db<IndexedValue> _programTypeDb;
+    private List<IndexedValue>? _programTypes;
+    
+    private string _editRowStyle = "none";
+    private string? _newItemName;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _programTypeDb = _dbService.ProgramTypesDb;
+        _programTypes = _programTypeDb.dbItems;
+    }
+
+}

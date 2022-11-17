@@ -1,0 +1,130 @@
+﻿@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Interfaces
+@using Microsoft.Extensions.FileSystemGlobbing.Internal
+
+<MudText Class="pa-4" Typo="Typo.h6" GutterBottom="true">
+    @listName List
+</MudText>
+        @foreach (var dataObj in displayList)
+        {
+            <MudListItem Icon="@itemIcons" OnClick="() => OnItemClicked(dataObj)">
+                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                    <MudText>@dataObj.displayName</MudText>
+                    <MudButton Color="Color.Secondary" 
+                               OnClick="() => DeleteFromList(dataObj)"
+                               Disabled="isBusy">
+                        Delete
+                    </MudButton>
+                </MudStack>
+            </MudListItem>
+        }
+        <MudListItem Icon="@itemIcons">
+            <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                <MudText>New @listName</MudText>
+                @* <MudAutocomplete T="string" Label="@listName" *@
+                @*                  @bind-Value="@newListItemValue" SearchFunc="@Search1" *@
+                @*                  ResetValueOnEmptyText="@resetValueOnEmptyText" *@
+                @*                  CoerceText="@coerceText" CoerceValue="@coerceValue"/> *@
+
+                <MudButton Color="Color.Tertiary" 
+                           OnClick="AddListItem"
+                           Disabled="isBusy">
+                    Add
+                </MudButton>
+            </MudStack>
+        </MudListItem>
+
+@code {
+    
+    [Parameter]
+    public IDbContext dbContext { get; set; }
+    
+    [Parameter]
+    public Db<Application> db { get; set; }
+
+    [Parameter]
+    public List<string> idList { get; set; } = new();
+
+    [Parameter]
+    public IEnumerable<BaseInfoObj> lookupList { get; set; }
+    
+    [Parameter]
+    public EventCallback<List<string>> idListChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<IEnumerable<BaseInfoObj>> lookupListChanged { get; set; }
+    
+    [Parameter]
+    public EventCallback<IEnumerable<BaseInfoObj>> displayListChanged { get; set; }
+
+    [Parameter]
+    public string itemIcons { get; set; } = Icons.Material.Filled.NotificationImportant;
+    
+    [Parameter]
+    public string listName { get; set; }
+    
+    [Parameter]
+    public EventCallback<Application> ItemClicked { get; set; }
+
+    private IEnumerable<BaseInfoObj> displayList { get; set; }
+
+    private bool isBusy = false;
+    
+
+    protected override Task OnInitializedAsync()
+    {
+        base.OnInitializedAsync();
+        RefreshDisplayList();
+        return Task.CompletedTask;
+    }
+
+    private void RefreshDisplayList()
+    {
+        
+        displayList = lookupList.Where(x => idList.Contains(x.id));
+        StateHasChanged();
+    }
+
+    private async Task AddListItem()
+    {
+
+        if (isBusy) return;
+
+        isBusy = true;
+        var obj = db.AddNew();
+        obj.name = "New Item - Update Needed";
+        idList.Add(obj.id);
+        await db.SubmitNewSaveToDbAsync();
+        await dbContext.SubmitEditsToDbAsync();
+        
+        isBusy = false;
+        RefreshDisplayList();
+        
+    }
+    
+    private async Task DeleteFromList(BaseInfoObj toDelete)
+    {
+        if (!idList.Remove(toDelete.id) || isBusy) return;
+
+        isBusy = true;
+        await dbContext.SubmitEditsToDbAsync();
+        
+        if (toDelete is Application application)
+        {
+            db.editingItem = application;
+            await db.DeleteFromDbAsync();
+        }
+        isBusy = false;
+        RefreshDisplayList();
+    }
+
+    private async Task OnItemClicked(BaseInfoObj obj)
+    {
+        if (obj is Application app)
+        {
+            await ItemClicked.InvokeAsync(app);
+        }
+    }
+
+}

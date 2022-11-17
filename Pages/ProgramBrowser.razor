@@ -1,0 +1,146 @@
+﻿@page "/programbrowser"
+
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.ViewModels
+@implements IDisposable
+
+@inject DbService _dbService
+@inject ViewModelService _viewModelService
+@inject ISnackbar _snackbar
+@inject NavigationManager navigationManager
+
+<PageTitle>Summer Program DB</PageTitle>
+
+<MudText Typo="Typo.h3" Class="mt-4 mb-4">Summer Program Database</MudText>
+
+<MudPaper Style="padding: 15px; margin-top: 10px; margin-bottom: 10px;">
+    <MudStack Row="true" AlignItems="AlignItems.Center">
+        <MudText Typo="Typo.h5">Programs in Database:</MudText>
+        <MudChip Color="Color.Primary">@_programBrowserVM.programCount</MudChip>
+    </MudStack>
+</MudPaper>
+
+<MudGrid>
+    <MudItem xs="7">
+        <MudTable Items="@_programBrowserVM.programsToDisplay" 
+                  Dense="@_programBrowserVM.dense" 
+                  Hover="@_programBrowserVM.hover" 
+                  Bordered="@_programBrowserVM.bordered" 
+                  Striped="@_programBrowserVM.striped" 
+                  @bind-RowsPerPage="@_programBrowserVM.rowsPerPage"
+                  Filter="new Func<SummerProgramObj, bool>(FilterFunc1)"
+                  @bind-SelectedItem="@_programBrowserVM.selectedObj">
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6"
+                             Color="Color.Secondary">
+                        @_programBrowserVM.selectedFilterObj.value
+                    </MudText>
+                    <MudSpacer/>
+                    <MudTextField @bind-Value="@_programBrowserVM.searchString1" 
+                                  Placeholder="Search" Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search" 
+                                  IconSize="Size.Medium" Class="mt-0">
+                    </MudTextField>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh>
+                        <MudText Color="Color.Primary">Program Name</MudText>
+                    </MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Name">@context.displayName</MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager/>
+                </PagerContent>
+            </MudTable>
+    </MudItem>
+    
+    <MudItem xs="5">
+        <ProgramFilterBar />
+    </MudItem>
+</MudGrid>
+
+
+<div class="d-flex flex-wrap mt-4" style="margin-bottom: 1em">
+    <MudSwitch @bind-Checked="@_programBrowserVM.hover" Color="Color.Primary">Hover</MudSwitch>
+    <MudSwitch @bind-Checked="@_programBrowserVM.dense" Color="Color.Secondary">Dense</MudSwitch>
+    <MudSwitch @bind-Checked="@_programBrowserVM.striped" Color="Color.Tertiary">Striped</MudSwitch>
+    <MudSwitch @bind-Checked="@_programBrowserVM.bordered" Color="Color.Warning">Bordered</MudSwitch>
+    <MudSpacer/>
+    <div style="min-width:200px;">
+        <MudText Inline="true" Class="align-self-center">Selected: @_programBrowserVM.selectedObj.name</MudText>
+    </div>
+</div>
+
+<ProgramSideView sideViewVM="@_sideVM" summerProgram="_programBrowserVM.selectedObj"/>
+
+@code {
+
+    private ProgramBrowserViewModel _programBrowserVM;
+    private SideViewViewModel _sideVM = new();
+    
+    protected override Task OnInitializedAsync() {
+        
+        _programBrowserVM = _viewModelService.ProgramBrowserVM;
+        _programBrowserVM.dbService ??= _dbService;
+        
+        _programBrowserVM.OnValueChange += OnDataStateChanged;
+        _programBrowserVM.OnDefaultListDisplay += OnDefaultListDisplayed;
+        _programBrowserVM.OnProgramSelected += OnProgramSelection;
+        
+        _programBrowserVM.programsAll = 
+            _dbService.SummerProgramsDb.dbItems.OrderBy(x => x.displayName).ToList();
+        _programBrowserVM.SetProgramsToDisplay();
+        
+        return base.OnInitializedAsync();
+    }
+
+    private void OnProgramSelection()
+    {
+        _sideVM.open = true;
+    }
+
+    private void OnDefaultListDisplayed()
+    {
+        StateHasChanged();
+        AddSnackBarUpdate("OnDefaultListDisplayed Event Received!", Severity.Warning);
+    }
+    
+    private void OnDataStateChanged()
+    {
+        StateHasChanged();
+        AddSnackBarUpdate("OnDataStateChanged Event Received!");
+    }
+    
+    private bool FilterFunc1(SummerProgramObj program) {
+        return FilterFunc(program, _programBrowserVM.searchString1);
+    }
+
+    private bool FilterFunc(SummerProgramObj program, string searchString) {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        return program.name is not null 
+               && program.name.Contains(searchString, StringComparison.OrdinalIgnoreCase);
+    }
+    
+    private void AddSnackBarUpdate(string text, Severity severity = Severity.Info)
+    {
+        _snackbar.Clear();
+        _snackbar.Add(text, severity, config =>
+        {
+            config.CloseAfterNavigation = true;
+            config.ShowCloseIcon = true;
+            config.VisibleStateDuration = 2;
+            config.Onclick = _ => Task.CompletedTask;
+        });
+    }
+
+    public void Dispose() {
+        _programBrowserVM.OnValueChange -= OnDataStateChanged;
+        _programBrowserVM.OnDefaultListDisplay -= OnDefaultListDisplayed;
+        _programBrowserVM.OnProgramSelected -= OnProgramSelection;
+    }
+
+}

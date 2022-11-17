@@ -1,0 +1,60 @@
+﻿<MudPaper Height="100%" Width="250px" Class="d-flex flex-column flex-grow-1 align-content-space-between py-3"
+          Elevation="0">
+    <MudNavMenu>
+        <MudNavLink Href="" 
+                    Match="NavLinkMatch.All" 
+                    Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+        <MudNavLink Href="ProgramBrowser" 
+                    Match="NavLinkMatch.Prefix" 
+                    Icon="@Icons.Material.Filled.LibraryBooks">
+            Program Browser
+        </MudNavLink>
+        <MudNavLink Href="ProgramEditorView" 
+                            Match="NavLinkMatch.Prefix" 
+                            Icon="@Icons.Material.Filled.LibraryBooks">
+                    Program Editor
+                </MudNavLink>
+        
+        <MudNavGroup Title="Collections" Icon="@Icons.Filled.Checklist" Expanded="true">
+            <MudNavLink Href="TagEditorView" 
+                        Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
+                Tag Editor
+            </MudNavLink>
+            <MudNavLink Href="SubjectEditorView" 
+                        Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
+                Subject Editor
+            </MudNavLink>
+            <MudNavLink Href="TopicEditorView" 
+                        Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
+                Topic Editor
+            </MudNavLink>
+            <MudNavLink Href="OrgTypeEditorView" 
+                        Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
+                Org Type Editor
+            </MudNavLink>
+            <MudNavLink Href="ProgramTypeEditorView" 
+                        Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
+                Program Type Editor
+            </MudNavLink>
+            <MudNavLink Href="LocationTypeEditorView" 
+                        Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
+                Location Type Editor
+            </MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+    <MudElement Class="pa-4 mt-auto">
+        <MudSwitch @bind-Checked="@isDarkMode" Color="Color.Primary"
+                   T="bool" Label="Toggle Light/Dark Mode"
+                   @onclick="ToggleDarkMode"/>
+    </MudElement>
+</MudPaper>
+
+@code {
+
+    [Parameter]
+    public bool isDarkMode { get; set; }
+
+    [Parameter]
+    public EventCallback ToggleDarkMode { get; set; }
+
+}

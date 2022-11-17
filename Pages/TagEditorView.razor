@@ -1,0 +1,79 @@
+﻿@page "/TagEditorView"
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.Enums
+
+@inject DbService _dbService;
+
+<PageTitle>College Prep DB - Tag Database</PageTitle>
+<MudText Class="pa-4 ma-4" Typo="Typo.h3">Tag Database</MudText>
+
+@if (_tagDb.state == DbState.Loading)
+{
+    <MudText Class="pa-4 ma-4" Typo="Typo.h3">LOADING DATABASE</MudText>
+    <MudProgressLinear Color="Color.Secondary" Indeterminate="true"/>
+}
+else
+{
+    @if (_tags is not null && _tags.Count > 0)
+    {
+        <div class="mx-auto" style="max-width: 400px;">
+            <MudExpansionPanels>
+
+                @foreach (var tag in _tags)
+                {
+                    <MudExpansionPanel>
+                        <TitleContent>
+                            <div class="d-flex">
+                                <MudIcon Color="Color.Primary"
+                                         Icon="@Icons.Material.Filled.Info"
+                                         class="mr-3"/>
+                                <MudText>@tag.value</MudText>
+                            </div>
+                        </TitleContent>
+                        <ChildContent>
+                            <MudText>@tag.id</MudText>
+                            <MudText>@tag.typeName</MudText>
+                            @* <PathogenDetails pathogen="pathogen" *@
+                            @*                  onEditClickCallback="() => SetSelectedPathogenToEditor(pathogen)" *@
+                            @*                  onCopyClickCallback="() => CopySelectedPathogenToEditor(pathogen)" *@
+                            @*                  onDeleteClickCallback="() => DeleteAsync(pathogen)"/> *@
+                        </ChildContent>
+                    </MudExpansionPanel>
+                @* <MudDivider Class="my-6" DividerType="DividerType.Middle" Light="true"/> *@
+                }
+
+            </MudExpansionPanels>
+        </div>
+    }
+    else if (_tags is not null && _tags.Count > 0)
+    {
+        <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Empty</MudText>
+    }
+    else
+    {
+        <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Not Found</MudText>
+    }
+}
+
+@code {
+
+    private Db<IndexedValue> _tagDb;
+    private List<IndexedValue>? _tags;
+    //private Pathogen _editItem = new();
+    private string _editRowStyle = "none";
+    private string? _newItemName;
+
+    // private bool isLoading { get; set; }
+    // private bool isLoaded { get; set; }
+
+    // private PathogenDb _pathogenDb { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _tagDb = _dbService.TagDb;
+        _tags = _tagDb.dbItems;
+    }
+
+}

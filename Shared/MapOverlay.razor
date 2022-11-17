@@ -1,0 +1,41 @@
+@using CollegeDataEditor.ViewModels
+<MudOverlay @bind-Visible="@mapOverlayVM.mapOverlayIsVisible" DarkBackground="true" AutoClose="true">
+    <MudImage ObjectFit="ObjectFit.Fill"
+              ObjectPosition="ObjectPosition.Center"
+              Style="max-height:  75vh; max-width: 75vw" Src="@mapOverlayVM.mapFilename"
+              Alt="Game Map"
+              Elevation="25"/>
+</MudOverlay>
+
+@code {
+
+    [Parameter]
+    public MapOverlayViewModel mapOverlayVM { get; set; } = new() { mapFilename = "img/map-main.png" };
+
+    // [Parameter]
+    // public string mapFilename { get; set; } = "img/map-main.png";
+    //
+    // [Parameter]
+    // public bool isVisible {
+    //     get => _isVisible;
+    //     set {
+    //         _isVisible = value;
+    //         OpenOverlay();
+    //     }
+    // }
+    //
+    // private bool _isVisible;
+
+    [Parameter]
+    public EventCallback<MapOverlayViewModel> mapOverlayVMChanged { get; set; }
+
+    // [Parameter] 
+    // public EventCallback<bool> isVisibleChanged { get; set; }
+    //
+    // [Parameter] 
+    // public EventCallback<string> mapFilenameChanged { get; set; }
+    //
+    // private void OpenOverlay() {
+    //     StateHasChanged();
+    // }
+}

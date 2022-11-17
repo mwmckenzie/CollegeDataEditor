@@ -1,0 +1,22 @@
+{
+  "id": "D2A9F62D-7E9D-43BE-9B7D-6521A8EA8962",
+  "typeName": "Squirrelpox",
+  "url": "https://en.wikipedia.org/wiki/Squirrelpox_virus",
+  "onset": 5,
+  "duration": 4,
+  "acuteSymptoms": [
+    "lethargic",
+    "skin fibromas (tumours)",
+    "shivering",
+    "skin ulcers",
+    "lesions",
+    "scabs"
+  ],
+  "reservoirDetails": [
+    "spread through contact with the infected lesions",
+    "Detected in wild squirrel populations",
+    "Unknown for chipmunks",
+    "can also be carried by mosquitoes",
+    "grey squirrels carry the virus but are unaffected"
+  ]
+}

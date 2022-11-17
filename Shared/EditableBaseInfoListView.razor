@@ -1,0 +1,116 @@
+﻿@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Interfaces
+
+<MudText Class="pa-4" Typo="Typo.h6" GutterBottom="true">@listName List</MudText>
+        @foreach (var dataObj in displayList)
+        {
+            <MudListItem Icon="@itemIcons">
+                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                    <MudText>@dataObj.displayName</MudText>
+                    <MudButton Color="Color.Secondary" OnClick="() => DeleteFromList(dataObj.id)">
+                        Delete
+                    </MudButton>
+                </MudStack>
+            </MudListItem>
+        }
+        <MudListItem Icon="@itemIcons">
+            <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                <MudAutocomplete T="string" Label="@listName" 
+                                 @bind-Value="@newListItemValue" SearchFunc="@Search1"
+                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                 CoerceText="@coerceText" CoerceValue="@coerceValue"/>
+                
+                <MudButton Color="Color.Tertiary" OnClick="AddListItem">
+                    Add
+                </MudButton>
+            </MudStack>
+        </MudListItem>
+
+@code {
+    
+    [Parameter]
+    public IDbContext dbContext { get; set; }
+
+    [Parameter]
+    public List<string> idList { get; set; } = new();
+
+    [Parameter]
+    public IEnumerable<BaseInfoObj> lookupList { get; set; }
+    
+    [Parameter]
+    public EventCallback<List<string>> idListChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<IEnumerable<BaseInfoObj>> lookupListChanged { get; set; }
+    
+    [Parameter]
+    public EventCallback<IEnumerable<BaseInfoObj>> displayListChanged { get; set; }
+
+    [Parameter]
+    public string itemIcons { get; set; } = Icons.Material.Filled.NotificationImportant;
+    
+    [Parameter]
+    public string listName { get; set; }
+    
+    [Parameter]
+    public string newListItemValue { get; set; }
+    
+    private IEnumerable<BaseInfoObj> displayList { get; set; }
+    
+    private bool resetValueOnEmptyText;
+    private bool coerceText;
+    private bool coerceValue;
+
+    protected override Task OnInitializedAsync()
+    {
+        base.OnInitializedAsync();
+        RefreshDisplayList();
+        return Task.CompletedTask;
+    }
+
+    private void RefreshDisplayList()
+    {
+
+        displayList = lookupList.Where(x => idList.Contains(x.id));
+        StateHasChanged();
+    }
+
+    private void AddListItem()
+    {
+        var obj = lookupList.FirstOrDefault(x => x.displayName == newListItemValue);
+        if (obj?.id is null)
+        {
+            return;
+        }
+        if (idList.Contains(obj.id))
+        {
+            return;
+        }
+        idList.Add(obj.id);
+        dbContext.SubmitEditsToDbAsync();
+        RefreshDisplayList();
+        
+    }
+    
+    private void DeleteFromList(string toDelete)
+    {
+        if (!idList.Remove(toDelete)) return;
+        
+        dbContext.SubmitEditsToDbAsync();
+        RefreshDisplayList();
+        StateHasChanged();
+    }
+    
+    private async Task<IEnumerable<string>> Search1(string value)
+    {
+
+        var obj = lookupList.Select(x => x.displayName);
+
+    // if text is null or empty, show complete list
+        return string.IsNullOrEmpty(value) ? 
+            obj : 
+            obj.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+}

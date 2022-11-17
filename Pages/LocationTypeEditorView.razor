@@ -1,0 +1,149 @@
+﻿@page "/LocationTypeEditorView"
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.Enums
+
+@inject DbService _dbService;
+
+<PageTitle>College Prep DB - Location Type Database</PageTitle>
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudText Class="d-flex align-center justify-center mud-width-full pa-4"
+                 Typo="Typo.h3">
+            Location Type Database
+        </MudText>
+    </MudItem>
+
+    <MudItem xs="6">
+        @if (_residencesDb.state == DbState.Loading)
+        {
+            <MudText Class="pa-4" Typo="Typo.h3">LOADING DATABASE</MudText>
+            <MudProgressLinear Color="Color.Secondary" Indeterminate="true"/>
+        }
+        else
+        {
+            @if (_residences is not null && _residences.Count > 0)
+            {
+                <MudText Class="d-flex align-center justify-center mud-width-full pa-4"
+                         Typo="Typo.h4">
+                    Residences
+                </MudText>
+                <div class="mx-auto" style="max-width: 400px;">
+                    <MudExpansionPanels>
+
+                        @foreach (var tag in _residences)
+                        {
+                            <MudExpansionPanel>
+                                <TitleContent>
+                                    <div class="d-flex">
+                                        <MudIcon Color="Color.Primary"
+                                                 Icon="@Icons.Material.Filled.Info"
+                                                 class="mr-3"/>
+                                        <MudText>@tag.value</MudText>
+                                    </div>
+                                </TitleContent>
+                                <ChildContent>
+                                    <MudText>ID: @tag.id</MudText>
+                                    <MudText>Data Type: @tag.typeName</MudText>
+                                    @* <PathogenDetails pathogen="pathogen" *@
+                                    @*                  onEditClickCallback="() => SetSelectedPathogenToEditor(pathogen)" *@
+                                    @*                  onCopyClickCallback="() => CopySelectedPathogenToEditor(pathogen)" *@
+                                    @*                  onDeleteClickCallback="() => DeleteAsync(pathogen)"/> *@
+                                </ChildContent>
+                            </MudExpansionPanel>
+                @* <MudDivider Class="my-6" DividerType="DividerType.Middle" Light="true"/> *@
+                        }
+
+                    </MudExpansionPanels>
+                </div>
+            }
+            else if (_residences is not null && _residences.Count > 0)
+            {
+                <MudText Class="pa-4 ma-4" Typo="Typo.h3">Residences Database Empty</MudText>
+            }
+            else
+            {
+                <MudText Class="pa-4 ma-4" Typo="Typo.h3">Residences Database Not Found</MudText>
+            }
+        }
+    </MudItem>
+
+    <MudItem xs="6">
+        @if (_citizenshipsDb.state == DbState.Loading)
+        {
+            <MudText Class="pa-4 ma-4" Typo="Typo.h3">LOADING DATABASE</MudText>
+            <MudProgressLinear Color="Color.Secondary" Indeterminate="true"/>
+        }
+        else
+        {
+            @if (_citizenships is not null && _citizenships.Count > 0)
+            {
+                <MudText Class="d-flex align-center justify-center mud-width-full pa-4"
+                         Typo="Typo.h4">
+                    Citizenships
+                </MudText>
+                <div class="mx-auto" style="max-width: 400px;">
+
+                    <MudExpansionPanels>
+
+                        @foreach (var tag in _citizenships)
+                        {
+                            <MudExpansionPanel>
+                                <TitleContent>
+                                    <div class="d-flex">
+                                        <MudIcon Color="Color.Primary"
+                                                 Icon="@Icons.Material.Filled.Info"
+                                                 class="mr-3"/>
+                                        <MudText>@tag.value</MudText>
+                                    </div>
+                                </TitleContent>
+                                <ChildContent>
+                                    <MudText>ID: @tag.id</MudText>
+                                    <MudText>Data Type: @tag.typeName</MudText>
+                                </ChildContent>
+                            </MudExpansionPanel>
+                        }
+
+                    </MudExpansionPanels>
+                </div>
+            }
+            else if (_citizenships is not null && _citizenships.Count > 0)
+            {
+                <MudText Class="pa-4 ma-4" Typo="Typo.h3">Citizenship Database Empty</MudText>
+            }
+            else
+            {
+                <MudText Class="pa-4 ma-4" Typo="Typo.h3">Citizenship Database Not Found</MudText>
+            }
+        }
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    private Db<IndexedValue> _residencesDb;
+    private List<IndexedValue> _residences;
+
+    private Db<IndexedValue> _citizenshipsDb;
+    private List<IndexedValue> _citizenships;
+    
+    private string _editRowStyle = "none";
+    private string? _newItemName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        
+        await _dbService.TryLoadDbAsync(_dbService.ResidencesDb, 30);
+        await _dbService.TryLoadDbAsync(_dbService.CitizenshipsDb, 30);
+        
+        _residencesDb = _dbService.ResidencesDb;
+        _residences = _residencesDb.dbItems;
+
+        _citizenshipsDb = _dbService.CitizenshipsDb;
+        _citizenships = _citizenshipsDb.dbItems;
+    }
+    
+
+}

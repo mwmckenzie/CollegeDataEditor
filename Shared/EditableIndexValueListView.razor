@@ -1,0 +1,119 @@
+﻿@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Interfaces
+
+<MudText Class="pa-4" Typo="Typo.h6" GutterBottom="true">
+    @listName List [@idList.Count]
+</MudText>
+        @foreach (var indexedValue in displayList)
+        {
+            <MudListItem Icon="@itemIcons">
+                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                    <MudText>@indexedValue.value</MudText>
+                    <MudButton Color="Color.Secondary" OnClick="() => DeleteFromList(indexedValue.id)">
+                        Delete
+                    </MudButton>
+                </MudStack>
+                @* <MudText Class="ml-auto">$12</MudText> *@
+                @* Class="ml-auto" Style="height: 32px; width: 96px" *@
+            </MudListItem>
+        }
+        <MudListItem Icon="@itemIcons">
+            <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                <MudAutocomplete T="string" Label="@listName" 
+                                 @bind-Value="@newListItemValue" SearchFunc="@Search1"
+                                 ResetValueOnEmptyText="@_resetValueOnEmptyText"
+                                 CoerceText="@_coerceText" CoerceValue="@_coerceValue"/>
+                
+                <MudButton Color="Color.Tertiary" OnClick="AddListItem">
+                    Add
+                </MudButton>
+                @* <MudText Class="ml-auto">$12</MudText> *@
+            </MudStack>
+        </MudListItem>
+
+@code {
+    
+    [Parameter]
+    public IDbContext dbContext { get; set; }
+
+    [Parameter]
+    public List<string> idList { get; set; } = new();
+
+    [Parameter]
+    public List<IndexedValue> lookupList { get; set; } = new();
+    
+    [Parameter]
+    public EventCallback<List<string>> idListChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<List<IndexedValue>> lookupListChanged { get; set; }
+    
+    [Parameter]
+    public EventCallback<List<IndexedValue>> displayListChanged { get; set; }
+
+    [Parameter]
+    public string itemIcons { get; set; } = Icons.Material.Filled.NotificationImportant;
+    
+    [Parameter]
+    public string listName { get; set; }
+    
+    [Parameter]
+    public string newListItemValue { get; set; }
+    
+    private List<IndexedValue> displayList { get; set; } = new();
+    
+    private bool _resetValueOnEmptyText;
+    private bool _coerceText;
+    private bool _coerceValue;
+
+    protected override Task OnInitializedAsync()
+    {
+        base.OnInitializedAsync();
+        RefreshDisplayList();
+        return Task.CompletedTask;
+    }
+
+    private void RefreshDisplayList()
+    {
+        displayList = lookupList.Where(x => idList.Contains(x.id)).ToList();
+        StateHasChanged();
+    }
+
+    private void AddListItem()
+    {
+        var indVal = lookupList.FirstOrDefault(x => x.value == newListItemValue);
+        if (indVal?.id is null)
+        {
+            return;
+        }
+        if (idList.Contains(indVal.id))
+        {
+            return;
+        }
+        idList.Add(indVal.id);
+        dbContext.SubmitEditsToDbAsync();
+        RefreshDisplayList();
+        
+    }
+    
+    private void DeleteFromList(string toDelete)
+    {
+        if (!idList.Remove(toDelete)) return;
+        
+        dbContext.SubmitEditsToDbAsync();
+        RefreshDisplayList();
+        StateHasChanged();
+    }
+    
+    private async Task<IEnumerable<string>> Search1(string value)
+    {
+
+        var values = lookupList.Select(x => x.value).ToList();
+        
+        return string.IsNullOrEmpty(value) ? 
+            values : 
+            values.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+}

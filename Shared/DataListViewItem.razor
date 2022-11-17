@@ -1,0 +1,11 @@
+<MudStack Class="my-2" Row="true" Spacing="3" AlignItems="AlignItems.Center">
+    <MudIcon Color="Color.Primary" Icon="@Icons.Filled.Label"/>
+    <MudText Typo="Typo.h6">@text</MudText>
+</MudStack>
+
+@code {
+
+    [Parameter]
+    public string? text { get; set; }
+
+}
