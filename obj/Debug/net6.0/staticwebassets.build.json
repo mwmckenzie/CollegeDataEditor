@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VXax68pTnJ3aiw33VRL2YV5HuVaLXbbo/9J9kzX8Ze4=",
+  "Hash": "m9IsGoqkLgGFHfFTU+YM7S6IB4jVjJizBSIdjxi3HUc=",
   "Source": "CollegeDataEditor",
   "BasePath": "/",
   "Mode": "Root",
@@ -7769,12 +7769,12 @@
       "OriginalItemSpec": "wwwroot\\favicon_old.ico"
     },
     {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\wwwroot\\favicon.png",
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\wwwroot\\favicon.ico",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Discovered",
       "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\wwwroot\\",
       "BasePath": "/",
-      "RelativePath": "favicon.png",
+      "RelativePath": "favicon.ico",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -7783,7 +7783,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon.png"
+      "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\wwwroot\\img\\map-main.png",
@@ -7852,6 +7852,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\map-main.png"
+    },
+    {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\wwwroot\\noun-college-2402 (2).svg",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "noun-college-2402 (2).svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\noun-college-2402 (2).svg"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\wwwroot\\sample-data\\captrs-logo-icon.ico",
