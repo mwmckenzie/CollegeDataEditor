@@ -137,14 +137,16 @@
 {
     <ApplicationSideView sideViewVM="@programEditorVM.ApplicationSideView" 
                          application="@programEditorVM.application"
-                         dbContext="@programEditorVM"/>
+                         dbContext="@programEditorVM"
+                         applicationChanged="StateHasChanged"/>
 }
 
 @if (programEditorVM.session is not null)
 {
     <SessionSideView sideViewVM="@programEditorVM.SessionSideView" 
                      session="@programEditorVM.session"
-                     dbContext="@programEditorVM"/>
+                     dbContext="@programEditorVM"
+                     sessionChanged="StateHasChanged"/>
 }
 
 

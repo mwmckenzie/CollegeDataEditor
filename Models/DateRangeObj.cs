@@ -1,4 +1,5 @@
-﻿using MudBlazor;
+﻿using System.Text.RegularExpressions;
+using MudBlazor;
 
 namespace CollegeDataEditor.Models;
 
@@ -48,7 +49,7 @@ public abstract class DateRangeObj : SumProgComponent {
             OnBaseUpdate();
         }
     }
-
+    
     public DateTime? endDateTime
     {
         get => _endDateTime ?? DateTime.Now;
@@ -56,6 +57,57 @@ public abstract class DateRangeObj : SumProgComponent {
         {
             _endDateTime = value;
             OnBaseUpdate();
+        }
+    }
+
+    protected override void OnBaseUpdate()
+    {
+        base.OnBaseUpdate();
+        UpdateNamesWithDateSuffix();
+    }
+    
+
+    private void UpdateNamesWithDateSuffix()
+    {
+        AppendDateToDisplayName();
+    }
+
+    private void AppendDateToName()
+    {
+        if (name is null || startDateTime is null || name.Contains(startDateTime.Value.Year.ToString()))
+        {
+            return;
+        }
+        var regex = new Regex("\\d{4}");
+        if (regex.IsMatch(name))
+        {
+            name = regex.Replace(name, $"({startDateTime.Value.Year.ToString()})")
+                .Replace("((", "(")
+                .Replace("))", ")");
+        }
+        else
+        {
+            name += $" ({startDateTime.Value.Year.ToString()})";
+        }
+    }
+    
+    private void AppendDateToDisplayName()
+    {
+        if (displayName is null || startDateTime is null)
+        {
+            return;
+        }
+        var regex = new Regex("\\d{4}");
+        if (regex.IsMatch(displayName))
+        {
+            displayName =  regex.Replace(displayName, $"({startDateTime.Value.Year.ToString()})")
+                .Replace("((", "(")
+                .Replace("))", ")");
+            
+        }
+        else
+        {
+            displayName += $" ({startDateTime.Value.Year.ToString()})";
         }
     }
     

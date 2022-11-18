@@ -77,16 +77,19 @@
 
     [Parameter]
     public BaseInfoObj baseInfoObj { get; set; } = new();
-
-
-    private void HandleIntervalElapsed()
+    
+    [Parameter]
+    public EventCallback baseInfoObjUpdated { get; set; }
+    
+    private async void HandleIntervalElapsed()
     {
-        OnObjEdited();
+        await OnObjEdited();
     }
 
-    private void OnObjEdited()
+    private async Task OnObjEdited()
     {
-        dbContext.SubmitEditsToDbAsync();
-        //baseInfoObj.OnObjEdited();
+        await dbContext.SubmitEditsToDbAsync();
+        await baseInfoObjUpdated.InvokeAsync();
+    //baseInfoObj.OnObjEdited();
     }
 }

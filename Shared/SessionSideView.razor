@@ -16,7 +16,8 @@
     <MudItem Class="mt-12 pa-4">
 
     <BaseInfoEditView baseInfoObj="session"
-                      dbContext="dbContext"/>
+                      dbContext="dbContext"
+                      baseInfoObjUpdated="OnDateChanged"/>
 
 
     <MudText Class="mt-12 mb-4 mx-4" Typo="Typo.h5" GutterBottom="true">
@@ -68,12 +69,10 @@
     //     _navigationManager.NavigateTo("ProgramEditorView");
     // }
     
-    
-
-    private void OnDateChanged()
+    private async void OnDateChanged()
     {
-        
-        dbContext.SubmitEditsToDbAsync();
+        await dbContext.SubmitEditsToDbAsync();
+        await sessionChanged.InvokeAsync();
     }
 
     private void OnStartDateChanged()

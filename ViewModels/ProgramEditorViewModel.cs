@@ -176,10 +176,12 @@ public class ProgramEditorViewModel : IDbContext
         {
             NotifyDataSavedToDb();
             await SubmitApplicationEditsToDbAsync();
+            await SubmitSessionEditsToDbAsync();
             return true;
         }
         NotifySaveToDbFailed();
         await SubmitApplicationEditsToDbAsync();
+        await SubmitSessionEditsToDbAsync();
         return false;
 
         // if (db.dbItems.Any(x => x.id == db.editingItem.id))
