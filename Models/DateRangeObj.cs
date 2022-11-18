@@ -12,11 +12,11 @@ public abstract class DateRangeObj : SumProgComponent {
         get => startDateTime.ToString();
         set
         {
-            if (value is null)
+            if (value is not null && DateTime.TryParse(value, out var result))
             {
-                return;
+                startDateTime = result;
             }
-            startDateTime = DateTime.Parse(value);
+            
         }
         
     }
@@ -25,11 +25,10 @@ public abstract class DateRangeObj : SumProgComponent {
         get => endDateTime.ToString();
         set
         {
-            if (value is null)
+            if (value is not null && DateTime.TryParse(value, out var result))
             {
-                return;
+                endDateTime = result;
             }
-            endDateTime = DateTime.Parse(value);
         } 
     }
 
@@ -93,21 +92,21 @@ public abstract class DateRangeObj : SumProgComponent {
     
     private void AppendDateToDisplayName()
     {
-        if (displayName is null || startDateTime is null)
+        if (displayName is null || endDateTime is null)
         {
             return;
         }
         var regex = new Regex("\\d{4}");
         if (regex.IsMatch(displayName))
         {
-            displayName =  regex.Replace(displayName, $"({startDateTime.Value.Year.ToString()})")
+            displayName =  regex.Replace(displayName, $"({endDateTime.Value.Year.ToString()})")
                 .Replace("((", "(")
                 .Replace("))", ")");
             
         }
         else
         {
-            displayName += $" ({startDateTime.Value.Year.ToString()})";
+            displayName += $" ({endDateTime.Value.Year.ToString()})";
         }
     }
     
