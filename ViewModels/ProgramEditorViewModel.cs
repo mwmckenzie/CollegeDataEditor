@@ -18,6 +18,7 @@
 using CollegeDataEditor.Interfaces;
 using CollegeDataEditor.Models;
 using CollegeDataEditor.Services;
+using MudBlazor;
 
 namespace CollegeDataEditor.ViewModels;
 
@@ -25,8 +26,8 @@ public class ProgramEditorViewModel : IDbContext
 {
     
     public event Action? OnEditsSentToDb;
-    public event Action? OnSuccessfulSaveToDb;
-    public event Action? OnUnsuccessfulSaveToDb;
+    public event Action<string>? OnSuccessfulSaveToDb;
+    public event Action<string>? OnUnsuccessfulSaveToDb;
     
     public DbService dbService { get; set; }
 
@@ -114,10 +115,10 @@ public class ProgramEditorViewModel : IDbContext
 
         if (await db.SubmitToDbAsync())
         {
-            NotifyDataSavedToDb();
+            NotifyDataSavedToDb("Session");
             return true;
         }
-        NotifySaveToDbFailed();
+        NotifySaveToDbFailed("Session");
         return false;
     }
 
@@ -141,11 +142,11 @@ public class ProgramEditorViewModel : IDbContext
     private void NotifyDataSentToDb() {
         OnEditsSentToDb?.Invoke();
     }
-    private void NotifyDataSavedToDb() {
-        OnSuccessfulSaveToDb?.Invoke();
+    private void NotifyDataSavedToDb(string dbType = "Unknown") {
+        OnSuccessfulSaveToDb?.Invoke(dbType);
     }
-    private void NotifySaveToDbFailed() {
-        OnUnsuccessfulSaveToDb?.Invoke();
+    private void NotifySaveToDbFailed(string dbType = "Unknown") {
+        OnUnsuccessfulSaveToDb?.Invoke(dbType);
     }
 
     public async Task<bool> SubmitApplicationEditsToDbAsync()
@@ -160,10 +161,10 @@ public class ProgramEditorViewModel : IDbContext
 
         if (await db.SubmitToDbAsync())
         {
-            NotifyDataSavedToDb();
+            NotifyDataSavedToDb("Application");
             return true;
         }
-        NotifySaveToDbFailed();
+        NotifySaveToDbFailed("Application");
         return false;
     }
 
@@ -174,12 +175,12 @@ public class ProgramEditorViewModel : IDbContext
 
         if (await db.SubmitToDbAsync())
         {
-            NotifyDataSavedToDb();
+            NotifyDataSavedToDb("SummerProgram");
             await SubmitApplicationEditsToDbAsync();
             await SubmitSessionEditsToDbAsync();
             return true;
         }
-        NotifySaveToDbFailed();
+        NotifySaveToDbFailed("SummerProgram");
         await SubmitApplicationEditsToDbAsync();
         await SubmitSessionEditsToDbAsync();
         return false;

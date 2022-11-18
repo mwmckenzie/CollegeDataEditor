@@ -2,6 +2,8 @@
 @using CollegeDataEditor.ViewModels
 @using CollegeDataEditor.Services
 @using CollegeDataEditor.Models
+@using System.Drawing
+@using Color = MudBlazor.Color
 
 @inject ViewModelService _viewModelService
 @inject LookupService _lookupService
@@ -163,14 +165,14 @@
         programEditorVM.OnUnsuccessfulSaveToDb += OnSaveToDbFailed;
     }
 
-    private void OnSaveToDbFailed()
+    private void OnSaveToDbFailed(string s)
     {
-        AddSnackBarUpdate("Save Failed", Severity.Error);
+        AddSnackBarUpdate($"{s} DB", Severity.Error, Icons.Material.Filled.Error);
     }
 
-    private void OnSaveToDbSuccess()
+    private void OnSaveToDbSuccess(string s)
     {
-        AddSnackBarUpdate("Saved", Severity.Success);
+        AddSnackBarUpdate($"{s} DB", Severity.Success, Icons.Material.Filled.Save);
     }
 
     private void SetNewToEditor()
@@ -183,11 +185,14 @@
         await programEditorVM.SubmitEditsToDbAsync();
     }
     
-    private void AddSnackBarUpdate(string text, Severity severity = Severity.Info)
+    private void AddSnackBarUpdate(string text, Severity severity = Severity.Info, string icon = "")
     {
         _snackbar.Clear();
         _snackbar.Add(text, severity, config =>
         {
+            if(!string.IsNullOrWhiteSpace(icon))
+                config.Icon = icon;
+            
             config.CloseAfterNavigation = true;
             config.ShowCloseIcon = true;
             config.VisibleStateDuration = 3;
