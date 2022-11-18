@@ -37,6 +37,38 @@
                               dbContext="@programEditorVM"/>
             
             <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
+                Program Categories
+            </MudText>
+            <MudPaper Class="d-flex flex-column" Outlined="true">
+                <MudList Clickable="true">
+                    
+                    <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.programTypeIdList"
+                                                listName="Program Type"
+                                                lookupList="_lookupService.programTypes"
+                                                itemIcons="@Icons.Material.Filled.Category"
+                                                dbContext="programEditorVM"/>
+                    
+                    <MudDivider Class="my-2"/>
+                    
+                    <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.subjectIdList"
+                                                listName="Subject"
+                                                lookupList="_lookupService.subjects"
+                                                itemIcons="@Icons.Material.Filled.Subject"
+                                                dbContext="programEditorVM"/>
+                    <MudDivider Class="my-2"/>
+
+                    <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.topicIdList"
+                                                listName="Topic"
+                                                lookupList="_lookupService.topics"
+                                                itemIcons="@Icons.Material.Filled.Topic"
+                                                dbContext="programEditorVM"/>
+                </MudList>
+            
+                </MudPaper>
+ 
+  
+        
+                            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
                 Program Elements
             </MudText>
             <MudPaper Class="d-flex flex-column" Outlined="true">
@@ -46,7 +78,9 @@
                                               lookupList="_lookupService.orgs"
                                               itemIcons="@Icons.Material.Filled.School"
                                               dbContext="programEditorVM"/>
-
+                    
+                    <MudDivider Class="my-2"/>
+                    
                     <EditableApplicationListView listName="Applications"
                                                  @bind-idList="@programEditorVM.selectedProgram.applicationIdList"
                                                  lookupList="_lookupService.applications"
@@ -54,6 +88,8 @@
                                                  dbContext="programEditorVM"
                                                  itemIcons="@Icons.Material.Filled.Checklist"
                                                  ItemClicked="OnApplicationClicked"/>
+                    
+                    <MudDivider Class="my-2"/>
                     
                     <EditableSessionListView listName="Session"
                                              @bind-idList="@programEditorVM.selectedProgram.sessionIdList"
