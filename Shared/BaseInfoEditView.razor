@@ -1,6 +1,7 @@
 ﻿@using CollegeDataEditor.Models
 @using CollegeDataEditor.Services
 @using CollegeDataEditor.Interfaces
+@using ValueType = CollegeDataEditor.Enums.ValueType
 
 @inject LookupService _lookupService
 
@@ -59,7 +60,7 @@
         <MudDivider Class="my-2"/>
 
         <EditableIndexValueListView @bind-idList="@baseInfoObj.tagIdList"
-                                    listName="Tags"
+                                    listName="Tags" valueType="ValueType.Tag"
                                     lookupList="_lookupService.tags"
                                     itemIcons="@Icons.Material.Filled.Tag"
                                     dbContext="dbContext"/>

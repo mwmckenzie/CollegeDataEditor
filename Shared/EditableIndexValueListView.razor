@@ -1,6 +1,8 @@
 ﻿@using CollegeDataEditor.Models
 @using CollegeDataEditor.Services
 @using CollegeDataEditor.Interfaces
+@using ValueType = CollegeDataEditor.Enums.ValueType
+@using CollegeDataEditor.Factories
 
 <MudText Class="pa-4" Typo="Typo.h6" GutterBottom="true">
     @listName List [@idList.Count]
@@ -23,7 +25,8 @@
                 <MudAutocomplete T="string" Label="@listName" 
                                  @bind-Value="@newListItemValue" SearchFunc="@Search1"
                                  ResetValueOnEmptyText="@_resetValueOnEmptyText"
-                                 CoerceText="@_coerceText" CoerceValue="@_coerceValue"/>
+                                 CoerceText="@_coerceText" CoerceValue="@_coerceValue"
+                                 />
                 
                 <MudButton Color="Color.Tertiary" OnClick="AddListItem">
                     Add
@@ -42,6 +45,9 @@
 
     [Parameter]
     public List<IndexedValue> lookupList { get; set; } = new();
+    
+    [Parameter]
+    public ValueType valueType { get; set; }
     
     [Parameter]
     public EventCallback<List<string>> idListChanged { get; set; }
@@ -63,9 +69,9 @@
     
     private List<IndexedValue> displayList { get; set; } = new();
     
-    private bool _resetValueOnEmptyText;
-    private bool _coerceText;
-    private bool _coerceValue;
+    private bool _resetValueOnEmptyText = true;
+    private bool _coerceText = true;
+    private bool _coerceValue = true;
 
     protected override Task OnInitializedAsync()
     {
@@ -80,21 +86,28 @@
         StateHasChanged();
     }
 
-    private void AddListItem()
+    private async void AddListItem()
     {
-        var indVal = lookupList.FirstOrDefault(x => x.value == newListItemValue);
+        var newVal = newListItemValue;
+        var indVal = lookupList.FirstOrDefault(x => x.value == newVal);
         if (indVal?.id is null)
         {
-            return;
+            indVal = AddNew(newVal);
+            await dbContext.AddNewIndexedValueToDbAsync(indVal);
         }
-        if (idList.Contains(indVal.id))
+        else if (idList.Contains(indVal.id))
         {
             return;
         }
         idList.Add(indVal.id);
-        dbContext.SubmitEditsToDbAsync();
+        await dbContext.SubmitEditsToDbAsync();
         RefreshDisplayList();
         
+    }
+
+    private IndexedValue AddNew(string value)
+    {
+        return IndexedValueFactory.Create(valueType, value);
     }
     
     private void DeleteFromList(string toDelete)

@@ -19,7 +19,7 @@ using CollegeDataEditor.Interfaces;
 
 namespace CollegeDataEditor.Factories;
 
-public abstract class Factory: IFactory
+public class Factory: IFactory
 {
     public virtual ICreatable Create()
     {

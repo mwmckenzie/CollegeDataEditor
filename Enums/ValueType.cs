@@ -21,5 +21,7 @@ public enum ValueType
 {
     Tag,
     Subject,
-    Topic
+    Topic,
+    ProgramType,
+    OrgType,
 }

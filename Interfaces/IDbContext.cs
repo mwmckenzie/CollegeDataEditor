@@ -15,11 +15,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using CollegeDataEditor.Models;
+using ValueType = CollegeDataEditor.Enums.ValueType;
+
 namespace CollegeDataEditor.Interfaces;
 
 public interface IDbContext
 {
     public Task<bool> SubmitEditsToDbAsync();
+
+    public Task AddNewIndexedValueToDbAsync(IndexedValue indexedValue);
 
     public IIdentifiable CreateNewEditingIdentifiable();
 

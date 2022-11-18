@@ -4,6 +4,7 @@
 @using CollegeDataEditor.Models
 @using System.Drawing
 @using Color = MudBlazor.Color
+@using ValueType = CollegeDataEditor.Enums.ValueType
 
 @inject ViewModelService _viewModelService
 @inject LookupService _lookupService
@@ -43,22 +44,22 @@
                 <MudList Clickable="true">
                     
                     <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.programTypeIdList"
-                                                listName="Program Type"
+                                                listName="Program Type" valueType="ValueType.ProgramType"
                                                 lookupList="_lookupService.programTypes"
-                                                itemIcons="@Icons.Material.Filled.Category"
+                                                itemIcons="@Icons.Material.Filled.Mode"
                                                 dbContext="programEditorVM"/>
                     
                     <MudDivider Class="my-2"/>
                     
                     <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.subjectIdList"
-                                                listName="Subject"
+                                                listName="Subject" valueType="ValueType.Subject"
                                                 lookupList="_lookupService.subjects"
                                                 itemIcons="@Icons.Material.Filled.Subject"
                                                 dbContext="programEditorVM"/>
                     <MudDivider Class="my-2"/>
 
                     <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.topicIdList"
-                                                listName="Topic"
+                                                listName="Topic" valueType="ValueType.Topic"
                                                 lookupList="_lookupService.topics"
                                                 itemIcons="@Icons.Material.Filled.Topic"
                                                 dbContext="programEditorVM"/>

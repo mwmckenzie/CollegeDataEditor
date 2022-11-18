@@ -19,6 +19,7 @@ using CollegeDataEditor.Interfaces;
 using CollegeDataEditor.Models;
 using CollegeDataEditor.Services;
 using MudBlazor;
+using ValueType = CollegeDataEditor.Enums.ValueType;
 
 namespace CollegeDataEditor.ViewModels;
 
@@ -190,6 +191,36 @@ public class ProgramEditorViewModel : IDbContext
         //     return await SaveEditsToDbAsync();
         // }
         // return await SaveNewToDbAsync();
+    }
+
+    public async Task AddNewIndexedValueToDbAsync(IndexedValue indexedValue)
+    {
+        switch (indexedValue.valueType)
+        {
+            case ValueType.Tag:
+                dbService.TagDb.editingItem = indexedValue;
+                await dbService.TagDb.SubmitToDbAsync();
+                break;
+            case ValueType.Subject:
+                dbService.SubjectsDb.editingItem = indexedValue;
+                await dbService.SubjectsDb.SubmitToDbAsync();
+                break;
+            case ValueType.Topic:
+                dbService.TopicsDb.editingItem = indexedValue;
+                await dbService.TopicsDb.SubmitToDbAsync();
+                break;
+            case ValueType.ProgramType:
+                dbService.ProgramTypesDb.editingItem = indexedValue;
+                await dbService.ProgramTypesDb.SubmitToDbAsync();
+                break;
+            case ValueType.OrgType:
+                dbService.OrgTypesDb.editingItem = indexedValue;
+                await dbService.OrgTypesDb.SubmitToDbAsync();
+                break;
+            default:
+                return;
+        }
+        
     }
 
     public IIdentifiable CreateNewEditingIdentifiable()
