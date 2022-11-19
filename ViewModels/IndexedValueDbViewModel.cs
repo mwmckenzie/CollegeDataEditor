@@ -63,6 +63,12 @@ public class IndexedValueDbViewModel
             case ValueType.OrgType:
                 await RemoveOrgTypeIdFromAllAsync(idToRemove);
                 break;
+            case ValueType.Citizenship:
+                await RemoveCitizenshipIdFromAllAsync(idToRemove);
+                break;
+            case ValueType.Residence:
+                await RemoveResidenceIdFromAllAsync(idToRemove);
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -153,6 +159,28 @@ public class IndexedValueDbViewModel
             dbService.OrgsDb.editingItem = obj;
             dbService.OrgsDb.editingItem.orgTypeId = null;
             await dbService.OrgsDb.SubmitToDbAsync();
+        }
+    }
+    
+    private async Task RemoveCitizenshipIdFromAllAsync(string idToRemove)
+    {
+        foreach (var obj in dbService.StudentInfoDb.dbItems.
+                     Where(x => x.citizenshipIdList != null && x.citizenshipIdList.Contains(idToRemove)))
+        {
+            dbService.StudentInfoDb.editingItem = obj;
+            dbService.StudentInfoDb.editingItem.citizenshipIdList.Remove(idToRemove);
+            await dbService.StudentInfoDb.SubmitToDbAsync();
+        }
+    }
+    
+    private async Task RemoveResidenceIdFromAllAsync(string idToRemove)
+    {
+        foreach (var obj in dbService.StudentInfoDb.dbItems.
+                     Where(x => x.residenceIdList != null && x.residenceIdList.Contains(idToRemove)))
+        {
+            dbService.StudentInfoDb.editingItem = obj;
+            dbService.StudentInfoDb.editingItem.residenceIdList.Remove(idToRemove);
+            await dbService.StudentInfoDb.SubmitToDbAsync();
         }
     }
 }

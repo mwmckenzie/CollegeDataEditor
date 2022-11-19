@@ -15,7 +15,7 @@
                     Program Editor
                 </MudNavLink>
         
-        <MudNavGroup Title="Collections" Icon="@Icons.Filled.Checklist" Expanded="true">
+        <MudNavGroup Title="Collections" Icon="@Icons.Filled.Checklist" Expanded="false">
             <MudNavLink Href="TagEditorView" 
                         Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                 Tag Editor
@@ -36,10 +36,14 @@
                         Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                 Program Type Editor
             </MudNavLink>
-            <MudNavLink Href="LocationTypeEditorView" 
+            <MudNavLink Href="CitizenshipEditorView" 
                         Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
-                Location Type Editor
+                Citizenship Editor
             </MudNavLink>
+            <MudNavLink Href="ResidenceEditorView" 
+                                    Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
+                            Residence Editor
+                        </MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
     <MudElement Class="pa-4 mt-auto">

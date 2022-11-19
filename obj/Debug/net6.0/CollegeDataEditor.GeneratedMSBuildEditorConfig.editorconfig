@@ -22,6 +22,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/CSharp/CollegeDataEditor/Pages/CitizenshipEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2l0aXplbnNoaXBFZGl0b3JWaWV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/CSharp/CollegeDataEditor/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -44,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/CSharp/CollegeDataEditor/Pages/ProgramTypeEditorView.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZ3JhbVR5cGVFZGl0b3JWaWV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/CSharp/CollegeDataEditor/Pages/ResidenceEditorView.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbmNlRWRpdG9yVmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/CSharp/CollegeDataEditor/Pages/SubjectEditorView.razor]

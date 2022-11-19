@@ -1,0 +1,26 @@
+﻿@page "/CitizenshipEditorView"
+@using CollegeDataEditor.Services
+@using ValueType = CollegeDataEditor.Enums.ValueType
+
+@inject DbService _dbService;
+@inject ViewModelService _viewModelService;
+
+
+<IndexedValueEditTable listName="Citizenship"
+                       ViewModel="_viewModelService.CitizenshipDbVM"/>
+
+
+@code {
+    
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        var vm = _viewModelService.CitizenshipDbVM;
+        vm.dbService = _dbService;
+        vm.db = _dbService.CitizenshipsDb;
+        vm.valueType = ValueType.Citizenship;
+        
+    }
+
+}

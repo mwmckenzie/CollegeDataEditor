@@ -30,4 +30,6 @@ public class ViewModelService
     public IndexedValueDbViewModel TopicDbVM = new();
     public IndexedValueDbViewModel ProgramTypeDbVM = new();
     public IndexedValueDbViewModel OrgTypeDbVM = new();
+    public IndexedValueDbViewModel ResidenceDbVm = new();
+    public IndexedValueDbViewModel CitizenshipDbVM = new();
 }

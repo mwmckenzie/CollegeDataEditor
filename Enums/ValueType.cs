@@ -24,4 +24,6 @@ public enum ValueType
     Topic,
     ProgramType,
     OrgType,
+    Citizenship,
+    Residence
 }

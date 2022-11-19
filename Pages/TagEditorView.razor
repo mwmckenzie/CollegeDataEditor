@@ -1,358 +1,392 @@
 ﻿@page "/TagEditorView"
 @using CollegeDataEditor.Services
-@using CollegeDataEditor.Models
-@using CollegeDataEditor.Enums
-@using Microsoft.AspNetCore.Components
+@using ValueType = CollegeDataEditor.Enums.ValueType
 
-@inject DbService _dbService
-@inject ISnackbar _snackbar
-@inject IDialogService _dialogService
+@inject DbService _dbService;
+@inject ViewModelService _viewModelService;
 
-<PageTitle>College Prep DB - Tag Database</PageTitle>
-<MudText Class="pa-4 ma-4" Typo="Typo.h3">Tag Database</MudText>
 
-@if (_tagDb.state == DbState.Loading)
-{
-    <MudText Class="pa-4 ma-4" Typo="Typo.h3">LOADING DATABASE</MudText>
-    <MudProgressLinear Color="Color.Secondary" Indeterminate="true"/>
-}
-else
-{
-    @if (_tags is not null && _tags.Count > 0)
-    {
-        <MudTable Items="@_tags" Dense="@dense" Hover="@hover" ReadOnly="@ronly" 
-                  CanCancelEdit="@canCancelEdit" 
-                  Filter="new Func<IndexedValue,bool>(FilterFunc)"
-                  @bind-SelectedItem="selectedItem1" 
-                  SortLabel="Sort By" 
-                  CommitEditTooltip="Commit Edit"
-                  OnCommitEditClick="@(() => _snackbar.Add("Commit Edit Handler Invoked"))" 
-                  RowEditPreview="BackupItem" 
-                  RowEditCancel="ResetItemToOriginalValues"
-                  RowEditCommit="ItemHasBeenCommitted" 
-                  IsEditRowSwitchingBlocked="@blockSwitch" 
-                  ApplyButtonPosition="@applyButtonPosition" 
-                  EditButtonPosition="@editButtonPosition" 
-                  EditTrigger="@editTrigger"
-                  ServerData="new Func<TableState, Task<TableData<IndexedValue>>>(RefreshTable)"
-                  @ref="table">
-            <ToolBarContent>
-                <MudText Typo="Typo.h6">
-                    Tags
-                </MudText>
-                <MudSpacer />
-                <MudTextField T="string" ValueChanged="@(OnSearch)" Placeholder="Search" Adornment="Adornment.Start"
-                                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-                @* <MudTextField @bind-Value="searchString"  *@
-                @*               Placeholder="Search"  *@
-                @*               Adornment="Adornment.Start"  *@
-                @*               AdornmentIcon="@Icons.Material.Filled.Search"  *@
-                @*               IconSize="Size.Medium" Class="mt-0"/> *@
-            </ToolBarContent>
-            <ColGroup>
-                @if (applyButtonPosition.DisplayApplyButtonAtStart() 
-                     || (editButtonPosition.DisplayEditButtonAtStart() 
-                         && editTrigger == TableEditTrigger.EditButton))
-                {
-                    <col style="width:50px;" />
-                }
-                <col style="width:50px;" />
-                <col style="width:50px;" />
-                <col style="width:50%;" />
-                <col />
-                <col />
-                @if (applyButtonPosition.DisplayApplyButtonAtEnd() 
-                     || (editButtonPosition.DisplayEditButtonAtEnd() 
-                         && editTrigger == TableEditTrigger.EditButton))
-                {
-                    <col style="width:50px;" />
-                }
-            </ColGroup>
-            <HeaderContent>
-                <MudTh>
-                    <MudTableSortLabel SortBy="new Func<IndexedValue, object>(x => x.typeName)">
-                        Label
-                    </MudTableSortLabel>
-                </MudTh>
-                <MudTh>
-                    <MudTableSortLabel SortBy="new Func<IndexedValue, object>(x => x.valueType)">
-                        Type
-                    </MudTableSortLabel>
-                </MudTh>
-                <MudTh>
-                    <MudTableSortLabel InitialDirection="SortDirection.Ascending"
-                                       SortBy="new Func<IndexedValue, object>(x => x.value)">
-                        Tag
-                    </MudTableSortLabel>
-                </MudTh>
-                
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd DataLabel="Label">@context.typeName</MudTd>
-                <MudTd DataLabel="Type">@context.valueType</MudTd>
-                <MudTd DataLabel="Tag">@context.value</MudTd>
-            </RowTemplate>
-            <RowEditingTemplate>
-                <MudTd DataLabel="Label">@context.typeName</MudTd>
-                <MudTd DataLabel="Type">@context.valueType</MudTd>
-                <MudTd DataLabel="Tag">
-                    <MudTextField @bind-Value="@context.value" Required />
-                </MudTd>
-                <MudTd>
-                    <MudButton StartIcon="@Icons.Material.Filled.Delete" 
-                               OnClick="DeleteSelected"/>
-                </MudTd>
-            </RowEditingTemplate>
-            <PagerContent>
-                <MudTablePager />
-            </PagerContent>
-            <EditButtonContent Context="button">
-                <MudIconButton Size="@Size.Small" 
-                               Icon="@Icons.Outlined.Edit" 
-                               Class="pa-0" 
-                               OnClick="@button.ButtonAction" 
-                               Disabled="@button.ButtonDisabled" />
-            </EditButtonContent>
-        </MudTable>
-        
-        <MudSwitch @bind-Checked="@hover" Color="Color.Primary">Hover</MudSwitch>
-        <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Dense</MudSwitch>
-        <MudSwitch @bind-Checked="@ronly" Color="Color.Tertiary">Read Only</MudSwitch>
-        <MudSwitch @bind-Checked="@canCancelEdit" Color="Color.Info">Can Cancel Edit</MudSwitch>
-        <MudSwitch @bind-Checked="@blockSwitch" Color="Color.Success">Block Edit Row Switching</MudSwitch>
+<IndexedValueEditTable listName="Tag"
+                       ViewModel="_viewModelService.TagDbVM"/>
 
-        <MudGrid>
-            <MudItem xs="12" md="4">
-                <MudSelect Label="Edit Trigger" T="TableEditTrigger" @bind-Value="editTrigger">
-                    <MudSelectItem Value="TableEditTrigger.RowClick">Row Click</MudSelectItem>
-                    <MudSelectItem Value="TableEditTrigger.EditButton">Edit Button</MudSelectItem>
-                </MudSelect>
-            </MudItem>
-            @if (editTrigger == TableEditTrigger.EditButton)
-            {
-                <MudItem xs="12" md="4">
-                    <MudSelect Label="Edit Button Postion" T="TableEditButtonPosition" @bind-Value="editButtonPosition">
-                        <MudSelectItem Value="TableEditButtonPosition.Start">Start</MudSelectItem>
-                        <MudSelectItem Value="TableEditButtonPosition.End">End</MudSelectItem>
-                        <MudSelectItem Value="TableEditButtonPosition.StartAndEnd">Start and End</MudSelectItem>
-                    </MudSelect>
-                </MudItem>
-            }
-            <MudItem xs="12" md="4">
-                <MudSelect Label="Apply Button Postion" T="TableApplyButtonPosition" @bind-Value="applyButtonPosition">
-                    <MudSelectItem Value="TableApplyButtonPosition.Start">Start</MudSelectItem>
-                    <MudSelectItem Value="TableApplyButtonPosition.End">End</MudSelectItem>
-                    <MudSelectItem Value="TableApplyButtonPosition.StartAndEnd">Start and End</MudSelectItem>
-                </MudSelect>
-            </MudItem>
-        </MudGrid>
-
-        if (selectedItem1?.value is not null)
-        {
-            <MudText Inline="true">Selected1: @selectedItem1.value</MudText>
-        }
-        
-
-        <MudExpansionPanels Style="flex: 1;">
-            <MudExpansionPanel Text="Show inline-edit event log">
-                @foreach (var message in editEvents)
-                {
-                    <MudText>@message</MudText>
-                }
-                @if (editEvents.Count > 0)
-                {
-                    <div class="d-flex">
-                        <MudSpacer />
-                        <MudButton Class="mt-3" ButtonType="ButtonType.Button" Variant="Variant.Filled" OnClick="ClearEventLog">Clear event log</MudButton>
-                    </div>
-                }
-            </MudExpansionPanel>
-        </MudExpansionPanels>
-        
-        }
-    else if (_tags is not null && _tags.Count > 0)
-    {
-        <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Empty</MudText>
-    }
-    else
-    {
-        <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Not Found</MudText>
-    }
-}
 
 @code {
     
-    private List<string> editEvents = new();
-    private bool dense = true;
-    private bool hover = true;
-    private bool ronly = false;
-    private bool canCancelEdit = false;
-    private bool blockSwitch = false;
-    private string searchString = "";
-    private IndexedValue selectedItem1 = null;
-    private IndexedValue indexedValueBeforeEdit;
-    private HashSet<IndexedValue> selectedItems1 = new HashSet<IndexedValue>();
-    private TableApplyButtonPosition applyButtonPosition = TableApplyButtonPosition.End;
-    private TableEditButtonPosition editButtonPosition = TableEditButtonPosition.End;
-    private TableEditTrigger editTrigger = TableEditTrigger.RowClick;
-    private IEnumerable<IndexedValue> indexedValues = new List<IndexedValue>();
-    private MudTable<IndexedValue> table;
-
-    private Db<IndexedValue> _tagDb;
-    private List<IndexedValue>? _tags;
-    private string _editRowStyle = "none";
-    private string? _newItemName;
-
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        _tagDb = _dbService.TagDb;
-        _tags = _tagDb.dbItems;
-    }
-    
-    private void ClearEventLog()
-    {
-        editEvents.Clear();
-    }
 
-    private void AddEditionEvent(string message)
-    {
-        editEvents.Add(message);
-        StateHasChanged();
-    }
-
-    private void BackupItem(object indVal)
-    {
-        _tagDb.editingItem = (IndexedValue)indVal;
+        var vm = _viewModelService.TagDbVM;
+        vm.dbService = _dbService;
+        vm.db = _dbService.TagDb;
+        vm.valueType = ValueType.Tag;
         
-        indexedValueBeforeEdit = new()
-        {
-            value = ((IndexedValue)indVal).value,
-            typeName = ((IndexedValue)indVal).typeName,
-            valueType = ((IndexedValue)indVal).valueType,
-            id = ((IndexedValue)indVal).id
-        };
-        AddEditionEvent($"RowEditPreview event: made a backup of Element {((IndexedValue)indVal).value}");
-    }
-
-    private async void ItemHasBeenCommitted(object indVal)
-    {
-        await _tagDb.SubmitToDbAsync();
-        AddEditionEvent($"RowEditCommit event: Changes to Element {((IndexedValue)indVal).value} committed");
-    }
-
-    private void ResetItemToOriginalValues(object indVal)
-    {
-        ((IndexedValue)indVal).value = indexedValueBeforeEdit.value;
-        ((IndexedValue)indVal).typeName = indexedValueBeforeEdit.typeName;
-        ((IndexedValue)indVal).valueType = indexedValueBeforeEdit.valueType;
-        ((IndexedValue)indVal).id = indexedValueBeforeEdit.id;
-        AddEditionEvent($"RowEditCancel event: Editing of Element {((IndexedValue)indVal).value} cancelled");
-    }
-
-    private bool FilterFunc(IndexedValue indVal)
-    {
-        if (string.IsNullOrWhiteSpace(searchString) || indVal?.value is null)
-            return true;
-        return indVal.value.Contains(searchString, StringComparison.OrdinalIgnoreCase);
-    }
-
-
-    private async void DeleteSelected()
-    {
-        var result = await DeleteUser();
-        
-        if (result.Cancelled)
-        {
-            return;
-        }
-        _snackbar.Add($"Attempting to Delete: {_tagDb.editingItem.value}");
-        await RemoveIdFromAllAsync(_tagDb.editingItem.id);
-
-        if (await _tagDb.DeleteFromDbAsync())
-        {
-            _snackbar.Add($"Deleted: {_tagDb.editingItem.value}");
-            await table.ReloadServerData();
-            return;
-        }
-        _snackbar.Add($"Failed to Delete: {_tagDb.editingItem.value}");
-    }
-
-    private async Task RemoveIdFromAllAsync(string idToRemove)
-    {
-        foreach (var obj in _dbService.SummerProgramsDb.dbItems.
-            Where(x => x.tagIdList.Contains(idToRemove)))
-        {
-            _dbService.SummerProgramsDb.editingItem = obj;
-            _dbService.SummerProgramsDb.editingItem.tagIdList.Remove(idToRemove);
-            var result = await _dbService.SummerProgramsDb.SubmitToDbAsync();
-            _snackbar.Add($"[{result}] Delete From SP {obj.displayName}?");
-        }
-        
-        foreach (var obj in _dbService.ApplicationsDb.dbItems.
-            Where(x => x.id == idToRemove))
-        {
-            _dbService.ApplicationsDb.editingItem = obj;
-            _dbService.ApplicationsDb.editingItem.tagIdList.Remove(idToRemove);
-            await _dbService.ApplicationsDb.SubmitToDbAsync();
-        }
-        foreach (var obj in _dbService.SessionsDb.dbItems.
-            Where(x => x.id == idToRemove))
-        {
-            _dbService.SessionsDb.editingItem = obj;
-            _dbService.SessionsDb.editingItem.tagIdList.Remove(idToRemove);
-            await _dbService.SessionsDb.SubmitToDbAsync();
-        }
-        foreach (var obj in _dbService.OrgsDb.dbItems.
-            Where(x => x.id == idToRemove))
-        {
-            _dbService.OrgsDb.editingItem = obj;
-            _dbService.OrgsDb.editingItem.tagIdList.Remove(idToRemove);
-            await _dbService.OrgsDb.SubmitToDbAsync();
-        }
-        foreach (var obj in _dbService.StudentInfoDb.dbItems.
-            Where(x => x.id == idToRemove))
-        {
-            _dbService.StudentInfoDb.editingItem = obj;
-            _dbService.StudentInfoDb.editingItem.tagIdList.Remove(idToRemove);
-            await _dbService.StudentInfoDb.SubmitToDbAsync();
-        }
-    }
-    
-    private async Task<DialogResult> DeleteUser()
-    {
-        var parameters = new DialogParameters();
-        parameters.Add("ContentText", $"Do you really want to delete {selectedItem1.typeName} {selectedItem1.value}? This process will remove the {selectedItem1.typeName} from all database references.");
-        parameters.Add("ButtonText", "Delete");
-        parameters.Add("Color", Color.Error);
-
-        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
-
-        return await _dialogService.Show<DeleteConfimationDialog>("Delete", parameters, options).Result;
-    }
-
-    private async Task<TableData<IndexedValue>> RefreshTable(TableState state)
-    {
-        await _tagDb.GetAllFromDb();
-        _tags = _tagDb.dbItems.Where(obj =>
-        {
-            if (string.IsNullOrWhiteSpace(searchString) || obj.value is null)
-                return true;
-            if (obj.value.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            return false;
-        }).ToList();
-        var totalItems = _tags.Count();
-        _tags = _tags.OrderByDirection(state.SortDirection, o => o.value).ToList();
-
-        var pagedData = _tags.Skip(state.Page * state.PageSize).Take(state.PageSize).ToArray();
-        return new TableData<IndexedValue>() {TotalItems = _tags.Count, Items = pagedData};
-    }
-    
-    private void OnSearch(string text)
-    {
-        searchString = text;
-        table.ReloadServerData();
     }
 
 }
+
+
+
+
+
+
+
+
+@* @page "/TagEditorView" *@
+@* @using CollegeDataEditor.Services *@
+@* @using CollegeDataEditor.Models *@
+@* @using CollegeDataEditor.Enums *@
+@* @using Microsoft.AspNetCore.Components *@
+@* *@
+@* @inject DbService _dbService *@
+@* @inject ISnackbar _snackbar *@
+@* @inject IDialogService _dialogService *@
+@* *@
+@* <PageTitle>College Prep DB - Tag Database</PageTitle> *@
+@* <MudText Class="pa-4 ma-4" Typo="Typo.h3">Tag Database</MudText> *@
+@* *@
+@* @if (_tagDb.state == DbState.Loading) *@
+@* { *@
+@*     <MudText Class="pa-4 ma-4" Typo="Typo.h3">LOADING DATABASE</MudText> *@
+@*     <MudProgressLinear Color="Color.Secondary" Indeterminate="true"/> *@
+@* } *@
+@* else *@
+@* { *@
+@*     @if (_tags is not null && _tags.Count > 0) *@
+@*     { *@
+@*         <MudTable Items="@_tags" Dense="@dense" Hover="@hover" ReadOnly="@ronly"  *@
+@*                   CanCancelEdit="@canCancelEdit"  *@
+@*                   Filter="new Func<IndexedValue,bool>(FilterFunc)" *@
+@*                   @bind-SelectedItem="selectedItem1"  *@
+@*                   SortLabel="Sort By"  *@
+@*                   CommitEditTooltip="Commit Edit" *@
+@*                   OnCommitEditClick="@(() => _snackbar.Add("Commit Edit Handler Invoked"))"  *@
+@*                   RowEditPreview="BackupItem"  *@
+@*                   RowEditCancel="ResetItemToOriginalValues" *@
+@*                   RowEditCommit="ItemHasBeenCommitted"  *@
+@*                   IsEditRowSwitchingBlocked="@blockSwitch"  *@
+@*                   ApplyButtonPosition="@applyButtonPosition"  *@
+@*                   EditButtonPosition="@editButtonPosition"  *@
+@*                   EditTrigger="@editTrigger" *@
+@*                   ServerData="new Func<TableState, Task<TableData<IndexedValue>>>(RefreshTable)" *@
+@*                   @ref="table"> *@
+@*             <ToolBarContent> *@
+@*                 <MudText Typo="Typo.h6"> *@
+@*                     Tags *@
+@*                 </MudText> *@
+@*                 <MudSpacer /> *@
+@*                 <MudTextField T="string" ValueChanged="@(OnSearch)" Placeholder="Search" Adornment="Adornment.Start" *@
+@*                                       AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> *@
+@*                 $1$ <MudTextField @bind-Value="searchString"  #1# *@
+@*                 $1$               Placeholder="Search"  #1# *@
+@*                 $1$               Adornment="Adornment.Start"  #1# *@
+@*                 $1$               AdornmentIcon="@Icons.Material.Filled.Search"  #1# *@
+@*                 $1$               IconSize="Size.Medium" Class="mt-0"/> #1# *@
+@*             </ToolBarContent> *@
+@*             <ColGroup> *@
+@*                 @if (applyButtonPosition.DisplayApplyButtonAtStart()  *@
+@*                      || (editButtonPosition.DisplayEditButtonAtStart()  *@
+@*                          && editTrigger == TableEditTrigger.EditButton)) *@
+@*                 { *@
+@*                     <col style="width:50px;" /> *@
+@*                 } *@
+@*                 <col style="width:50px;" /> *@
+@*                 <col style="width:50px;" /> *@
+@*                 <col style="width:50%;" /> *@
+@*                 <col /> *@
+@*                 <col /> *@
+@*                 @if (applyButtonPosition.DisplayApplyButtonAtEnd()  *@
+@*                      || (editButtonPosition.DisplayEditButtonAtEnd()  *@
+@*                          && editTrigger == TableEditTrigger.EditButton)) *@
+@*                 { *@
+@*                     <col style="width:50px;" /> *@
+@*                 } *@
+@*             </ColGroup> *@
+@*             <HeaderContent> *@
+@*                 <MudTh> *@
+@*                     <MudTableSortLabel SortBy="new Func<IndexedValue, object>(x => x.typeName)"> *@
+@*                         Label *@
+@*                     </MudTableSortLabel> *@
+@*                 </MudTh> *@
+@*                 <MudTh> *@
+@*                     <MudTableSortLabel SortBy="new Func<IndexedValue, object>(x => x.valueType)"> *@
+@*                         Type *@
+@*                     </MudTableSortLabel> *@
+@*                 </MudTh> *@
+@*                 <MudTh> *@
+@*                     <MudTableSortLabel InitialDirection="SortDirection.Ascending" *@
+@*                                        SortBy="new Func<IndexedValue, object>(x => x.value)"> *@
+@*                         Tag *@
+@*                     </MudTableSortLabel> *@
+@*                 </MudTh> *@
+@*                  *@
+@*             </HeaderContent> *@
+@*             <RowTemplate> *@
+@*                 <MudTd DataLabel="Label">@context.typeName</MudTd> *@
+@*                 <MudTd DataLabel="Type">@context.valueType</MudTd> *@
+@*                 <MudTd DataLabel="Tag">@context.value</MudTd> *@
+@*             </RowTemplate> *@
+@*             <RowEditingTemplate> *@
+@*                 <MudTd DataLabel="Label">@context.typeName</MudTd> *@
+@*                 <MudTd DataLabel="Type">@context.valueType</MudTd> *@
+@*                 <MudTd DataLabel="Tag"> *@
+@*                     <MudTextField @bind-Value="@context.value" Required /> *@
+@*                 </MudTd> *@
+@*                 <MudTd> *@
+@*                     <MudButton StartIcon="@Icons.Material.Filled.Delete"  *@
+@*                                OnClick="DeleteSelected"/> *@
+@*                 </MudTd> *@
+@*             </RowEditingTemplate> *@
+@*             <PagerContent> *@
+@*                 <MudTablePager /> *@
+@*             </PagerContent> *@
+@*             <EditButtonContent Context="button"> *@
+@*                 <MudIconButton Size="@Size.Small"  *@
+@*                                Icon="@Icons.Outlined.Edit"  *@
+@*                                Class="pa-0"  *@
+@*                                OnClick="@button.ButtonAction"  *@
+@*                                Disabled="@button.ButtonDisabled" /> *@
+@*             </EditButtonContent> *@
+@*         </MudTable> *@
+@*          *@
+@*         <MudSwitch @bind-Checked="@hover" Color="Color.Primary">Hover</MudSwitch> *@
+@*         <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Dense</MudSwitch> *@
+@*         <MudSwitch @bind-Checked="@ronly" Color="Color.Tertiary">Read Only</MudSwitch> *@
+@*         <MudSwitch @bind-Checked="@canCancelEdit" Color="Color.Info">Can Cancel Edit</MudSwitch> *@
+@*         <MudSwitch @bind-Checked="@blockSwitch" Color="Color.Success">Block Edit Row Switching</MudSwitch> *@
+@* *@
+@*         <MudGrid> *@
+@*             <MudItem xs="12" md="4"> *@
+@*                 <MudSelect Label="Edit Trigger" T="TableEditTrigger" @bind-Value="editTrigger"> *@
+@*                     <MudSelectItem Value="TableEditTrigger.RowClick">Row Click</MudSelectItem> *@
+@*                     <MudSelectItem Value="TableEditTrigger.EditButton">Edit Button</MudSelectItem> *@
+@*                 </MudSelect> *@
+@*             </MudItem> *@
+@*             @if (editTrigger == TableEditTrigger.EditButton) *@
+@*             { *@
+@*                 <MudItem xs="12" md="4"> *@
+@*                     <MudSelect Label="Edit Button Postion" T="TableEditButtonPosition" @bind-Value="editButtonPosition"> *@
+@*                         <MudSelectItem Value="TableEditButtonPosition.Start">Start</MudSelectItem> *@
+@*                         <MudSelectItem Value="TableEditButtonPosition.End">End</MudSelectItem> *@
+@*                         <MudSelectItem Value="TableEditButtonPosition.StartAndEnd">Start and End</MudSelectItem> *@
+@*                     </MudSelect> *@
+@*                 </MudItem> *@
+@*             } *@
+@*             <MudItem xs="12" md="4"> *@
+@*                 <MudSelect Label="Apply Button Postion" T="TableApplyButtonPosition" @bind-Value="applyButtonPosition"> *@
+@*                     <MudSelectItem Value="TableApplyButtonPosition.Start">Start</MudSelectItem> *@
+@*                     <MudSelectItem Value="TableApplyButtonPosition.End">End</MudSelectItem> *@
+@*                     <MudSelectItem Value="TableApplyButtonPosition.StartAndEnd">Start and End</MudSelectItem> *@
+@*                 </MudSelect> *@
+@*             </MudItem> *@
+@*         </MudGrid> *@
+@* *@
+@*         if (selectedItem1?.value is not null) *@
+@*         { *@
+@*             <MudText Inline="true">Selected1: @selectedItem1.value</MudText> *@
+@*         } *@
+@*          *@
+@* *@
+@*         <MudExpansionPanels Style="flex: 1;"> *@
+@*             <MudExpansionPanel Text="Show inline-edit event log"> *@
+@*                 @foreach (var message in editEvents) *@
+@*                 { *@
+@*                     <MudText>@message</MudText> *@
+@*                 } *@
+@*                 @if (editEvents.Count > 0) *@
+@*                 { *@
+@*                     <div class="d-flex"> *@
+@*                         <MudSpacer /> *@
+@*                         <MudButton Class="mt-3" ButtonType="ButtonType.Button" Variant="Variant.Filled" OnClick="ClearEventLog">Clear event log</MudButton> *@
+@*                     </div> *@
+@*                 } *@
+@*             </MudExpansionPanel> *@
+@*         </MudExpansionPanels> *@
+@*          *@
+@*         } *@
+@*     else if (_tags is not null && _tags.Count > 0) *@
+@*     { *@
+@*         <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Empty</MudText> *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Not Found</MudText> *@
+@*     } *@
+@* } *@
+@* *@
+@* @code { *@
+@*      *@
+@*     private List<string> editEvents = new(); *@
+@*     private bool dense = true; *@
+@*     private bool hover = true; *@
+@*     private bool ronly = false; *@
+@*     private bool canCancelEdit = false; *@
+@*     private bool blockSwitch = false; *@
+@*     private string searchString = ""; *@
+@*     private IndexedValue selectedItem1 = null; *@
+@*     private IndexedValue indexedValueBeforeEdit; *@
+@*     private HashSet<IndexedValue> selectedItems1 = new HashSet<IndexedValue>(); *@
+@*     private TableApplyButtonPosition applyButtonPosition = TableApplyButtonPosition.End; *@
+@*     private TableEditButtonPosition editButtonPosition = TableEditButtonPosition.End; *@
+@*     private TableEditTrigger editTrigger = TableEditTrigger.RowClick; *@
+@*     private IEnumerable<IndexedValue> indexedValues = new List<IndexedValue>(); *@
+@*     private MudTable<IndexedValue> table; *@
+@* *@
+@*     private Db<IndexedValue> _tagDb; *@
+@*     private List<IndexedValue>? _tags; *@
+@*     private string _editRowStyle = "none"; *@
+@*     private string? _newItemName; *@
+@* *@
+@*     protected override void OnInitialized() *@
+@*     { *@
+@*         base.OnInitialized(); *@
+@*         _tagDb = _dbService.TagDb; *@
+@*         _tags = _tagDb.dbItems; *@
+@*     } *@
+@*      *@
+@*     private void ClearEventLog() *@
+@*     { *@
+@*         editEvents.Clear(); *@
+@*     } *@
+@* *@
+@*     private void AddEditionEvent(string message) *@
+@*     { *@
+@*         editEvents.Add(message); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@* *@
+@*     private void BackupItem(object indVal) *@
+@*     { *@
+@*         _tagDb.editingItem = (IndexedValue)indVal; *@
+@*          *@
+@*         indexedValueBeforeEdit = new() *@
+@*         { *@
+@*             value = ((IndexedValue)indVal).value, *@
+@*             typeName = ((IndexedValue)indVal).typeName, *@
+@*             valueType = ((IndexedValue)indVal).valueType, *@
+@*             id = ((IndexedValue)indVal).id *@
+@*         }; *@
+@*         AddEditionEvent($"RowEditPreview event: made a backup of Element {((IndexedValue)indVal).value}"); *@
+@*     } *@
+@* *@
+@*     private async void ItemHasBeenCommitted(object indVal) *@
+@*     { *@
+@*         await _tagDb.SubmitToDbAsync(); *@
+@*         AddEditionEvent($"RowEditCommit event: Changes to Element {((IndexedValue)indVal).value} committed"); *@
+@*     } *@
+@* *@
+@*     private void ResetItemToOriginalValues(object indVal) *@
+@*     { *@
+@*         ((IndexedValue)indVal).value = indexedValueBeforeEdit.value; *@
+@*         ((IndexedValue)indVal).typeName = indexedValueBeforeEdit.typeName; *@
+@*         ((IndexedValue)indVal).valueType = indexedValueBeforeEdit.valueType; *@
+@*         ((IndexedValue)indVal).id = indexedValueBeforeEdit.id; *@
+@*         AddEditionEvent($"RowEditCancel event: Editing of Element {((IndexedValue)indVal).value} cancelled"); *@
+@*     } *@
+@* *@
+@*     private bool FilterFunc(IndexedValue indVal) *@
+@*     { *@
+@*         if (string.IsNullOrWhiteSpace(searchString) || indVal?.value is null) *@
+@*             return true; *@
+@*         return indVal.value.Contains(searchString, StringComparison.OrdinalIgnoreCase); *@
+@*     } *@
+@* *@
+@* *@
+@*     private async void DeleteSelected() *@
+@*     { *@
+@*         var result = await DeleteUser(); *@
+@*          *@
+@*         if (result.Cancelled) *@
+@*         { *@
+@*             return; *@
+@*         } *@
+@*         _snackbar.Add($"Attempting to Delete: {_tagDb.editingItem.value}"); *@
+@*         await RemoveIdFromAllAsync(_tagDb.editingItem.id); *@
+@* *@
+@*         if (await _tagDb.DeleteFromDbAsync()) *@
+@*         { *@
+@*             _snackbar.Add($"Deleted: {_tagDb.editingItem.value}"); *@
+@*             await table.ReloadServerData(); *@
+@*             return; *@
+@*         } *@
+@*         _snackbar.Add($"Failed to Delete: {_tagDb.editingItem.value}"); *@
+@*     } *@
+@* *@
+@*     private async Task RemoveIdFromAllAsync(string idToRemove) *@
+@*     { *@
+@*         foreach (var obj in _dbService.SummerProgramsDb.dbItems. *@
+@*             Where(x => x.tagIdList.Contains(idToRemove))) *@
+@*         { *@
+@*             _dbService.SummerProgramsDb.editingItem = obj; *@
+@*             _dbService.SummerProgramsDb.editingItem.tagIdList.Remove(idToRemove); *@
+@*             var result = await _dbService.SummerProgramsDb.SubmitToDbAsync(); *@
+@*             _snackbar.Add($"[{result}] Delete From SP {obj.displayName}?"); *@
+@*         } *@
+@*          *@
+@*         foreach (var obj in _dbService.ApplicationsDb.dbItems. *@
+@*             Where(x => x.id == idToRemove)) *@
+@*         { *@
+@*             _dbService.ApplicationsDb.editingItem = obj; *@
+@*             _dbService.ApplicationsDb.editingItem.tagIdList.Remove(idToRemove); *@
+@*             await _dbService.ApplicationsDb.SubmitToDbAsync(); *@
+@*         } *@
+@*         foreach (var obj in _dbService.SessionsDb.dbItems. *@
+@*             Where(x => x.id == idToRemove)) *@
+@*         { *@
+@*             _dbService.SessionsDb.editingItem = obj; *@
+@*             _dbService.SessionsDb.editingItem.tagIdList.Remove(idToRemove); *@
+@*             await _dbService.SessionsDb.SubmitToDbAsync(); *@
+@*         } *@
+@*         foreach (var obj in _dbService.OrgsDb.dbItems. *@
+@*             Where(x => x.id == idToRemove)) *@
+@*         { *@
+@*             _dbService.OrgsDb.editingItem = obj; *@
+@*             _dbService.OrgsDb.editingItem.tagIdList.Remove(idToRemove); *@
+@*             await _dbService.OrgsDb.SubmitToDbAsync(); *@
+@*         } *@
+@*         foreach (var obj in _dbService.StudentInfoDb.dbItems. *@
+@*             Where(x => x.id == idToRemove)) *@
+@*         { *@
+@*             _dbService.StudentInfoDb.editingItem = obj; *@
+@*             _dbService.StudentInfoDb.editingItem.tagIdList.Remove(idToRemove); *@
+@*             await _dbService.StudentInfoDb.SubmitToDbAsync(); *@
+@*         } *@
+@*     } *@
+@*      *@
+@*     private async Task<DialogResult> DeleteUser() *@
+@*     { *@
+@*         var parameters = new DialogParameters(); *@
+@*         parameters.Add("ContentText", $"Do you really want to delete {selectedItem1.typeName} {selectedItem1.value}? This process will remove the {selectedItem1.typeName} from all database references."); *@
+@*         parameters.Add("ButtonText", "Delete"); *@
+@*         parameters.Add("Color", Color.Error); *@
+@* *@
+@*         var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall }; *@
+@* *@
+@*         return await _dialogService.Show<DeleteConfimationDialog>("Delete", parameters, options).Result; *@
+@*     } *@
+@* *@
+@*     private async Task<TableData<IndexedValue>> RefreshTable(TableState state) *@
+@*     { *@
+@*         await _tagDb.GetAllFromDb(); *@
+@*         _tags = _tagDb.dbItems.Where(obj => *@
+@*         { *@
+@*             if (string.IsNullOrWhiteSpace(searchString) || obj.value is null) *@
+@*                 return true; *@
+@*             if (obj.value.Contains(searchString, StringComparison.OrdinalIgnoreCase)) *@
+@*                 return true; *@
+@*             return false; *@
+@*         }).ToList(); *@
+@*         var totalItems = _tags.Count(); *@
+@*         _tags = _tags.OrderByDirection(state.SortDirection, o => o.value).ToList(); *@
+@* *@
+@*         var pagedData = _tags.Skip(state.Page * state.PageSize).Take(state.PageSize).ToArray(); *@
+@*         return new TableData<IndexedValue>() {TotalItems = _tags.Count, Items = pagedData}; *@
+@*     } *@
+@*      *@
+@*     private void OnSearch(string text) *@
+@*     { *@
+@*         searchString = text; *@
+@*         table.ReloadServerData(); *@
+@*     } *@
+@* *@
+@* } *@
