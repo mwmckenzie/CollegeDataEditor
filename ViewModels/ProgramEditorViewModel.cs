@@ -29,6 +29,8 @@ public class ProgramEditorViewModel : IDbContext
     public event Action? OnEditsSentToDb;
     public event Action<string>? OnSuccessfulSaveToDb;
     public event Action<string>? OnUnsuccessfulSaveToDb;
+
+    public event Action? NotifyNewSummerProgramSet;
     
     public DbService dbService { get; set; }
 
@@ -44,6 +46,7 @@ public class ProgramEditorViewModel : IDbContext
             }
             _selectedProgram = value;
             _selectedProgram.NotifyObjEdited += SelectedProgramOnNotifyObjEdited;
+            OnNewSummerProgramSet();
         }
     }
 
@@ -110,7 +113,6 @@ public class ProgramEditorViewModel : IDbContext
         {
             return true;
         }
-        
         var db = dbService.SessionsDb;
         db.editingItem = session;
 
@@ -132,12 +134,11 @@ public class ProgramEditorViewModel : IDbContext
         {
             return null;
         }
-        
         return string.IsNullOrEmpty(value) ? 
             searchList : 
             searchList.
-                Where(x => 
-                    x.value.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+                Where(x => x.value.
+                Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
     
     private void NotifyDataSentToDb() {
@@ -156,7 +157,6 @@ public class ProgramEditorViewModel : IDbContext
         {
             return true;
         }
-        
         var db = dbService.ApplicationsDb;
         db.editingItem = application;
 
@@ -257,6 +257,10 @@ public class ProgramEditorViewModel : IDbContext
         NotifySaveToDbFailed();
         return false;
     }
-    
-    
+
+
+    protected virtual void OnNewSummerProgramSet()
+    {
+        NotifyNewSummerProgramSet?.Invoke();
+    }
 }

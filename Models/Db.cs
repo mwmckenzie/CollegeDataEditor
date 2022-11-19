@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net.Http.Json;
 using CollegeDataEditor.Enums;
 using CollegeDataEditor.Interfaces;
@@ -190,6 +191,11 @@ public class Db<T> where T : IIdentifiable
 
         var deleteResponse = 
             await http.DeleteAsync(DeleteByIdConnectionString(editingItem.id));
+
+        if (deleteResponse.IsSuccessStatusCode)
+        {
+            dbItems.Remove(editingItem);
+        }
         state = DbState.Loaded;
         lastLoaded = DateTime.Now;
         return deleteResponse.IsSuccessStatusCode;

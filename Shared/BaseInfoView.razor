@@ -21,8 +21,9 @@
         @* </MudStack> *@
 
     @if (hasTags) {
-        @foreach (var tag in baseInfoObj.tagIdList) {
-            <MudChip Text="@_lookupService.FindTagById(tag).value" Color="Color.Primary">
+        @foreach (var tag in baseInfoObj.tagIdList.Where(tag => _lookupService.tags.Any(x => x.id == tag)))
+        {
+            <MudChip Text="@_lookupService.FindTagById(tag).value" Color="@Color.Primary">
                 @_lookupService.FindTagById(tag).value
             </MudChip>
         }

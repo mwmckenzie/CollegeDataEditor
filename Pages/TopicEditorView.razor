@@ -1,79 +1,26 @@
 ﻿@page "/TopicEditorView"
 @using CollegeDataEditor.Services
-@using CollegeDataEditor.Models
-@using CollegeDataEditor.Enums
+@using ValueType = CollegeDataEditor.Enums.ValueType
 
 @inject DbService _dbService;
+@inject ViewModelService _viewModelService;
 
-<PageTitle>College Prep DB - Topic Database</PageTitle>
-<MudText Class="pa-4 ma-4" Typo="Typo.h3">Topic Database</MudText>
 
-@if (_topicDb.state == DbState.Loading)
-{
-    <MudText Class="pa-4 ma-4" Typo="Typo.h3">LOADING DATABASE</MudText>
-    <MudProgressLinear Color="Color.Secondary" Indeterminate="true"/>
-}
-else
-{
-    @if (_topic is not null && _topic.Count > 0)
-    {
-        <div class="mx-auto" style="max-width: 400px;">
-            <MudExpansionPanels>
+<IndexedValueEditTable listName="Topic"
+                       ViewModel="_viewModelService.TopicDbVM"/>
 
-                @foreach (var tag in _topic)
-                {
-                    <MudExpansionPanel>
-                        <TitleContent>
-                            <div class="d-flex">
-                                <MudIcon Color="Color.Primary"
-                                         Icon="@Icons.Material.Filled.Info"
-                                         class="mr-3"/>
-                                <MudText>@tag.value</MudText>
-                            </div>
-                        </TitleContent>
-                        <ChildContent>
-                            <MudText>ID: @tag.id</MudText>
-                            <MudText>Data Type: @tag.typeName</MudText>
-                            @* <PathogenDetails pathogen="pathogen" *@
-                            @*                  onEditClickCallback="() => SetSelectedPathogenToEditor(pathogen)" *@
-                            @*                  onCopyClickCallback="() => CopySelectedPathogenToEditor(pathogen)" *@
-                            @*                  onDeleteClickCallback="() => DeleteAsync(pathogen)"/> *@
-                        </ChildContent>
-                    </MudExpansionPanel>
-                @* <MudDivider Class="my-6" DividerType="DividerType.Middle" Light="true"/> *@
-                }
-
-            </MudExpansionPanels>
-        </div>
-    }
-    else if (_topic is not null && _topic.Count > 0)
-    {
-        <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Empty</MudText>
-    }
-    else
-    {
-        <MudText Class="pa-4 ma-4" Typo="Typo.h3">Pathogen Database Not Found</MudText>
-    }
-}
 
 @code {
-
-    private Db<IndexedValue> _topicDb;
-    private List<IndexedValue>? _topic;
-    //private Pathogen _editItem = new();
-    private string _editRowStyle = "none";
-    private string? _newItemName;
-
-    // private bool isLoading { get; set; }
-    // private bool isLoaded { get; set; }
-
-    // private PathogenDb _pathogenDb { get; set; }
-
+    
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        _topicDb = _dbService.TopicsDb;
-        _topic = _topicDb.dbItems;
+
+        var vm = _viewModelService.TopicDbVM;
+        vm.dbService = _dbService;
+        vm.db = _dbService.TopicsDb;
+        vm.valueType = ValueType.Topic;
+        
     }
 
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "m9IsGoqkLgGFHfFTU+YM7S6IB4jVjJizBSIdjxi3HUc=",
+  "Hash": "5qUo0z3mg5ZHtpUyzH1FzPTaHOt92X8xe8cNOnnntvk=",
   "Source": "CollegeDataEditor",
   "BasePath": "/",
   "Mode": "Root",
@@ -17,10 +17,10 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\MudBlazor.min.css",
+      "Identity": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.1.2\\staticwebassets\\MudBlazor.min.css",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.1.2\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.css",
       "AssetKind": "All",
@@ -31,30 +31,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\MudBlazor.min.css"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.1.2\\staticwebassets\\MudBlazor.min.css"
     },
     {
-      "Identity": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\MudBlazor.min.css.gz",
+      "Identity": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.1.2\\staticwebassets\\MudBlazor.min.js",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\",
-      "BasePath": "_content/MudBlazor",
-      "RelativePath": "MudBlazor.min.css.gz",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\MudBlazor.min.css.gz"
-    },
-    {
-      "Identity": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\MudBlazor.min.js",
-      "SourceId": "MudBlazor",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.1.2\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.js",
       "AssetKind": "All",
@@ -65,24 +48,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\MudBlazor.min.js"
-    },
-    {
-      "Identity": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\MudBlazor.min.js.gz",
-      "SourceId": "MudBlazor",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\",
-      "BasePath": "_content/MudBlazor",
-      "RelativePath": "MudBlazor.min.js.gz",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\staticwebassets\\MudBlazor.min.js.gz"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.1.2\\staticwebassets\\MudBlazor.min.js"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Azure.Core.dll",
@@ -303,7 +269,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.authorization\\6.0.7\\lib\\net6.0\\Microsoft.AspNetCore.Authorization.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.authorization\\6.0.10\\lib\\net6.0\\Microsoft.AspNetCore.Authorization.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.dll",
@@ -320,7 +286,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.components\\6.0.7\\lib\\net6.0\\Microsoft.AspNetCore.Components.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.components\\6.0.10\\lib\\net6.0\\Microsoft.AspNetCore.Components.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Forms.dll",
@@ -337,7 +303,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\6.0.7\\lib\\net6.0\\Microsoft.AspNetCore.Components.Forms.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\6.0.10\\lib\\net6.0\\Microsoft.AspNetCore.Components.Forms.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Web.dll",
@@ -354,7 +320,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.components.web\\6.0.7\\lib\\net6.0\\Microsoft.AspNetCore.Components.Web.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.components.web\\6.0.10\\lib\\net6.0\\Microsoft.AspNetCore.Components.Web.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.WebAssembly.dll",
@@ -388,7 +354,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.metadata\\6.0.7\\lib\\net6.0\\Microsoft.AspNetCore.Metadata.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.metadata\\6.0.10\\lib\\net6.0\\Microsoft.AspNetCore.Metadata.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Azure.Cosmos.Client.dll",
@@ -660,7 +626,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\lib\\net6.0\\Microsoft.Extensions.DependencyInjection.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.1\\lib\\net6.0\\Microsoft.Extensions.DependencyInjection.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.FileProviders.Abstractions.dll",
@@ -728,7 +694,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.1\\lib\\net6.0\\Microsoft.Extensions.Logging.Abstractions.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.2\\lib\\net6.0\\Microsoft.Extensions.Logging.Abstractions.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.Logging.dll",
@@ -796,7 +762,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.jsinterop\\6.0.7\\lib\\net6.0\\Microsoft.JSInterop.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\microsoft.jsinterop\\6.0.10\\lib\\net6.0\\Microsoft.JSInterop.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.JSInterop.WebAssembly.dll",
@@ -932,7 +898,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.0.13\\lib\\net6.0\\MudBlazor.dll"
+      "OriginalItemSpec": "C:\\Users\\Matt\\.nuget\\packages\\mudblazor\\6.1.2\\lib\\net6.0\\MudBlazor.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\netstandard.dll",
@@ -4080,6 +4046,23 @@
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Resources.Writer.dll"
     },
     {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\3m5IFZcV.gz",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Computed",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/Microsoft.AspNetCore.Components.Web.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Web.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Web.dll"
+    },
+    {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\3u0Zmcnm.gz",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Computed",
@@ -4828,23 +4811,6 @@
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Collections.Specialized.dll"
     },
     {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\C9+lRDf3.gz",
-      "SourceId": "CollegeDataEditor",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/Microsoft.AspNetCore.Metadata.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Metadata.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Metadata.dll"
-    },
-    {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\c91x6+Gz.gz",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Computed",
@@ -4981,6 +4947,40 @@
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Diagnostics.Tools.dll"
     },
     {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\D7R+YW4J.gz",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Computed",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/Microsoft.AspNetCore.Metadata.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Metadata.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Metadata.dll"
+    },
+    {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\D8u1OKFR.gz",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Computed",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/Microsoft.AspNetCore.Components.Forms.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Forms.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Forms.dll"
+    },
+    {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\dcdUBJVb.gz",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Computed",
@@ -5066,23 +5066,6 @@
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Diagnostics.DiagnosticSource.dll"
     },
     {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\dwlIRGqu.gz",
-      "SourceId": "CollegeDataEditor",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/MudBlazor.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\MudBlazor.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\MudBlazor.dll"
-    },
-    {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\e3q7NO+8.gz",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Computed",
@@ -5132,6 +5115,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.IO.Compression.Brotli.dll"
+    },
+    {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\eNgSFO0d.gz",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Computed",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/Microsoft.Extensions.DependencyInjection.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.DependencyInjection.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.DependencyInjection.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\EOYkTSds.gz",
@@ -5234,23 +5234,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Windows.dll"
-    },
-    {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\FGDs+Lww.gz",
-      "SourceId": "CollegeDataEditor",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/Microsoft.JSInterop.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.JSInterop.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.JSInterop.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\FilA2eqE.gz",
@@ -5404,6 +5387,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.Options.dll"
+    },
+    {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\gxY0Y0iS.gz",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Computed",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/Microsoft.AspNetCore.Authorization.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Authorization.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Authorization.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\GZ3otT01.gz",
@@ -5644,23 +5644,6 @@
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Xml.XDocument.dll"
     },
     {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\JJtDZ+h1.gz",
-      "SourceId": "CollegeDataEditor",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/Microsoft.AspNetCore.Authorization.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Authorization.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Authorization.dll"
-    },
-    {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\jPZu52GT.gz",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Computed",
@@ -5778,23 +5761,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Net.Ping.dll"
-    },
-    {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\kr7sjnxx.gz",
-      "SourceId": "CollegeDataEditor",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/Microsoft.AspNetCore.Components.Web.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Web.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Web.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\l0E6l3ZJ.gz",
@@ -5931,6 +5897,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.ComponentModel.Primitives.dll"
+    },
+    {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\M6YJOJz8.gz",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Computed",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/Microsoft.Extensions.Logging.Abstractions.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.Logging.Abstractions.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.Logging.Abstractions.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\M9NhX+UN.gz",
@@ -6254,23 +6237,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Xml.XmlSerializer.dll"
-    },
-    {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\OSmnMBFO.gz",
-      "SourceId": "CollegeDataEditor",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/Microsoft.Extensions.Logging.Abstractions.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.Logging.Abstractions.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.Logging.Abstractions.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\Ozi4yo2V.gz",
@@ -6715,6 +6681,23 @@
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Runtime.Extensions.dll"
     },
     {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\rV6j1id0.gz",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Computed",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/Microsoft.JSInterop.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.JSInterop.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.JSInterop.dll"
+    },
+    {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\rxez7WDu.gz",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Computed",
@@ -6749,21 +6732,21 @@
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Threading.Tasks.Dataflow.dll"
     },
     {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\SFPTQAPV.gz",
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\sA+xcZ+w.gz",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Computed",
       "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
       "BasePath": "/",
-      "RelativePath": "_framework/Microsoft.AspNetCore.Components.dll.gz",
+      "RelativePath": "_framework/MudBlazor.dll.gz",
       "AssetKind": "Build",
       "AssetMode": "All",
       "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.dll",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\MudBlazor.dll",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.dll"
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\MudBlazor.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\sJJfBD2N.gz",
@@ -6832,6 +6815,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Drawing.dll"
+    },
+    {
+      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\t4kuElkK.gz",
+      "SourceId": "CollegeDataEditor",
+      "SourceType": "Computed",
+      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/Microsoft.AspNetCore.Components.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\tFUuydLG.gz",
@@ -7038,23 +7038,6 @@
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Security.Cryptography.Algorithms.dll"
     },
     {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\vO+2twgs.gz",
-      "SourceId": "CollegeDataEditor",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/Microsoft.Extensions.DependencyInjection.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.DependencyInjection.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.Extensions.DependencyInjection.dll"
-    },
-    {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\VOTJkIoT.gz",
       "SourceId": "CollegeDataEditor",
       "SourceType": "Computed",
@@ -7240,23 +7223,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.ObjectModel.dll"
-    },
-    {
-      "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\Y2XkvuDE.gz",
-      "SourceId": "CollegeDataEditor",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/Microsoft.AspNetCore.Components.Forms.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Forms.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "F:\\CSharp\\CollegeDataEditor\\bin\\Debug\\net6.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Components.Forms.dll"
     },
     {
       "Identity": "F:\\CSharp\\CollegeDataEditor\\obj\\Debug\\net6.0\\build-gz\\y8r+jHMs.gz",

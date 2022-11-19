@@ -24,4 +24,10 @@ public class ViewModelService
     public ProgramBrowserViewModel ProgramBrowserVM = new();
     public IndexViewModel IndexViewModel = new();
     public ProgramEditorViewModel ProgramEditorViewModel = new();
+
+    public IndexedValueDbViewModel TagDbVM = new();
+    public IndexedValueDbViewModel SubjectDbVM = new();
+    public IndexedValueDbViewModel TopicDbVM = new();
+    public IndexedValueDbViewModel ProgramTypeDbVM = new();
+    public IndexedValueDbViewModel OrgTypeDbVM = new();
 }

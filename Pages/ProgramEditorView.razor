@@ -17,13 +17,17 @@
         <MudItem xs="12">
             <div class="d-flex flex-column align-center">
                 <MudPaper Class="pa-4 ma-2 d-flex">
-                    <MudText Class="my-4" Typo="Typo.h4" Color="Color.Primary">No Program Selected</MudText>
+                    <MudText Class="my-4" Typo="Typo.h4" Color="Color.Primary">
+                        No Program Selected
+                    </MudText>
                 </MudPaper>
                 <MudPaper Class="pa-4 ma-2">
                     <MudStack Row="true">
                         <MudText Typo="Typo.h4" Color="Color.Primary">New Program?</MudText>
                         <MudSpacer/>
-                        <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="SetNewToEditor">
+                        <MudButton Variant="Variant.Filled" 
+                                   Color="Color.Tertiary" 
+                                   OnClick="SetNewToEditor">
                             Create
                         </MudButton>
                     </MudStack>
@@ -43,26 +47,29 @@
             <MudPaper Class="d-flex flex-column" Outlined="true">
                 <MudList Clickable="true">
                     
-                    <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.programTypeIdList"
+                    <EditableIndexValueListView idList="@programEditorVM.selectedProgram.programTypeIdList"
                                                 listName="Program Type" valueType="ValueType.ProgramType"
                                                 lookupList="_lookupService.programTypes"
                                                 itemIcons="@Icons.Material.Filled.Mode"
-                                                dbContext="programEditorVM"/>
+                                                dbContext="programEditorVM"
+                                                @ref="@programTypeValueListView"/>
                     
                     <MudDivider Class="my-2"/>
                     
-                    <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.subjectIdList"
+                    <EditableIndexValueListView idList="@programEditorVM.selectedProgram.subjectIdList"
                                                 listName="Subject" valueType="ValueType.Subject"
                                                 lookupList="_lookupService.subjects"
                                                 itemIcons="@Icons.Material.Filled.Subject"
-                                                dbContext="programEditorVM"/>
+                                                dbContext="programEditorVM"
+                                                @ref="subjectValueListView"/>
                     <MudDivider Class="my-2"/>
 
-                    <EditableIndexValueListView @bind-idList="@programEditorVM.selectedProgram.topicIdList"
+                    <EditableIndexValueListView idList="@programEditorVM.selectedProgram.topicIdList"
                                                 listName="Topic" valueType="ValueType.Topic"
                                                 lookupList="_lookupService.topics"
                                                 itemIcons="@Icons.Material.Filled.Topic"
-                                                dbContext="programEditorVM"/>
+                                                dbContext="programEditorVM"
+                                                @ref="topicValueListView"/>
                 </MudList>
             
                 </MudPaper>
@@ -193,6 +200,11 @@
 
     private ProgramEditorViewModel programEditorVM { get; set; }
 
+    private EditableIndexValueListView programTypeValueListView;
+    private EditableIndexValueListView subjectValueListView;
+    private EditableIndexValueListView topicValueListView;
+
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -215,6 +227,14 @@
     private void SetNewToEditor()
     {
         programEditorVM.selectedProgram = new();
+
+        programTypeValueListView.idList = programEditorVM.selectedProgram.programTypeIdList;
+        subjectValueListView.idList = programEditorVM.selectedProgram.subjectIdList;
+        topicValueListView.idList = programEditorVM.selectedProgram.topicIdList;
+        
+        programTypeValueListView.RefreshDisplayList();
+        subjectValueListView.RefreshDisplayList();
+        topicValueListView.RefreshDisplayList();
     }
 
     private async Task OnSaveEditsToDbPressed()

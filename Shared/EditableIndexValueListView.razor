@@ -3,22 +3,31 @@
 @using CollegeDataEditor.Interfaces
 @using ValueType = CollegeDataEditor.Enums.ValueType
 @using CollegeDataEditor.Factories
+@using CollegeDataEditor.ViewModels
+
+@implements IDisposable
+@inject IDialogService _dialogService
 
 <MudText Class="pa-4" Typo="Typo.h6" GutterBottom="true">
     @listName List [@idList.Count]
 </MudText>
         @foreach (var indexedValue in displayList)
         {
-            <MudListItem Icon="@itemIcons">
-                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
-                    <MudText>@indexedValue.value</MudText>
-                    <MudButton Color="Color.Secondary" OnClick="() => DeleteFromList(indexedValue.id)">
-                        Delete
-                    </MudButton>
-                </MudStack>
-                @* <MudText Class="ml-auto">$12</MudText> *@
-                @* Class="ml-auto" Style="height: 32px; width: 96px" *@
-            </MudListItem>
+            if (indexedValue?.value is null)
+            {
+            }
+            else
+            {
+                <MudListItem Icon="@itemIcons">
+                    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                        <MudText>@indexedValue.value</MudText>
+                        <MudButton Color="Color.Secondary" OnClick="() => DeleteFromList(indexedValue.id)">
+                            Delete
+                        </MudButton>
+                    </MudStack>
+                </MudListItem>
+            }
+            
         }
         <MudListItem Icon="@itemIcons">
             <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
@@ -36,7 +45,7 @@
         </MudListItem>
 
 @code {
-    
+
     [Parameter]
     public IDbContext dbContext { get; set; }
 
@@ -73,14 +82,28 @@
     private bool _coerceText = true;
     private bool _coerceValue = true;
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitializedAsync();
+        await base.OnInitializedAsync();
+        await CheckIdList();
         RefreshDisplayList();
-        return Task.CompletedTask;
     }
 
-    private void RefreshDisplayList()
+    public async Task CheckIdList()
+    {
+        foreach (var id in idList.Where(id => lookupList.All(x => x.id != id)))
+        {
+            var result = await DeleteBadId(id);
+            if (!result.Cancelled)
+            {
+                DeleteFromList(id);
+            }
+        }
+    }
+
+
+
+    public void RefreshDisplayList()
     {
         displayList = lookupList.Where(x => idList.Contains(x.id)).ToList();
         StateHasChanged();
@@ -110,11 +133,11 @@
         return IndexedValueFactory.Create(valueType, value);
     }
     
-    private void DeleteFromList(string toDelete)
+    private async void DeleteFromList(string toDelete)
     {
         if (!idList.Remove(toDelete)) return;
         
-        dbContext.SubmitEditsToDbAsync();
+        await dbContext.SubmitEditsToDbAsync();
         RefreshDisplayList();
         StateHasChanged();
     }
@@ -127,6 +150,22 @@
         return string.IsNullOrEmpty(value) ? 
             values : 
             values.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    public void Dispose()
+    {
+    }
+    
+    private async Task<DialogResult> DeleteBadId(string id)
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("ContentText", $"Missing Lookup for {listName} Value (id: {id})");
+        parameters.Add("ButtonText", "Delete");
+        parameters.Add("Color", Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        return await _dialogService.Show<DeleteConfimationDialog>("Delete", parameters, options).Result;
     }
 
 }
