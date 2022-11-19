@@ -1,6 +1,7 @@
 ﻿
 @using CollegeDataEditor.Services
 @using CollegeDataEditor.Enums
+@using CollegeDataEditor.Models
 @using CollegeDataEditor.ViewModels
 
 @inject ViewModelService _viewModelService
@@ -11,12 +12,14 @@
         <MudStack Row="true">
             <MudText Typo="Typo.h5">Filter</MudText>
             <MudSwitch @bind-Checked="str" Color="Color.Tertiary">filter: "@(str)"</MudSwitch>
+            <MudButton Color="Color.Secondary" OnClick="OnClearFilterClicked">Clear</MudButton>
         </MudStack>
         <MudSelect @bind-Value="@_programBrowserVM.selectedFilterType" Label="Select Filter Type" Placeholder="Please Select"
                    AdornmentIcon="@Icons.Material.Filled.FilterList" AdornmentColor="Color.Primary">
             <MudSelectItem Value="@("Subject")">Subject</MudSelectItem>
             <MudSelectItem Value="@("Topic")">Topic</MudSelectItem>
             <MudSelectItem Value="@("Tag")">Tag</MudSelectItem>
+            <MudSelectItem Value="@("ProgramType")">Program Type</MudSelectItem>
         </MudSelect>
     </MudStack>
 
@@ -33,6 +36,10 @@
         case "Tag":
             <FilterChipContainer filterType="FilterType.Tag"/>
             break;
+        case "ProgramType":
+            <FilterChipContainer filterType="FilterType.ProgramType"/>
+            break;
+                
     }
 }
 
@@ -72,5 +79,11 @@
         _programBrowserVM.selectedFilterType = _filterTypeValue;
     }
 
+
+    private void OnClearFilterClicked()
+    {
+        _programBrowserVM.selectedFilterObj = new IndexedValue();
+        _programBrowserVM.ClearSelectedFilter();
+    }
 
 }

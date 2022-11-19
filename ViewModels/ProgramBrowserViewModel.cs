@@ -112,6 +112,10 @@ public class ProgramBrowserViewModel
         string.IsNullOrWhiteSpace(selectedFilter) 
         || string.IsNullOrWhiteSpace(selectedFilterType);
 
+    public void ClearSelectedFilter()
+    {
+        LoadDefaultList();
+    }
 
     private void OnSelectedFilterObjChanged()
     {
@@ -137,6 +141,12 @@ public class ProgramBrowserViewModel
                 programsToDisplay = programsAll.
                     Where(x => 
                         x.tagIdList.Contains(selectedFilterObj.id)).ToList();
+                NotifyDataStateChanged();
+                break;
+            case "ProgramType":
+                programsToDisplay = programsAll.
+                    Where(x => 
+                        x.programTypeIdList.Contains(selectedFilterObj.id)).ToList();
                 NotifyDataStateChanged();
                 break;
             default:

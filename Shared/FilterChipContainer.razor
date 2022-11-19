@@ -19,7 +19,7 @@
         </div>
     }
     
-    <MudChipSet @bind-SelectedChip="selected" Filter="true"
+    <MudChipSet @bind-SelectedChip="@selected" Filter="true"
                 Mandatory="@mandatory"
                 Class="d-flex flex-wrap justify-center flex-grow-1 gap-0">
         
@@ -51,11 +51,14 @@
 
     [Parameter] 
     public FilterType filterType { get; set; }
+    
+    [Parameter]
+    public bool showSelected { get; set; }
 
     private ProgramBrowserViewModel _programBrowserVM;
     //private List<string> _filters = new();
     private List<IndexedValue> _filterObjs = new();
-    
+
     private bool mandatory = true;
     private MudChip selected;
 
@@ -84,7 +87,7 @@
                 break;
             case FilterType.ProgramType:
                 //_filters = _dbService.OrgTypesDb.dbItems.Select(x => x.value).ToList();
-                _filterObjs = _dbService.OrgTypesDb.dbItems;
+                _filterObjs = _dbService.ProgramTypesDb.dbItems;
                 _filterObjs = SortAscending(_filterObjs);
                 break;
             case FilterType.Tag:
@@ -104,6 +107,7 @@
                 break;
         }
     }
+    
     
     // private void OnFilterValueChanged() {
     //     switch (filterType) {
