@@ -33,13 +33,16 @@ public class LookupService
     public List<IndexedValue> tags => dbService.TagDb.dbItems;
     public List<IndexedValue> orgTypes => dbService.OrgTypesDb.dbItems;
     public List<IndexedValue> programTypes => dbService.ProgramTypesDb.dbItems;
+    public List<IndexedValue> citizenshipList => dbService.CitizenshipsDb.dbItems;
+    public List<IndexedValue> residences => dbService.ResidencesDb.dbItems;
 
     public List<SummerProgramObj> summerPrograms => dbService.SummerProgramsDb.dbItems;
     public List<Org> orgs => dbService.OrgsDb.dbItems;
     public List<Application> applications => dbService.ApplicationsDb.dbItems;
     public List<Session> sessions => dbService.SessionsDb.dbItems;
-    
-    
+    public List<StudentInfo> studentInfoList => dbService.StudentInfoDb.dbItems;
+
+
     public IndexedValue FindById(List<IndexedValue> list, string searchId)
     {
         return list.FirstOrDefault(x => x.id.Equals(searchId, StringComparison.Ordinal));
@@ -50,7 +53,8 @@ public class LookupService
     public IndexedValue FindTagById(string searchId) => FindById(tags, searchId);
     public IndexedValue FindOrgTypeById(string searchId) => FindById(orgTypes, searchId);
     public IndexedValue FindProgramTypeById(string searchId) => FindById(programTypes, searchId);
-    
+    public IndexedValue FindCitizenshipById(string searchId) => FindById(citizenshipList, searchId);
+    public IndexedValue FindResidenceById(string searchId) => FindById(residences, searchId);
     
     public Org FindById(List<Org> list, string searchId)
     {
@@ -80,4 +84,11 @@ public class LookupService
     }
     
     public Session FindSessionById(string searchId) => FindById(sessions, searchId);
+    
+    public StudentInfo FindById(List<StudentInfo> list, string searchId)
+    {
+        return list.FirstOrDefault(x => x.id.Equals(searchId, StringComparison.Ordinal));
+    }
+    
+    public StudentInfo FindStudentInfoById(string searchId) => FindById(studentInfoList, searchId);
 }

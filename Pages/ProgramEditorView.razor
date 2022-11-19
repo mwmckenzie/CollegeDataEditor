@@ -107,6 +107,16 @@
                                              itemIcons="@Icons.Material.Filled.CalendarViewWeek"
                                              ItemClicked="OnSessionClicked"/>
                     
+                    <MudDivider Class="my-2"/>
+                                        
+                    <EditableStudentInfoListView listName="Student Info"
+                                                 @bind-idList="@programEditorVM.selectedProgram.studentInfoIdList"
+                                                 lookupList="_lookupService.studentInfoList"
+                                                 db="@programEditorVM.dbService.StudentInfoDb"
+                                                 dbContext="programEditorVM"
+                                                 itemIcons="@Icons.Material.Filled.EditLocation"
+                                                 ItemClicked="OnStudentInfoClicked"/>
+                    
                 </MudList>
                 </MudPaper>
         </MudItem>
@@ -195,6 +205,14 @@
                      sessionChanged="StateHasChanged"/>
 }
 
+@if (programEditorVM.studentInfo is not null)
+{
+    <StudentInfoSideView sideViewVM="@programEditorVM.StudentInfoSideView" 
+                     StudentInfo="@programEditorVM.studentInfo"
+                     dbContext="@programEditorVM"
+                     StudentInfoChanged="StateHasChanged"/>
+}
+
 
 @code {
 
@@ -267,6 +285,12 @@
     {
         programEditorVM.session = obj;
         programEditorVM.SessionSideView.DisplaySideView();
+    }
+
+    private void OnStudentInfoClicked(StudentInfo obj)
+    {
+        programEditorVM.studentInfo = obj;
+        programEditorVM.StudentInfoSideView.DisplaySideView();
     }
 
 }

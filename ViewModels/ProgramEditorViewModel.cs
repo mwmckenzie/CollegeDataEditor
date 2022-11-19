@@ -124,6 +124,50 @@ public class ProgramEditorViewModel : IDbContext
         NotifySaveToDbFailed("Session");
         return false;
     }
+    
+    /// <summary>
+    ///  Student Info
+    /// </summary>
+    public SideViewViewModel StudentInfoSideView { get; set; } = new();
+
+    private bool _studentInfoSet;
+    private StudentInfo _studentInfo;
+    public StudentInfo studentInfo
+    {
+        get => _studentInfo;
+        set {
+            if (_studentInfo is not null)
+            {
+                _studentInfo.NotifyObjEdited -= SelectedStudentInfoOnNotifyObjEdited;
+            }
+            _studentInfo = value;
+            _studentInfo.NotifyObjEdited += SelectedStudentInfoOnNotifyObjEdited;
+            _studentInfoSet = true;
+        }
+    }
+
+    private async void SelectedStudentInfoOnNotifyObjEdited()
+    {
+        await SubmitStudentInfoEditsToDbAsync();
+    }
+
+    private async Task<bool> SubmitStudentInfoEditsToDbAsync()
+    {
+        if (!_studentInfoSet)
+        {
+            return true;
+        }
+        var db = dbService.StudentInfoDb;
+        db.editingItem = studentInfo;
+
+        if (await db.SubmitToDbAsync())
+        {
+            NotifyDataSavedToDb("StudentInfo");
+            return true;
+        }
+        NotifySaveToDbFailed("StudentInfo");
+        return false;
+    }
 
 
     public List<IndexedValue>? searchList { get; set; }
@@ -179,11 +223,13 @@ public class ProgramEditorViewModel : IDbContext
             NotifyDataSavedToDb("SummerProgram");
             await SubmitApplicationEditsToDbAsync();
             await SubmitSessionEditsToDbAsync();
+            await SubmitStudentInfoEditsToDbAsync();
             return true;
         }
         NotifySaveToDbFailed("SummerProgram");
         await SubmitApplicationEditsToDbAsync();
         await SubmitSessionEditsToDbAsync();
+        await SubmitStudentInfoEditsToDbAsync();
         return false;
 
         // if (db.dbItems.Any(x => x.id == db.editingItem.id))

@@ -1,0 +1,114 @@
+﻿@using CollegeDataEditor.ViewModels
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.Interfaces
+@using ValueType = CollegeDataEditor.Enums.ValueType
+
+@inject NavigationManager _navigationManager
+@inject ViewModelService _viewModelService
+@inject LookupService _lookupService
+
+<MudDrawer @bind-Open="@sideViewVM.open"
+           Width="@sideViewVM.width"
+           Height="@sideViewVM.height"
+           Anchor="@sideViewVM.anchor"
+           Elevation="1"
+           Variant="@DrawerVariant.Temporary">
+    
+    <MudItem Class="mt-12 pa-4">
+
+    <BaseInfoEditView baseInfoObj="StudentInfo"
+                      dbContext="dbContext"
+                      baseInfoObjUpdated="OnObjEdited"/>
+
+
+    <MudText Class="mt-12 mb-4 mx-4" Typo="Typo.h5" GutterBottom="true">
+        @StudentInfo.TypeName() - Restrictions
+    </MudText>
+
+    <MudPaper Class="mb-6 d-flex flex-column" Outlined="true">
+        <MudList Clickable="true">
+            <MudListItem Icon="@Icons.Material.Filled.Link">
+                <div class="d-flex">
+                    <MudTextField @bind-Value="@StudentInfo.ageMin" 
+                                  Label="Age (Min)" Variant="Variant.Text"
+                                  DebounceInterval="500" 
+                                  OnDebounceIntervalElapsed="HandleIntervalElapsed"/>
+                </div>
+            </MudListItem>
+            
+            <MudListItem Icon="@Icons.Material.Filled.Link">
+                <div class="d-flex">
+                    <MudTextField @bind-Value="@StudentInfo.ageMax" 
+                                  Label="Age (Max)" Variant="Variant.Text"
+                                  DebounceInterval="500" 
+                                  OnDebounceIntervalElapsed="HandleIntervalElapsed"/>
+                </div>
+            </MudListItem>
+            
+            <MudDivider Class="my-2"/>
+            
+            <MudListItem Icon="@Icons.Material.Filled.Link">
+                <div class="d-flex">
+                    <MudTextField @bind-Value="@StudentInfo.classYearMin" 
+                                  Label="Class Year (Min)" Variant="Variant.Text"
+                                  DebounceInterval="500" 
+                                  OnDebounceIntervalElapsed="HandleIntervalElapsed"/>
+                </div>
+            </MudListItem>
+            
+            <MudListItem Icon="@Icons.Material.Filled.Link">
+                <div class="d-flex">
+                    <MudTextField @bind-Value="@StudentInfo.classYearMax" 
+                                  Label="Class Year (Max)" Variant="Variant.Text"
+                                  DebounceInterval="500" 
+                                  OnDebounceIntervalElapsed="HandleIntervalElapsed"/>
+                </div>
+            </MudListItem>
+            
+            <MudDivider Class="my-2"/>
+
+            <EditableIndexValueListView @bind-idList="@StudentInfo.citizenshipIdList"
+                                        listName="Citizenship" valueType="ValueType.Citizenship"
+                                        lookupList="_lookupService.citizenshipList"
+                                        itemIcons="@Icons.Material.Filled.Map"
+                                        dbContext="dbContext"/>
+            
+            <MudDivider Class="my-2"/>
+            
+            <EditableIndexValueListView @bind-idList="@StudentInfo.residenceIdList"
+                                                listName="Residence" valueType="ValueType.Residence"
+                                                lookupList="_lookupService.residences"
+                                                itemIcons="@Icons.Material.Filled.Home"
+                                                dbContext="dbContext"/>
+        </MudList>
+    </MudPaper>
+    </MudItem>
+</MudDrawer>
+
+@code {
+
+    [Parameter]
+    public IDbContext dbContext { get; set; }
+    
+    [Parameter]
+    public SideViewViewModel sideViewVM { get; set; } = new();
+
+    [Parameter]
+    public StudentInfo StudentInfo { get; set; }
+    
+    [Parameter]
+    public EventCallback<StudentInfo> StudentInfoChanged { get; set; }
+    
+    private async void HandleIntervalElapsed()
+    {
+        await OnObjEdited();
+    }
+
+    private async Task OnObjEdited()
+    {
+        await dbContext.SubmitEditsToDbAsync();
+        //await baseInfoObjUpdated.InvokeAsync();
+    //baseInfoObj.OnObjEdited();
+    }
+}
