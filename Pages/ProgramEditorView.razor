@@ -6,7 +6,7 @@
 @using ValueType = CollegeDataEditor.Enums.IndexedValueType
 @using Microsoft.AspNetCore.Authorization
 
-@attribute [Authorize(Roles = "admin,editor")]
+@attribute [Authorize]
 
 @inject ViewModelService _viewModelService
 @inject LookupService _lookupService

@@ -15,12 +15,40 @@
   "trailingSlash": "auto",
   "routes": [
     {
-      "route": "/ProgramEditorView",
-      "allowedRoles": ["authenticated"]
+      "route": "/ProgramBrowser",
+      "allowedRoles": ["authenticated","editor","admin"]
     },
     {
       "route": "/ProgramEditorView",
-      "allowedRoles": ["authenticated","editor"]
+      "allowedRoles": ["editor","admin"]
+    },
+    {
+      "route": "/CitizenshipEditorView",
+      "allowedRoles": ["editor","admin"]
+    },
+    {
+      "route": "/OrgTypeEditorView",
+      "allowedRoles": ["editor","admin"]
+    },
+    {
+      "route": "/ProgramTypeEditorView",
+      "allowedRoles": ["editor","admin"]
+    },
+    {
+      "route": "/ResidenceEditorView",
+      "allowedRoles": ["editor","admin"]
+    },
+    {
+      "route": "/SubjectEditorView",
+      "allowedRoles": ["editor","admin"]
+    },
+    {
+      "route": "/TagEditorView",
+      "allowedRoles": ["editor","admin"]
+    },
+    {
+      "route": "/TopicEditorView",
+      "allowedRoles": ["editor","admin"]
     },
     {
       "route": "/login",
