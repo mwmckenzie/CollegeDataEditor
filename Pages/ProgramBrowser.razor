@@ -3,6 +3,10 @@
 @using CollegeDataEditor.Models
 @using CollegeDataEditor.Services
 @using CollegeDataEditor.ViewModels
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
 @implements IDisposable
 
 @inject DbService _dbService

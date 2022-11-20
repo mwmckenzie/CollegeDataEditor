@@ -19,17 +19,8 @@
       "allowedRoles": ["authenticated"]
     },
     {
-      "route": "/admin/index.html",
-      "allowedRoles": ["administrator"]
-    },
-    {
-      "route": "/api/*",
-      "methods": ["GET"],
-      "allowedRoles": ["registeredusers"]
-    },
-    {
-      "route": "/customers/contoso*",
-      "allowedRoles": ["administrator", "customers_contoso"]
+      "route": "/ProgramEditorView",
+      "allowedRoles": ["authenticated","editor"]
     },
     {
       "route": "/login",

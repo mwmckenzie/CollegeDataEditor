@@ -1,6 +1,8 @@
 ﻿@using CollegeDataEditor.Services
 @using CollegeDataEditor.Helpers
 @using CollegeDataEditor.Enums
+@using Microsoft.AspNetCore.Components.Authorization
+
 @inherits LayoutComponentBase
 
 @inject DbService _dbService
@@ -17,13 +19,12 @@
 <MudLayout>
     <MudAppBar Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())"/>
-        <MudSpacer/>
         <AuthorizeView>
             <Authorized>
                 <MudButton Href="/.auth/logout?post_logout_redirect_uri=/">Logout</MudButton>
             </Authorized>
             <NotAuthorized>
-                <MudButton Href="/login-providers">Login</MudButton>
+                <MudButton Href="/.auth/login/aad">Login</MudButton>
             </NotAuthorized>
         </AuthorizeView>
         

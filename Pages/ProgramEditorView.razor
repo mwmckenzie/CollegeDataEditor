@@ -2,11 +2,11 @@
 @using CollegeDataEditor.ViewModels
 @using CollegeDataEditor.Services
 @using CollegeDataEditor.Models
-@using Microsoft.AspNetCore.Authorization
 @using Color = MudBlazor.Color
 @using ValueType = CollegeDataEditor.Enums.IndexedValueType
+@using Microsoft.AspNetCore.Authorization
 
-@attribute [Authorize]
+@attribute [Authorize(Roles = "admin,editor")]
 
 @inject ViewModelService _viewModelService
 @inject LookupService _lookupService

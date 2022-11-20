@@ -1,6 +1,9 @@
 ﻿@page "/TopicEditorView"
 @using CollegeDataEditor.Services
 @using ValueType = CollegeDataEditor.Enums.IndexedValueType
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = "admin,editor")]
 
 @inject DbService _dbService;
 @inject ViewModelService _viewModelService;
