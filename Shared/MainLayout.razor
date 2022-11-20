@@ -30,7 +30,13 @@
         
         <MudSpacer/>
         <MudText Typo="Typo.h5" Style="font-weight: bold">College Prep DB</MudText>
-        <MudText Typo="Typo.h5" Class="mx-2">Editor</MudText>
+        
+        <AuthorizeView Roles="editor">
+            <Authorized>
+                <MudText Typo="Typo.h5" Class="mx-2">Editor</MudText>
+            </Authorized>
+        </AuthorizeView>
+        
         <MudIconButton Icon="@StaticRefs.sumProgDbIcon" Color="Color.Inherit" Link="https://www.sumprogdb.com/" Target="_blank"/>
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
