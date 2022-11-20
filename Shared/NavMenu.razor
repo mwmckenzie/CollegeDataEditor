@@ -9,48 +9,55 @@
         
         <AuthorizeView>
             <Authorized>
-                <MudNavLink Href="ProgramBrowser" 
-                            Match="NavLinkMatch.Prefix" 
+                <MudNavLink Href="ProgramBrowser"
+                            Match="NavLinkMatch.Prefix"
                             Icon="@Icons.Material.Filled.LibraryBooks">
                     Program Browser
                 </MudNavLink>
-                <MudNavLink Href="ProgramEditorView" 
-                            Match="NavLinkMatch.Prefix" 
+            </Authorized>
+        </AuthorizeView>
+        
+                
+        <AuthorizeView Roles="editor">
+            <Authorized>
+                <MudNavLink Href="ProgramEditorView"
+                            Match="NavLinkMatch.Prefix"
                             Icon="@Icons.Material.Filled.LibraryBooks">
                     Program Editor
                 </MudNavLink>
                 <MudNavGroup Title="Collections" Icon="@Icons.Filled.Checklist" Expanded="false">
-                    <MudNavLink Href="TagEditorView" 
+                    <MudNavLink Href="TagEditorView"
                                 Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                         Tag Editor
                     </MudNavLink>
-                    <MudNavLink Href="SubjectEditorView" 
+                    <MudNavLink Href="SubjectEditorView"
                                 Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                         Subject Editor
                     </MudNavLink>
-                    <MudNavLink Href="TopicEditorView" 
+                    <MudNavLink Href="TopicEditorView"
                                 Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                         Topic Editor
                     </MudNavLink>
-                    <MudNavLink Href="OrgTypeEditorView" 
+                    <MudNavLink Href="OrgTypeEditorView"
                                 Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                         Org Type Editor
                     </MudNavLink>
-                    <MudNavLink Href="ProgramTypeEditorView" 
+                    <MudNavLink Href="ProgramTypeEditorView"
                                 Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                         Program Type Editor
                     </MudNavLink>
-                    <MudNavLink Href="CitizenshipEditorView" 
+                    <MudNavLink Href="CitizenshipEditorView"
                                 Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                         Citizenship Editor
                     </MudNavLink>
-                    <MudNavLink Href="ResidenceEditorView" 
+                    <MudNavLink Href="ResidenceEditorView"
                                 Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
                         Residence Editor
                     </MudNavLink>
                 </MudNavGroup>
             </Authorized>
         </AuthorizeView>
+        
         
     </MudNavMenu>
     <MudElement Class="pa-4 mt-auto">
