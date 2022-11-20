@@ -1,9 +1,9 @@
 ﻿@page "/CitizenshipEditorView"
 @using CollegeDataEditor.Services
-@using ValueType = CollegeDataEditor.Enums.IndexedValueType
+@using CollegeDataEditor.Enums
 @using Microsoft.AspNetCore.Authorization
 
-@attribute [Authorize]
+@attribute [Authorize(Roles = "editor")]
 
 @inject DbService _dbService;
 @inject ViewModelService _viewModelService;
@@ -22,8 +22,7 @@
         var vm = _viewModelService.CitizenshipDbVM;
         vm.dbService = _dbService;
         vm.db = _dbService.CitizenshipsDb;
-        vm.valueType = ValueType.Citizenship;
+        vm.valueType = IndexedValueType.Citizenship;
         
     }
-
 }

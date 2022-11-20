@@ -3,8 +3,8 @@
 @using CollegeDataEditor.Services
 @using CollegeDataEditor.Models
 @using Color = MudBlazor.Color
-@using ValueType = CollegeDataEditor.Enums.IndexedValueType
 @using Microsoft.AspNetCore.Authorization
+@using CollegeDataEditor.Enums
 
 @attribute [Authorize(Roles = "editor")]
 
@@ -50,7 +50,7 @@
                 <MudList Clickable="true">
                     
                     <EditableIndexValueListView idList="@programEditorVM.selectedProgram.programTypeIdList"
-                                                listName="Program Type" valueType="ValueType.ProgramType"
+                                                listName="Program Type" valueType="IndexedValueType.ProgramType"
                                                 lookupList="_lookupService.programTypes"
                                                 itemIcons="@Icons.Material.Filled.Mode"
                                                 dbContext="programEditorVM"
@@ -59,7 +59,7 @@
                     <MudDivider Class="my-2"/>
                     
                     <EditableIndexValueListView idList="@programEditorVM.selectedProgram.subjectIdList"
-                                                listName="Subject" valueType="ValueType.Subject"
+                                                listName="Subject" valueType="IndexedValueType.Subject"
                                                 lookupList="_lookupService.subjects"
                                                 itemIcons="@Icons.Material.Filled.Subject"
                                                 dbContext="programEditorVM"
@@ -67,7 +67,7 @@
                     <MudDivider Class="my-2"/>
 
                     <EditableIndexValueListView idList="@programEditorVM.selectedProgram.topicIdList"
-                                                listName="Topic" valueType="ValueType.Topic"
+                                                listName="Topic" valueType="IndexedValueType.Topic"
                                                 lookupList="_lookupService.topics"
                                                 itemIcons="@Icons.Material.Filled.Topic"
                                                 dbContext="programEditorVM"

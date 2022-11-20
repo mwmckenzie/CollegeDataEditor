@@ -1,9 +1,9 @@
 ﻿@page "/TagEditorView"
 @using CollegeDataEditor.Services
-@using ValueType = CollegeDataEditor.Enums.IndexedValueType
+@using CollegeDataEditor.Enums
 @using Microsoft.AspNetCore.Authorization
 
-@attribute [Authorize]
+@attribute [Authorize(Roles = "editor")]
 
 @inject DbService _dbService;
 @inject ViewModelService _viewModelService;
@@ -22,7 +22,7 @@
         var vm = _viewModelService.TagDbVM;
         vm.dbService = _dbService;
         vm.db = _dbService.TagDb;
-        vm.valueType = ValueType.Tag;
+        vm.valueType = IndexedValueType.Tag;
         
     }
 

@@ -1,9 +1,9 @@
 ﻿@page "/ProgramTypeEditorView"
 @using CollegeDataEditor.Services
-@using ValueType = CollegeDataEditor.Enums.IndexedValueType
+@using CollegeDataEditor.Enums
 @using Microsoft.AspNetCore.Authorization
 
-@attribute [Authorize(Roles = "admin,editor")]
+@attribute [Authorize(Roles = "editor")]
 
 @inject DbService _dbService;
 @inject ViewModelService _viewModelService;
@@ -22,7 +22,7 @@
         var vm = _viewModelService.ProgramTypeDbVM;
         vm.dbService = _dbService;
         vm.db = _dbService.ProgramTypesDb;
-        vm.valueType = ValueType.ProgramType;
+        vm.valueType = IndexedValueType.ProgramType;
         
     }
 
