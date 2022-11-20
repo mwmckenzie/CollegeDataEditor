@@ -7,6 +7,8 @@ namespace CollegeDataEditor.Services;
 public class DbService
 {
     public event Action<DbState> OnStateChange;
+    
+    public HttpClient http { get; set; }
     public DbState state { get; set; } = DbState.Uninitialized;
     
     public Db<IndexedValue> CitizenshipsDb;
@@ -17,7 +19,7 @@ public class DbService
     public Db<IndexedValue> TopicsDb;
     public Db<IndexedValue> ProgramTypesDb;
 
-    public Db<SummerProgramObj> SummerProgramsDb;
+    public Db<SummerProgram> SummerProgramsDb;
     public Db<Org> OrgsDb;
     
     public Db<Application> ApplicationsDb;
@@ -102,7 +104,7 @@ public class DbService
             CooldownSeconds = 30
         };
         
-        SummerProgramsDb = new Db<SummerProgramObj>
+        SummerProgramsDb = new Db<SummerProgram>
         {
             http = http,
             state = DbState.Uninitialized,
@@ -158,18 +160,9 @@ public class DbService
             connectionStringKey = connKey,
             CooldownSeconds = 30
         };
-
-        // foreach (var database in _databases)
-        // {
-        //     database.http = http;
-        // }
     }
-
-    // private List<Db> _databases = new();
-
-    public HttpClient http { get; set; }
-    public PathogenDb pathogenDb { get; set; } = new();
-
+    
+    
     private void NotifyDbServiceStateChanged()
     {
         OnStateChange?.Invoke(state);
@@ -193,7 +186,7 @@ public class DbService
         await TryLoadDbAsync(SessionsDb, cooldownSeconds);
         await TryLoadDbAsync(StudentInfoDb, cooldownSeconds);
 
-        state = DbState.Loaded;
+        state = DbState.Ready;
         NotifyDbServiceStateChanged();
     }
 

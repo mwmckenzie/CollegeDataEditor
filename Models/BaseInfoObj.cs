@@ -1,4 +1,3 @@
-using CollegeDataEditor.Enums;
 using CollegeDataEditor.Interfaces;
 
 namespace CollegeDataEditor.Models;
@@ -69,47 +68,47 @@ public class BaseInfoObj : ICloneable, IEquatable<BaseInfoObj>, IIdentifiable, I
 
     public virtual string TypeName() => "Unknown Type";
 
-    public void OnObjEdited()
-    {
-        NotifyObjEdited?.Invoke();
-    }
-    
-    public virtual void Add(SumProgElements elementType, string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            return;
-        switch (elementType)
-        {
-            case SumProgElements.Alias:
-                OnElementAdded(aliasList, value);
-                break;
-            case SumProgElements.Note:
-                OnElementAdded(noteList, value);
-                break;
-            case SumProgElements.Url:
-                var fixedUrl = BuildValidUrl(value);
-                if (string.IsNullOrWhiteSpace(url)) url = fixedUrl;
-                OnElementAdded(urlList, fixedUrl);
-                break;
-            case SumProgElements.TagId:
-                OnElementAdded(tagIdList, value);
-                break;
-        }
-    }
+    // public void OnObjEdited()
+    // {
+    //     NotifyObjEdited?.Invoke();
+    // }
+    //
+    // public virtual void Add(SumProgElements elementType, string value)
+    // {
+    //     if (string.IsNullOrWhiteSpace(value))
+    //         return;
+    //     switch (elementType)
+    //     {
+    //         case SumProgElements.Alias:
+    //             OnElementAdded(aliasList, value);
+    //             break;
+    //         case SumProgElements.Note:
+    //             OnElementAdded(noteList, value);
+    //             break;
+    //         case SumProgElements.Url:
+    //             var fixedUrl = BuildValidUrl(value);
+    //             if (string.IsNullOrWhiteSpace(url)) url = fixedUrl;
+    //             OnElementAdded(urlList, fixedUrl);
+    //             break;
+    //         case SumProgElements.TagId:
+    //             OnElementAdded(tagIdList, value);
+    //             break;
+    //     }
+    // }
 
-    private void OnElementAdded(ICollection<string> list, string value)
-    {
-        if (list.Contains(value)) return;
-        list.Add(value);
-        OnBaseUpdate();
-    }
-
-    private void OnElementRemoved(ICollection<string> list, string value)
-    {
-        if (!list.Contains(value)) return;
-        list.Remove(value);
-        OnBaseUpdate();
-    }
+    // private void OnElementAdded(ICollection<string> list, string value)
+    // {
+    //     if (list.Contains(value)) return;
+    //     list.Add(value);
+    //     OnBaseUpdate();
+    // }
+    //
+    // private void OnElementRemoved(ICollection<string> list, string value)
+    // {
+    //     if (!list.Contains(value)) return;
+    //     list.Remove(value);
+    //     OnBaseUpdate();
+    // }
 
     private string BuildValidUrl(string urlText)
     {
@@ -153,13 +152,13 @@ public class BaseInfoObj : ICloneable, IEquatable<BaseInfoObj>, IIdentifiable, I
     {
     }
 
-    public bool IsSameButDiff(BaseInfoObj other)
-    {
-        return Equals(other) &&
-               (_displayName != other._displayName
-                || isValid != other.isValid
-                || url != other.url);
-    }
+    // public bool IsSameButDiff(BaseInfoObj other)
+    // {
+    //     return Equals(other) &&
+    //            (_displayName != other._displayName
+    //             || isValid != other.isValid
+    //             || url != other.url);
+    // }
 
     public override bool Equals(object? obj)
     {

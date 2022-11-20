@@ -9,4 +9,5 @@ public enum FilterType {
     State,
     Residence,
     Citizenship,
+    OrgType
 }

@@ -1,0 +1,17 @@
+﻿
+
+
+@code {
+    
+    [Parameter]
+    public bool dateChecked { get; set; }
+    
+    [Parameter]
+    public DateTime? date { get; set; }
+
+    [Parameter]
+    public EventCallback dateChanged { get; set; }
+    
+    [Parameter]
+    public EventCallback dateCheckedChanged { get; set; }
+}

@@ -36,7 +36,7 @@ public class LookupService
     public List<IndexedValue> citizenshipList => dbService.CitizenshipsDb.dbItems;
     public List<IndexedValue> residences => dbService.ResidencesDb.dbItems;
 
-    public List<SummerProgramObj> summerPrograms => dbService.SummerProgramsDb.dbItems;
+    public List<SummerProgram> summerPrograms => dbService.SummerProgramsDb.dbItems;
     public List<Org> orgs => dbService.OrgsDb.dbItems;
     public List<Application> applications => dbService.ApplicationsDb.dbItems;
     public List<Session> sessions => dbService.SessionsDb.dbItems;
@@ -64,12 +64,12 @@ public class LookupService
     public Org FindOrgById(string searchId) => FindById(orgs, searchId);
     
     
-    public SummerProgramObj FindById(List<SummerProgramObj> list, string searchId)
+    public SummerProgram FindById(List<SummerProgram> list, string searchId)
     {
         return list.FirstOrDefault(x => x.id.Equals(searchId, StringComparison.Ordinal));
     }
     
-    public SummerProgramObj FindSummerProgramById(string searchId) => FindById(summerPrograms, searchId);
+    public SummerProgram FindSummerProgramById(string searchId) => FindById(summerPrograms, searchId);
     
     public Application FindById(List<Application> list, string searchId)
     {

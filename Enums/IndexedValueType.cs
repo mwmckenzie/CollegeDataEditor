@@ -17,7 +17,7 @@
 
 namespace CollegeDataEditor.Enums;
 
-public enum ValueType
+public enum IndexedValueType
 {
     Tag,
     Subject,

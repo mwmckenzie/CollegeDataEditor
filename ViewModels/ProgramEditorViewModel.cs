@@ -15,11 +15,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using CollegeDataEditor.Enums;
 using CollegeDataEditor.Interfaces;
 using CollegeDataEditor.Models;
 using CollegeDataEditor.Services;
 using MudBlazor;
-using ValueType = CollegeDataEditor.Enums.ValueType;
 
 namespace CollegeDataEditor.ViewModels;
 
@@ -34,8 +34,8 @@ public class ProgramEditorViewModel : IDbContext
     
     public DbService dbService { get; set; }
 
-    private SummerProgramObj _selectedProgram;
-    public SummerProgramObj selectedProgram
+    private SummerProgram _selectedProgram;
+    public SummerProgram selectedProgram
     {
         get => _selectedProgram;
         set
@@ -243,23 +243,23 @@ public class ProgramEditorViewModel : IDbContext
     {
         switch (indexedValue.valueType)
         {
-            case ValueType.Tag:
+            case IndexedValueType.Tag:
                 dbService.TagDb.editingItem = indexedValue;
                 await dbService.TagDb.SubmitToDbAsync();
                 break;
-            case ValueType.Subject:
+            case IndexedValueType.Subject:
                 dbService.SubjectsDb.editingItem = indexedValue;
                 await dbService.SubjectsDb.SubmitToDbAsync();
                 break;
-            case ValueType.Topic:
+            case IndexedValueType.Topic:
                 dbService.TopicsDb.editingItem = indexedValue;
                 await dbService.TopicsDb.SubmitToDbAsync();
                 break;
-            case ValueType.ProgramType:
+            case IndexedValueType.ProgramType:
                 dbService.ProgramTypesDb.editingItem = indexedValue;
                 await dbService.ProgramTypesDb.SubmitToDbAsync();
                 break;
-            case ValueType.OrgType:
+            case IndexedValueType.OrgType:
                 dbService.OrgTypesDb.editingItem = indexedValue;
                 await dbService.OrgTypesDb.SubmitToDbAsync();
                 break;
@@ -271,7 +271,7 @@ public class ProgramEditorViewModel : IDbContext
 
     public IIdentifiable CreateNewEditingIdentifiable()
     {
-        selectedProgram = new SummerProgramObj();
+        selectedProgram = new SummerProgram();
         return selectedProgram;
     }
 

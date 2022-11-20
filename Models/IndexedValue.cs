@@ -15,8 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using CollegeDataEditor.Enums;
 using CollegeDataEditor.Interfaces;
-using ValueType = CollegeDataEditor.Enums.ValueType;
 
 namespace CollegeDataEditor.Models;
 
@@ -25,7 +25,7 @@ public class IndexedValue : IIdentifiable
     public string? id { get; set; }
     public string? value { get; set; }
     public string? typeName { get; set; }
-    public ValueType valueType { get; set; }
+    public IndexedValueType valueType { get; set; }
 
     public override string ToString()
     {

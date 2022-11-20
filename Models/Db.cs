@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Net.Http.Json;
 using CollegeDataEditor.Enums;
 using CollegeDataEditor.Interfaces;
@@ -9,7 +8,6 @@ public class Db<T> where T : IIdentifiable
 {
     public List<T> dbItems { get; set; } = new();
     public T editingItem { get; set; }
-    //public string editingItemId { get; set; }
 
     public HttpClient http { get; set; }
     public DbState state { get; set; } = DbState.Uninitialized;
@@ -28,10 +26,8 @@ public class Db<T> where T : IIdentifiable
     {
         editingItem = Activator.CreateInstance<T>();
         return editingItem;
-        //editingItemId = editingItem.id;
     }
     
-
     private TimeSpan TimeSinceLastLoaded()
     {
         return lastLoaded.Subtract(DateTime.Now);
@@ -70,7 +66,7 @@ public class Db<T> where T : IIdentifiable
         state = DbState.Loading;
         if (await GetAllDbSpecificItemsAsync())
         {
-            state = DbState.Loaded;
+            state = DbState.Ready;
             lastLoaded = DateTime.Now;
             return;
         }
@@ -81,7 +77,7 @@ public class Db<T> where T : IIdentifiable
 
     private bool InsideRetryCooldown()
     {
-        if (state is DbState.Failed or DbState.Loaded) return SecondsSinceLastLoaded() < CooldownSeconds;
+        if (state is DbState.Failed or DbState.Ready) return SecondsSinceLastLoaded() < CooldownSeconds;
         return false;
     }
 
@@ -122,11 +118,9 @@ public class Db<T> where T : IIdentifiable
                 await SubmitEditsToArchiveAsync();
             }
         }
-        
-        state = DbState.Loaded;
+        state = DbState.Ready;
         lastLoaded = DateTime.Now;
         return postResponse.IsSuccessStatusCode;
-        
     }
 
     public async Task<bool> SubmitNewSaveToDbAsync()
@@ -142,7 +136,7 @@ public class Db<T> where T : IIdentifiable
         {
             dbItems.Add(editingItem);
         }
-        state = DbState.Loaded;
+        state = DbState.Ready;
         lastLoaded = DateTime.Now;
         return postResponse.IsSuccessStatusCode;
     }
@@ -164,10 +158,9 @@ public class Db<T> where T : IIdentifiable
         
         var putResponse = 
             await http.PutAsJsonAsync(PutByIdConnectionString(editingItem.id), editingItem);
-        state = DbState.Loaded;
+        state = DbState.Ready;
         lastLoaded = DateTime.Now;
         return putResponse.IsSuccessStatusCode;
-        
     }
 
     public IIdentifiable GetEditingIdentifiable()
@@ -196,15 +189,9 @@ public class Db<T> where T : IIdentifiable
         {
             dbItems.Remove(editingItem);
         }
-        state = DbState.Loaded;
+        state = DbState.Ready;
         lastLoaded = DateTime.Now;
         return deleteResponse.IsSuccessStatusCode;
     }
-
-    //
-    // public abstract Task BuildNewAndSetToEditor();
-    // public abstract Task CloneAndSetToEditor();
-    // public abstract Task<bool> SubmitEditsToDbAsync();
-    // public abstract Task<bool> SubmitEditsToArchiveAsync();
-    // public abstract Task<bool> DeleteFromDbAsync();
+    
 }

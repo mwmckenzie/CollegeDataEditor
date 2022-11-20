@@ -29,8 +29,8 @@
                   Bordered="@_programBrowserVM.bordered" 
                   Striped="@_programBrowserVM.striped" 
                   @bind-RowsPerPage="@_programBrowserVM.rowsPerPage"
-                  Filter="new Func<SummerProgramObj, bool>(FilterFunc1)"
-                  @bind-SelectedItem="@_programBrowserVM.selectedObj">
+                  Filter="new Func<SummerProgram, bool>(FilterFunc1)"
+                  @bind-SelectedItem="@_programBrowserVM.selected">
                 <ToolBarContent>
                     <MudText Typo="Typo.h6"
                              Color="Color.Secondary">
@@ -70,11 +70,11 @@
     <MudSwitch @bind-Checked="@_programBrowserVM.bordered" Color="Color.Warning">Bordered</MudSwitch>
     <MudSpacer/>
     <div style="min-width:200px;">
-        <MudText Inline="true" Class="align-self-center">Selected: @_programBrowserVM.selectedObj.name</MudText>
+        <MudText Inline="true" Class="align-self-center">Selected: @_programBrowserVM.selected.name</MudText>
     </div>
 </div>
 
-<ProgramSideView sideViewVM="@_sideVM" summerProgram="_programBrowserVM.selectedObj"/>
+<ProgramSideView sideViewVM="@_sideVM" summerProgram="_programBrowserVM.selected"/>
 
 @code {
 
@@ -114,11 +114,11 @@
         AddSnackBarUpdate("OnDataStateChanged Event Received!");
     }
     
-    private bool FilterFunc1(SummerProgramObj program) {
+    private bool FilterFunc1(SummerProgram program) {
         return FilterFunc(program, _programBrowserVM.searchString1);
     }
 
-    private bool FilterFunc(SummerProgramObj program, string searchString) {
+    private bool FilterFunc(SummerProgram program, string searchString) {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
         return program.name is not null 

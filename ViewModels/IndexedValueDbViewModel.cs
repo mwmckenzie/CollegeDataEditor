@@ -15,9 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using CollegeDataEditor.Enums;
 using CollegeDataEditor.Models;
 using CollegeDataEditor.Services;
-using ValueType = CollegeDataEditor.Enums.ValueType;
 
 namespace CollegeDataEditor.ViewModels;
 
@@ -26,7 +26,7 @@ public class IndexedValueDbViewModel
 
     public DbService dbService { get; set; }
     public Db<IndexedValue> db { get; set; }
-    public ValueType valueType { get; set; }
+    public IndexedValueType valueType { get; set; }
 
     public int rowsPerPage { get; set; } = 50;
     public bool dense { get; set; } = true;
@@ -48,25 +48,25 @@ public class IndexedValueDbViewModel
     {
         switch (valueType)
         {
-            case ValueType.Tag:
+            case IndexedValueType.Tag:
                 await RemoveTagIdFromAllAsync(idToRemove);
                 break;
-            case ValueType.Subject:
+            case IndexedValueType.Subject:
                 await RemoveSubjectIdFromAllAsync(idToRemove);
                 break;
-            case ValueType.Topic:
+            case IndexedValueType.Topic:
                 await RemoveTopicIdFromAllAsync(idToRemove);
                 break;
-            case ValueType.ProgramType:
+            case IndexedValueType.ProgramType:
                 await RemoveProgramTypeIdFromAllAsync(idToRemove);
                 break;
-            case ValueType.OrgType:
+            case IndexedValueType.OrgType:
                 await RemoveOrgTypeIdFromAllAsync(idToRemove);
                 break;
-            case ValueType.Citizenship:
+            case IndexedValueType.Citizenship:
                 await RemoveCitizenshipIdFromAllAsync(idToRemove);
                 break;
-            case ValueType.Residence:
+            case IndexedValueType.Residence:
                 await RemoveResidenceIdFromAllAsync(idToRemove);
                 break;
             default:

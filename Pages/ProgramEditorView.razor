@@ -4,7 +4,7 @@
 @using CollegeDataEditor.Models
 @using System.Drawing
 @using Color = MudBlazor.Color
-@using ValueType = CollegeDataEditor.Enums.ValueType
+@using ValueType = CollegeDataEditor.Enums.IndexedValueType
 
 @inject ViewModelService _viewModelService
 @inject LookupService _lookupService
@@ -184,6 +184,32 @@
                 @*     </div> *@
                 @* </div> *@
             </MudPaper>
+            
+            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">Update Reminder</MudText>
+            <MudPaper Class="d-flex flex-column" Outlined="true">
+                
+                <MudList Clickable="true">
+                    <MudListItem>
+                        <MudCheckBox @bind-Checked="@reminderChecked"
+                                     Label="Reminder Set"/>
+                    </MudListItem>
+                    <MudListItem>
+                        <MudDatePicker PickerVariant="PickerVariant.Dialog" 
+                                       Label="Snooze Until (yyyy-MM-dd)"
+                                       @bind-Date="@reminderDate"
+                                       DateFormat="yyyy-MM-dd"
+                                       AnchorOrigin="Origin.BottomLeft"/>
+                    </MudListItem>
+                </MudList>
+                
+                @* <div class="mt-auto"> *@
+                @*     <MudDivider /> *@
+                @*     <div class="d-flex pa-4"> *@
+                @*         <MudText>Total:</MudText> *@
+                @*         <MudText Class="ml-auto"><b>$53</b></MudText> *@
+                @*     </div> *@
+                @* </div> *@
+            </MudPaper>
         </MudItem>
 
     }
@@ -221,7 +247,27 @@
     private EditableIndexValueListView programTypeValueListView;
     private EditableIndexValueListView subjectValueListView;
     private EditableIndexValueListView topicValueListView;
+    private MudDatePicker _snoozeDatePicker;
+    
+    private bool reminderChecked
+    {
+        get => programEditorVM.selectedProgram.hasReminderSet;
+        set
+        {
+            programEditorVM.selectedProgram.hasReminderSet = value;
+            OnDateChanged();
+        } 
+    }
 
+    private DateTime? reminderDate
+    {
+        get => programEditorVM.selectedProgram.sleepUntil;
+        set
+        {
+            programEditorVM.selectedProgram.sleepUntil = value;
+            OnDateChanged();
+        } 
+    }
 
     protected override void OnInitialized()
     {
@@ -292,5 +338,22 @@
         programEditorVM.studentInfo = obj;
         programEditorVM.StudentInfoSideView.DisplaySideView();
     }
+
+    private async void OnReminderChanged()
+    {
+        await programEditorVM.SubmitEditsToDbAsync();
+    }
+
+    private async void OnDateChanged()
+    {
+        // _snoozeDatePicker.DateChanged
+        // programEditorVM.selectedProgram.sleepUntil = _snoozeDatePicker.Date.
+        //     GetValueOrDefault(DateTime.Now);
+        
+        await programEditorVM.SubmitEditsToDbAsync();
+        // StateHasChanged();
+    }
+
+    
 
 }

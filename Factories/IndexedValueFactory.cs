@@ -15,14 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using CollegeDataEditor.Enums;
 using CollegeDataEditor.Models;
-using ValueType = CollegeDataEditor.Enums.ValueType;
 
 namespace CollegeDataEditor.Factories;
 
 public class IndexedValueFactory : Factory
 {
-    public static IndexedValue Create(ValueType valueType, string value)
+    public static IndexedValue Create(IndexedValueType valueType, string value)
     {
         var val = new IndexedValue()
         {
@@ -33,19 +33,19 @@ public class IndexedValueFactory : Factory
 
         switch (valueType)
         {
-            case ValueType.Tag:
+            case IndexedValueType.Tag:
                 val.typeName = "Tag";
                 break;
-            case ValueType.Subject:
+            case IndexedValueType.Subject:
                 val.typeName = "Subject";
                 break;
-            case ValueType.Topic:
+            case IndexedValueType.Topic:
                 val.typeName = "Topic";
                 break;
-            case ValueType.ProgramType:
+            case IndexedValueType.ProgramType:
                 val.typeName = "ProgramType";
                 break;
-            case ValueType.OrgType:
+            case IndexedValueType.OrgType:
                 val.typeName = "OrgType";
                 break;
             default:

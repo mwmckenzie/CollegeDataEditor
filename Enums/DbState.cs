@@ -20,7 +20,7 @@ namespace CollegeDataEditor.Enums;
 public enum DbState
 {
     Uninitialized,
-    Loaded,
+    Ready,
     Loading,
     Failed
 }

@@ -31,16 +31,16 @@ public class ProgramBrowserViewModel
     
     public DbService? dbService { get; set; }
 
-    public List<SummerProgramObj> programsAll { get; set; } = new();
-    public List<SummerProgramObj> programsToDisplay { get; set; } = new();
+    public List<SummerProgram> programsAll { get; set; } = new();
+    public List<SummerProgram> programsToDisplay { get; set; } = new();
 
-    private SummerProgramObj _selectedObj = new();
-    public SummerProgramObj selectedObj
+    private SummerProgram _selected = new();
+    public SummerProgram selected
     {
-        get => _selectedObj;
+        get => _selected;
         set
         {
-            _selectedObj = value;
+            _selected = value;
             NotifyProgramSelected();
         }
     }

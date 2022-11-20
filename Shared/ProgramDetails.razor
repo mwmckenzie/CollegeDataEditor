@@ -133,10 +133,10 @@
 @code {
 
     [Parameter]
-    public SummerProgramObj summerProgram { get; set; } = new();
+    public SummerProgram summerProgram { get; set; } = new();
     
     [Parameter]
-    public EventCallback<SummerProgramObj> summerProgramChanged { get; set; }
+    public EventCallback<SummerProgram> summerProgramChanged { get; set; }
 
     [Parameter]
     public EventCallback<MouseEventArgs> onEditClickCallback { get; set; }

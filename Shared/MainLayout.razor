@@ -78,7 +78,7 @@
             case DbState.Uninitialized:
                 _drawerOpen = false;
                 break;
-            case DbState.Loaded:
+            case DbState.Ready:
                 _drawerOpen = true;
                 _viewModelService.IndexViewModel.isLoading = false;
                 break;
