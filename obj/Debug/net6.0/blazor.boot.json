@@ -10,14 +10,17 @@
       "Azure.Core.dll": "sha256-fW2jAmJmv8YHFxjx4YJKAoPatRZucamydE5137aZOcE=",
       "Microsoft.AspNetCore.Authorization.dll": "sha256-gbA+AujHUUBawZgIGQVo3vLdHlkaD7QLRM0dStUecSM=",
       "Microsoft.AspNetCore.Components.dll": "sha256-+gNaJML9x0hS\/cLcBimAURDK\/S8nSWJZkTCaP5lgRys=",
+      "Microsoft.AspNetCore.Components.Authorization.dll": "sha256-8NI+czdXjOdsE587bLrUgVC9b6wX90TfXNmxSfFf\/\/c=",
       "Microsoft.AspNetCore.Components.Forms.dll": "sha256-uEDGfx46VmVIFGVu1clYPrq64JTRcayMUjUw1cr6Zck=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-w22hRC5++AfKK8AS70s3daNJlRW\/viXntxDuPRM\/+AY=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-b6LUYmWO9wtQWNeCNXsoKoTXRM3AgcsBqP624DvGAY8=",
+      "Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll": "sha256-AbWZIV0k4GOA+qT6O3719kiJxV5XbyEXKBWjy7wE8w4=",
       "Microsoft.AspNetCore.Metadata.dll": "sha256-\/8AsKpzt2ePKd\/B1\/dolnQ2PeDqEV+rYUcJOnL4\/PXE=",
       "Microsoft.Azure.Cosmos.Client.dll": "sha256-F8CI0MaGkKQmxzGteyeZElnb9UmSKa+kDWoH22MDnCg=",
       "Microsoft.Azure.Cosmos.Core.dll": "sha256-fCxvaNT1OPvurEQlePYzCOW74z6fcTpK2Ld+5+5eZb0=",
       "Microsoft.Azure.Cosmos.Direct.dll": "sha256-K8TDc80hFWo89JCdl3CtNJ\/uNOVrPCGxAq1ycZc78K0=",
       "Microsoft.Azure.Cosmos.Serialization.HybridRow.dll": "sha256-K7ZNe63Y++o0R7lrYIrPKHipkiAU2ppJ1TnWJMIbIbw=",
+      "Microsoft.Azure.Functions.Authentication.WebAssembly.dll": "sha256-EJl8auSYEKTnGZ6HRyChqAAxw3m4m0y3unqRqArRzPU=",
       "Microsoft.Bcl.AsyncInterfaces.dll": "sha256-NktPvm6CrEWy+t6kSiltKtuBb\/yT9TVcx4h01\/zoF+Q=",
       "Microsoft.Bcl.HashCode.dll": "sha256-y5+O+HE1PNgSn0TwPo3hH4YjhuwltS3gYIkrSTD2QOs=",
       "Microsoft.Extensions.Caching.Abstractions.dll": "sha256-WLcZIKlgct2nj4hpaBvZXfHorQG9DH9B\/FZ2IKePG2I=",
@@ -215,13 +218,13 @@
       "mscorlib.dll": "sha256-SboUbkX8s5RVQGtnN5Q67MBZW0I\/P3aeEMENJq8gv8M=",
       "netstandard.dll": "sha256-lZ8L5iiSghlvyt2ie2YdBYAtJbVa4mvpvBX3W9ihjLc=",
       "System.Private.CoreLib.dll": "sha256-jECkJy2Sjpl59QEL3nO3p8nwKGXvnJpXaKQF\/+MTw04=",
-      "CollegeDataEditor.dll": "sha256-YZ64C9VBVjzhpQEiwZlyt4D2QLpagn5NgKUryo1QTEM="
+      "CollegeDataEditor.dll": "sha256-t6eZQJd7vpUOXE8yiR0jY1dPheB8RTYbCkAFjRGx13U="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "CollegeDataEditor.pdb": "sha256-DICuo39Up43faMetdcM9lVSFQKPTJOKOBW7LyDqQxSw="
+      "CollegeDataEditor.pdb": "sha256-+eUfQLlKeNEQI3FdJQ5jUIZqMnSDpdvzpejh7vn7iQI="
     },
     "runtime": {
       "dotnet.6.0.10.17f8b08lbo.js": "sha256-KtM3Wrooexmrt5NmqvZfWoDPtNIe6wZqLopR6ToqUPg=",

@@ -428,7 +428,6 @@ F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\System.Threading
 F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\System.Reflection.Emit.dll.gz
 F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\System.Reflection.DispatchProxy.dll.gz
 F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\System.Threading.Tasks.Parallel.dll.gz
-F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\data\SeirModelParams_PSA Game_Test01_2022-09-19-1836.json
 F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\blazor.boot.json
 F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\CollegeDataEditor.dll
 F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\CollegeDataEditor.pdb
@@ -888,3 +887,15 @@ F:\CSharp\CollegeDataEditor\obj\Debug\net6.0\build-gz\eNgSFO0d.gz
 F:\CSharp\CollegeDataEditor\obj\Debug\net6.0\build-gz\M6YJOJz8.gz
 F:\CSharp\CollegeDataEditor\obj\Debug\net6.0\build-gz\rV6j1id0.gz
 F:\CSharp\CollegeDataEditor\obj\Debug\net6.0\build-gz\sA+xcZ+w.gz
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\Microsoft.AspNetCore.Components.Authorization.dll
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\Microsoft.Azure.Functions.Authentication.WebAssembly.dll
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\Microsoft.AspNetCore.Components.Authorization.dll.gz
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll.gz
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\wwwroot\_framework\Microsoft.Azure.Functions.Authentication.WebAssembly.dll.gz
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Authorization.dll
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+F:\CSharp\CollegeDataEditor\bin\Debug\net6.0\Microsoft.Azure.Functions.Authentication.WebAssembly.dll
+F:\CSharp\CollegeDataEditor\obj\Debug\net6.0\build-gz\hURjAOeW.gz
+F:\CSharp\CollegeDataEditor\obj\Debug\net6.0\build-gz\kfYgOPQA.gz
+F:\CSharp\CollegeDataEditor\obj\Debug\net6.0\build-gz\P+r91wts.gz

@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25UeXBlRWRpdG9yVmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/CSharp/CollegeDataEditor/Pages/LoginProviders.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5Qcm92aWRlcnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/CSharp/CollegeDataEditor/Pages/OrgTypeEditorView.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnVHlwZUVkaXRvclZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

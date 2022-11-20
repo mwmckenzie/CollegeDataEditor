@@ -18,6 +18,16 @@
     <MudAppBar Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())"/>
         <MudSpacer/>
+        <AuthorizeView>
+            <Authorized>
+                <MudButton Href="/.auth/logout?post_logout_redirect_uri=/">Logout</MudButton>
+            </Authorized>
+            <NotAuthorized>
+                <MudButton Href="/login-providers">Login</MudButton>
+            </NotAuthorized>
+        </AuthorizeView>
+        
+        <MudSpacer/>
         <MudText Typo="Typo.h5" Style="font-weight: bold">College Prep DB</MudText>
         <MudText Typo="Typo.h5" Class="mx-2">Editor</MudText>
         <MudIconButton Icon="@StaticRefs.sumProgDbIcon" Color="Color.Inherit" Link="https://www.sumprogdb.com/" Target="_blank"/>

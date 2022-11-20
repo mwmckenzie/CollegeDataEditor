@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[6.0.7, )"
             },
+            "Microsoft.Azure.Functions.Authentication.WebAssembly": {
+              "target": "Package",
+              "version": "[1.0.1-preview, )"
+            },
             "Microsoft.Extensions.Caching.Cosmos": {
               "target": "Package",
               "version": "[1.4.0, )"

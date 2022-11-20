@@ -1,4 +1,0 @@
-[
-  "In #numberCitiesAffected# affected cities, weekly pediatric hospital admissions for infection-related complications have increased over the last #weeksWithInfectionRelatedComplications# weeks from #initialInfectionRelatedComplications# to #finalInfectionRelatedComplications# per 100K children under 12.",
-  "#countOfHospitalizations# hospitalizations #ageRangeOfHospitalizations# and #countOfDeaths# deaths #ageRangeOfDeaths# have been attributed to the virus."
-]

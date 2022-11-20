@@ -5,5 +5,35 @@
       "/images/*.{png,jpg,gif}",
       "/css/*"
     ]
-  }
+  },
+  "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/aad?post_login_redirect_uri=.referrer",
+      "statusCode": 302
+    }
+  },
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/ProgramEditorView",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/admin/index.html",
+      "allowedRoles": ["administrator"]
+    },
+    {
+      "route": "/api/*",
+      "methods": ["GET"],
+      "allowedRoles": ["registeredusers"]
+    },
+    {
+      "route": "/customers/contoso*",
+      "allowedRoles": ["administrator", "customers_contoso"]
+    },
+    {
+      "route": "/login",
+      "redirect": "/.auth/login/aad"
+    }
+    ]
 }
