@@ -103,7 +103,7 @@ else
                 var timeLineObjStart = new TimeLineObj() {
                     ObjDateTime = (DateTime)obj.startDateTime,
                     text = "Start Date",
-                    title = obj.name ?? string.Empty,
+                    title = obj.displayName ?? string.Empty,
                     color = Color.Tertiary
                 };
                 if (timeLineObjStart.hasDate) {
@@ -116,7 +116,7 @@ else
             var timeLineObjEnd = new TimeLineObj() {
                 ObjDateTime = (DateTime)obj.endDateTime,
                 text = "End Date",
-                title = obj.name ?? string.Empty,
+                title = obj.displayName ?? string.Empty,
                 color = Color.Secondary
             };
             if (timeLineObjEnd.hasDate) {
@@ -139,7 +139,7 @@ else
                 var timeLineObjStart = new TimeLineObj() {
                     ObjDateTime = (DateTime)obj.startDateTime,
                     text = "Start Date",
-                    title = obj.name ?? string.Empty,
+                    title = obj.displayName ?? string.Empty,
                     color = Color.Tertiary
                 };
                 if (timeLineObjStart.hasDate) {
@@ -152,7 +152,7 @@ else
             var timeLineObjEnd = new TimeLineObj() {
                 ObjDateTime = (DateTime)obj.endDateTime,
                 text = "End Date",
-                title = obj.name ?? string.Empty,
+                title = obj.displayName ?? string.Empty,
                 color = Color.Secondary
             };
             if (timeLineObjEnd.hasDate) {
