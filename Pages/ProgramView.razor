@@ -1,0 +1,69 @@
+﻿@page "/ProgramView"
+@using CollegeDataEditor.Services
+@using CollegeDataEditor.ViewModels
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
+@inject ViewModelService ViewModelService
+@inject NavigationManager NavigationManager
+
+
+
+<MudGrid Class="mt-16">
+    @if (_programViewModel.SummerProgram is null)
+    {
+        <MudItem xs="12">
+            <div class="d-flex flex-column align-center">
+                <MudPaper Class="pa-4 ma-2 d-flex">
+                    <MudText Class="my-4" Typo="Typo.h4" Color="Color.Primary">
+                        No Program Selected
+                    </MudText>
+                </MudPaper>
+                <MudPaper Class="pa-4 ma-2">
+                    <MudStack Row="true">
+                        <MudText Typo="Typo.h4" Color="Color.Primary">Browse All Programs</MudText>
+                        <MudSpacer/>
+                        <MudButton Variant="Variant.Filled" 
+                                   Color="Color.Tertiary" 
+                                   OnClick="NavigateToProgramBrowser">
+                            Browse
+                        </MudButton>
+                    </MudStack>
+                </MudPaper>
+            </div>
+        </MudItem>
+    }
+    else
+    {
+        <MudItem md="10" xs="12">
+            <ProgramDetails SummerProgram="_programViewModel.SummerProgram"
+                            IsSideView="false"/>
+        </MudItem>
+    }
+</MudGrid>
+
+
+<MudFab Style="position: fixed; bottom: 16px; right: 80px;"
+        StartIcon="@Icons.Material.Filled.ArrowBack"
+        Color="Color.Secondary"
+        OnClick="NavigateToProgramBrowser"/>
+
+
+@code {
+
+    private ProgramViewModel _programViewModel;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _programViewModel = ViewModelService.ProgramVM;
+    }
+
+    private void NavigateToProgramBrowser()
+    {
+        NavigationManager.NavigateTo("ProgramBrowser");
+    }
+    
+
+}

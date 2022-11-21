@@ -11,10 +11,10 @@ public class SummerProgram : BaseInfoObj
     public List<string> sessionIdList { get; set; } = new();
     public List<string> applicationIdList { get; set; } = new();
     public List<string> studentInfoIdList { get; set; } = new();
-
-    public override string TypeName() => "Summer Program";
-
+    public List<string> schoolIdList { get; set; } = new();
     public bool hasReminderSet { get; set; } = false;
+    
+    public override string TypeName() => "Summer Program";
 
     public DateTime? sleepUntil
     {

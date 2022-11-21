@@ -73,14 +73,12 @@
                                                 dbContext="programEditorVM"
                                                 @ref="topicValueListView"/>
                 </MudList>
+            </MudPaper>
             
-                </MudPaper>
- 
-  
-        
-                            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
+            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
                 Program Elements
             </MudText>
+            
             <MudPaper Class="d-flex flex-column" Outlined="true">
                 <MudList Clickable="true">
                     <EditableBaseInfoListView @bind-idList="@programEditorVM.selectedProgram.orgIdList"
@@ -120,10 +118,8 @@
                                                  ItemClicked="OnStudentInfoClicked"/>
                     
                 </MudList>
-                </MudPaper>
+            </MudPaper>
         </MudItem>
-        
-        
         
         <MudItem xs="4" Class="sticky">
             <MudText Typo="Typo.h5" GutterBottom="true">Options</MudText>
@@ -187,7 +183,9 @@
                 @* </div> *@
             </MudPaper>
             
-            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">Update Reminder</MudText>
+            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
+                Update Reminder
+            </MudText>
             <MudPaper Class="d-flex flex-column" Outlined="true">
                 
                 <MudList Clickable="true">
@@ -213,7 +211,6 @@
                 @* </div> *@
             </MudPaper>
         </MudItem>
-
     }
 </MudGrid>
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2gL8cnBkW6KcRgonXOLBsJuAwrFsPSLhM4rWexlrCmWa7XmQomRIDpSkUYJLjMxluwPEkMXeUD79DbDLtsoAmw==",
+  "dgSpecHash": "Zoh12r7d8nm2xA68JTzUsXwBspBWhffC1IZPEi/0la4X4MhxH/CdXGUPbCBiQMRQIpD4nYnR0NmBfTez10U9tQ==",
   "success": true,
   "projectFilePath": "F:\\CSharp\\CollegeDataEditor\\CollegeDataEditor.csproj",
   "expectedPackageFiles": [
@@ -158,7 +158,10 @@
     "C:\\Users\\Matt\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Matt\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Matt\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Matt\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\6.0.10\\microsoft.netcore.app.runtime.mono.browser-wasm.6.0.10.nupkg.sha512"
+    "C:\\Users\\Matt\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.11\\microsoft.netcore.app.ref.6.0.11.nupkg.sha512",
+    "C:\\Users\\Matt\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\6.0.11\\microsoft.netcore.app.runtime.mono.browser-wasm.6.0.11.nupkg.sha512",
+    "C:\\Users\\Matt\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.11\\microsoft.windowsdesktop.app.ref.6.0.11.nupkg.sha512",
+    "C:\\Users\\Matt\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.11\\microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,91 +1,118 @@
 ﻿@using System.Collections
 @using CollegeDataEditor.Models
 @using CollegeDataEditor.Services
+@using Microsoft.AspNetCore.Components.Authorization
 
-@inject LookupService _lookupService
-@inject ViewModelService _viewModelService
+@inject LookupService LookupService
+@inject ViewModelService ViewModelService
 
 <MudPaper Class="pa-4">
     
-    <div class="d-flex flex-grow-1 justify-end mb-4">
-        <MudButtonGroup Class="" Color="Color.Primary" Variant="Variant.Filled" OverrideStyles="false">
-            <MudTooltip Text="Send To Editor">
-                <MudButton OnClick="@onEditClickCallback">Edit</MudButton>
-            </MudTooltip>
-            <MudTooltip Text="Send A Copy To Editor">
-                <MudButton OnClick="@onCopyClickCallback">Copy</MudButton>
-            </MudTooltip>
-            <MudTooltip Text="Send To Archives">
-                <MudButton Color="Color.Secondary" OnClick="onDeleteClickCallback">
-                    Archive
+    @if (IsSideView)
+    {
+        <div class="d-flex flex-grow-1 justify-start mb-4">
+            <MudTooltip Text="Jump To Program Page">
+                <MudButton OnClick="@OnExploreClickCallback" 
+                           Color="Color.Tertiary" Variant="Variant.Filled">
+                    Explore
                 </MudButton>
             </MudTooltip>
-        </MudButtonGroup>
-    </div>
+        </div>
+    }
+    
+    <AuthorizeView Roles="editor">
+        <Authorized>
+            <div class="d-flex flex-grow-1 justify-end mb-4">
+                <MudButtonGroup Class="" Color="Color.Primary" Variant="Variant.Filled" OverrideStyles="false">
+                    <MudTooltip Text="Send To Editor">
+                        <MudButton OnClick="@OnEditClickCallback">Edit</MudButton>
+                    </MudTooltip>
+                    <MudTooltip Text="Send A Copy To Editor">
+                        <MudButton OnClick="@OnCopyClickCallback">Copy</MudButton>
+                    </MudTooltip>
+                    <MudTooltip Text="Send To Archives">
+                        <MudButton Color="Color.Secondary" OnClick="OnDeleteClickCallback">
+                            Archive
+                        </MudButton>
+                    </MudTooltip>
+                </MudButtonGroup>
+            </div>
+        </Authorized>
+    </AuthorizeView>
 
-    <BaseInfoView baseInfoObj="@summerProgram" objTitle="Summer Program"/>
+    <BaseInfoView baseInfoObj="@SummerProgram" objTitle="Summer Program"/>
 
-    @if (summerProgram.programTypeIdList.Count > 0)
+    @if (SummerProgram.programTypeIdList.Count > 0)
     {
         <MudPaper Class="pa-4 mb-4">
             <MudText Typo="Typo.h4">Program Type</MudText>
             <MudDivider Class="my-2"/>
-            @foreach (var progTypeId in summerProgram.programTypeIdList)
+            @foreach (var progTypeId in SummerProgram.programTypeIdList)
             {
                 <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
                     <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
-                    <MudText Typo="Typo.h6">@_lookupService.FindProgramTypeById(progTypeId)</MudText>
+                    <MudText Typo="Typo.h6">@LookupService.FindProgramTypeById(progTypeId)</MudText>
                 </MudStack>
             }
         </MudPaper>
     }
 
-    @if (summerProgram.subjectIdList.Count > 0)
+    @if (SummerProgram.subjectIdList.Count > 0)
     {
         <MudPaper Class="pa-4 mb-4">
             <MudText Typo="Typo.h4">Subjects</MudText>
             <MudDivider Class="my-2"/>
-            @foreach (var subjId in summerProgram.subjectIdList)
+            @foreach (var subjId in SummerProgram.subjectIdList)
             {
                 <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
                     <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
-                    <MudText Typo="Typo.h6">@_lookupService.FindSubjectById(subjId).value</MudText>
+                    <MudText Typo="Typo.h6">@LookupService.FindSubjectById(subjId).value</MudText>
                 </MudStack>
             }
         </MudPaper>
     }
 
-    @if (summerProgram.topicIdList.Count > 0)
+    @if (SummerProgram.topicIdList.Count > 0)
     {
         <MudPaper Class="pa-4 mb-4">
             <MudText Typo="Typo.h4">Topics</MudText>
             <MudDivider Class="my-2"/>
-            @foreach (var topicId in summerProgram.topicIdList)
+            @foreach (var topicId in SummerProgram.topicIdList)
             {
                 <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
                     <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
-                    <MudText Typo="Typo.h6">@_lookupService.FindTopicById(topicId).value</MudText>
+                    <MudText Typo="Typo.h6">@LookupService.FindTopicById(topicId).value</MudText>
                 </MudStack>
             }
         </MudPaper>
     }
 
-    @* @if (summerProgram.orgIdList.Count > 0) *@
-    @* { *@
-    @*     foreach (var orgId in summerProgram.orgIdList. *@
-    @*         Where(orgId => _lookupService.GetOrg(orgId).isValid)) *@
-    @*     { *@
-    @*         <OrgView org="@_lookupService.GetOrg(orgId)"/> *@
-    @*     } *@
-    @* } *@
+    @if (SummerProgram.orgIdList.Count > 0)
+    {
+        foreach (var orgId in SummerProgram.orgIdList)
+        {
+            <OrgView org="@LookupService.FindOrgById(orgId)"/>
+        }
+    }
 
-    @* @if (summerProgram.sessionIdList.Count > 0) *@
-    @* { *@
-    @*     <DateRangeView objTitle="Sessions" *@
-    @*                    dateRangeObjList="@GetEnumerable(programDataService.GetSessions(summerProgram)).ToList()"/> *@
-    @*                                                                                                              *@
-    @* *@
-    @* } *@
+    @if (!IsSideView)
+    {
+        if (SummerProgram.applicationIdList.Count > 0)
+        {
+            <DateRangeView objTitle="Applications"
+                           IdList="@SummerProgram.applicationIdList"
+                           ApplicationLookUpList ="LookupService.applications"/>
+            
+        }
+        if (SummerProgram.sessionIdList.Count > 0)
+        {
+            <DateRangeView objTitle="Sessions"
+                           IdList="@SummerProgram.sessionIdList"
+                           SessionLookUpList="LookupService.sessions"/>
+            
+        }
+    }
+    
 
     @* <MudStack Row="true" Spacing="3"> *@
     @*     <MudIcon Icon="@Icons.Filled.Map"></MudIcon> *@
@@ -129,24 +156,37 @@
 
 </MudPaper>
 
+@if (!IsSideView)
+{
+    
+    }
 
 @code {
-
-    [Parameter]
-    public SummerProgram summerProgram { get; set; } = new();
     
     [Parameter]
-    public EventCallback<SummerProgram> summerProgramChanged { get; set; }
+    public bool IsSideView { get; set; }
 
     [Parameter]
-    public EventCallback<MouseEventArgs> onEditClickCallback { get; set; }
+    public SummerProgram SummerProgram { get; set; } = new();
+    
+    [Parameter]
+    public EventCallback<SummerProgram> SummerProgramChanged { get; set; }
 
     [Parameter]
-    public EventCallback<MouseEventArgs> onCopyClickCallback { get; set; }
+    public EventCallback<MouseEventArgs> OnEditClickCallback { get; set; }
 
     [Parameter]
-    public EventCallback<MouseEventArgs> onDeleteClickCallback { get; set; }
+    public EventCallback<MouseEventArgs> OnCopyClickCallback { get; set; }
 
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnDeleteClickCallback { get; set; }
+    
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnExploreClickCallback { get; set; }
+
+    // private List<DateRangeObj> ProgramDateRangeList => GetEnumerable(
+    //     LookupService.sessions.Where(x => SummerProgram.sessionIdList.Contains(x.id))).ToList();
+    //
     // private IEnumerable<DateRangeObj> GetEnumerable(Object obj) {
     //     if (obj is not IList list) {
     //         return new List<DateRangeObj>();

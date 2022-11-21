@@ -1,0 +1,180 @@
+﻿@using CollegeDataEditor.Services
+@using CollegeDataEditor.Models
+
+@inject LookupService lookupService
+
+@if (isValid) {
+    <MudPaper Class="my-2 pa-4">
+        <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.End" Class="mb-2">
+            <MudStack>
+                <MudText Typo="Typo.body1" Color="Color.Tertiary">Timeline</MudText>
+                <MudText Typo="Typo.h3">@objTitle</MudText>
+            </MudStack>
+            <MudSwitch @bind-Checked="toggleText" Color="Color.Tertiary">
+                Show Past Events: "@(toggleText)"
+            </MudSwitch>
+        </MudStack>
+        
+        <MudTimeline TimelineAlign="timelineAlign">
+            @foreach (var lineObj in sortedTimeLineObjs) {
+                <MudTimelineItem Color="@lineObj.color" Elevation="25" TimelineAlign="TimelineAlign.End">
+                    <ItemOpposite>
+                        <MudText Color="@lineObj.color" Typo="Typo.h6" GutterBottom="true">
+                            @lineObj.title
+                        </MudText>
+                        <MudText>@lineObj.text</MudText>
+                    </ItemOpposite>
+                    <ItemContent>
+                        <MudText Color="@lineObj.color" Typo="Typo.h6">
+                            @lineObj.date
+                        </MudText>
+                    </ItemContent>
+                </MudTimelineItem>
+            }
+        </MudTimeline>
+    </MudPaper>
+}
+else
+{
+    <MudPaper Class="pa-4 ma-2 d-flex">
+        <MudText Class="my-4" Typo="Typo.h4" Color="Color.Primary">
+            No @objTitle Dates [@IdList.Count]
+        </MudText>
+    </MudPaper>
+}
+
+@code {
+    
+    [Parameter]
+    public string objTitle { get; set; } = string.Empty;
+
+    [Parameter]
+    public List<string> IdList { get; set; } = new();
+    
+    [Parameter]
+    public List<Session>? SessionLookUpList { get; set; }
+    
+    [Parameter]
+    public List<Application>? ApplicationLookUpList { get; set; }
+
+    [Parameter]
+    public string toggleText { get; set; } = "on";
+
+    private List<TimeLineObj> _timeLineObjs = new();
+    private TimelineAlign timelineAlign { get; set; } = TimelineAlign.Start;
+    
+    private bool isValid => _timeLineObjs.Count > 0;
+
+    private TimeLineObj _currentTime = new();
+    
+    private List<TimeLineObj> sortedTimeLineObjs => 
+        toggleText == "on" 
+            ? _timeLineObjs 
+            : _timeLineObjs.Where(x => x.dateSortable >= _currentTime.dateSortable ).ToList();
+    
+    protected override Task OnInitializedAsync() {
+        if (IdList.Count < 1) {
+            return base.OnInitializedAsync();
+        }
+        
+        _currentTime = new TimeLineObj() {
+            ObjDateTime = DateTime.Now,
+            text = "Current Date",
+            title = "Today",
+            color = Color.Info
+        };
+        _timeLineObjs.Add(_currentTime);
+        
+        BuildApplicationTimeLineObjs();
+        BuildSessionTimeLineObjs();
+        return base.OnInitializedAsync();
+    }
+
+    private void BuildSessionTimeLineObjs()
+    {
+        if (SessionLookUpList is null)
+        {
+            return;
+        }
+        foreach (var obj in SessionLookUpList.
+            Where(x => IdList.Contains(x.id))) 
+        {
+            if (obj.startDateTime is not null) {
+                var timeLineObjStart = new TimeLineObj() {
+                    ObjDateTime = (DateTime)obj.startDateTime,
+                    text = "Start Date",
+                    title = obj.name ?? string.Empty,
+                    color = Color.Tertiary
+                };
+                if (timeLineObjStart.hasDate) {
+                    _timeLineObjs.Add(timeLineObjStart);
+                }
+            }
+
+            if (obj.endDateTime is null) continue;
+            
+            var timeLineObjEnd = new TimeLineObj() {
+                ObjDateTime = (DateTime)obj.endDateTime,
+                text = "End Date",
+                title = obj.name ?? string.Empty,
+                color = Color.Secondary
+            };
+            if (timeLineObjEnd.hasDate) {
+                _timeLineObjs.Add(timeLineObjEnd);
+            }
+        }
+        _timeLineObjs = _timeLineObjs.OrderBy(x => x.dateSortable).ToList();
+    }
+    
+    private void BuildApplicationTimeLineObjs()
+    {
+        if (ApplicationLookUpList is null)
+        {
+            return;
+        }
+        foreach (var obj in ApplicationLookUpList.
+            Where(x => IdList.Contains(x.id))) 
+        {
+            if (obj.startDateTime is not null) {
+                var timeLineObjStart = new TimeLineObj() {
+                    ObjDateTime = (DateTime)obj.startDateTime,
+                    text = "Start Date",
+                    title = obj.name ?? string.Empty,
+                    color = Color.Tertiary
+                };
+                if (timeLineObjStart.hasDate) {
+                    _timeLineObjs.Add(timeLineObjStart);
+                }
+            }
+
+            if (obj.endDateTime is null) continue;
+            
+            var timeLineObjEnd = new TimeLineObj() {
+                ObjDateTime = (DateTime)obj.endDateTime,
+                text = "End Date",
+                title = obj.name ?? string.Empty,
+                color = Color.Secondary
+            };
+            if (timeLineObjEnd.hasDate) {
+                _timeLineObjs.Add(timeLineObjEnd);
+            }
+        }
+        _timeLineObjs = _timeLineObjs.OrderBy(x => x.dateSortable).ToList();
+    }
+
+    private class TimeLineObj 
+    {
+        public DateTime ObjDateTime { get; set; }
+        
+        public string title { get; set; }
+        public string text { get; set; }
+
+        public Color color { get; set; } = Color.Primary;
+        
+        public long year => ObjDateTime.Year;
+        public bool hasDate => year > 2019;
+        public string date => ObjDateTime.ToString("D");
+        public long dateSortable => ObjDateTime.ToFileTimeUtc();
+    }
+
+}
