@@ -2,6 +2,7 @@
 @using CollegeDataEditor.Services
 @using CollegeDataEditor.ViewModels
 @using CollegeDataEditor.Enums
+@using Microsoft.AspNetCore.Components.Authorization
 
 @implements IDisposable
 
@@ -32,9 +33,20 @@ else {
         </MudStack>
         @* <MudButton Href="/.auth/login/aad" Class="mt=auto mx-auto">Login</MudButton> *@
         
-        <MudAlert Severity="Severity.Info" Class="mt-auto mx-auto">
-            Welcome to the College Prep DB!
-        </MudAlert>
+        <AuthorizeView>
+            <Authorized>
+                <MudAlert Severity="Severity.Info" Class="mt-auto mx-auto">
+                    Welcome @context.User.Identity?.Name to the College Prep DB!
+                </MudAlert>
+            </Authorized>
+            <NotAuthorized>
+                <MudAlert Severity="Severity.Warning" Class="mt-auto mx-auto">
+                    You Are Currently Logged Out
+                </MudAlert>
+            </NotAuthorized>
+        </AuthorizeView>
+        
+        
     </MudPaper>
 }
 
