@@ -18,9 +18,10 @@
 
 <MudLayout>
     <MudAppBar Elevation="0">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())"/>
-        
-        
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" 
+                       Color="Color.Inherit" Edge="Edge.Start" 
+                       OnClick="@(e => DrawerToggle())"/>
+
         <MudSpacer/>
         <MudText Typo="Typo.h5" Style="font-weight: bold">College Prep DB</MudText>
         
@@ -43,11 +44,21 @@
                 </MudButton>
             </Authorized>
             <NotAuthorized>
-                <MudButton Href="/.auth/login/aad"
-                           Class="ml-4" 
-                           Color="@(_isDarkMode ? Color.Default : Color.Inherit)">
-                    Login
-                </MudButton>
+                <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+                    <ActivatorContent>
+                        <MudButton Class="ml-4"
+                                   Color="@(_isDarkMode ? Color.Default : Color.Inherit)">
+                            Login
+                        </MudButton>
+                    </ActivatorContent>
+                    <ChildContent>
+                            <MudMenuItem Href="/.auth/login/aad">Microsoft</MudMenuItem>
+                            <MudMenuItem Href="/.auth/login/github">Github</MudMenuItem>
+                            <MudMenuItem Href="/.auth/login/twitter">Twitter</MudMenuItem>
+                        
+                        </ChildContent>
+                </MudMenu>
+                
             </NotAuthorized>
         </AuthorizeView>
         

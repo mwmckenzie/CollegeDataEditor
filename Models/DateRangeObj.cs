@@ -58,6 +58,9 @@ public abstract class DateRangeObj : SumProgComponent {
         }
     }
 
+    public bool ActiveNow => startDateTime.Value.CompareTo(DateTime.Now) < 0 &&
+                             endDateTime.Value.CompareTo(DateTime.Now) > 0;
+
     protected override void OnBaseUpdate()
     {
         base.OnBaseUpdate();
