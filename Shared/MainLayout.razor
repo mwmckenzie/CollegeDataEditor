@@ -44,21 +44,28 @@
                 </MudButton>
             </Authorized>
             <NotAuthorized>
-                <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
-                    <ActivatorContent>
-                        <MudButton Class="ml-4"
-                                   Color="@(_isDarkMode ? Color.Default : Color.Inherit)">
-                            Login
-                        </MudButton>
-                    </ActivatorContent>
-                    <ChildContent>
-                            <MudMenuItem Href="/.auth/login/aad">Microsoft</MudMenuItem>
-                            <MudMenuItem Href="/.auth/login/github">Github</MudMenuItem>
-                            <MudMenuItem Href="/.auth/login/twitter">Twitter</MudMenuItem>
-                        
-                        </ChildContent>
-                </MudMenu>
+                <MudButton Class="ml-4"
+                           Color="@(_isDarkMode ? Color.Default : Color.Inherit)"
+                           Href="/.auth/login/aad">
+                    Login
+                </MudButton>
                 
+                @* <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter"> *@
+                @*     <ActivatorContent> *@
+                @*         <MudButton Class="ml-4" *@
+                @*                    Color="@(_isDarkMode ? Color.Default : Color.Inherit)" *@
+                @*                    Href="/.auth/login/aad"> *@
+                @*             Login *@
+                @*         </MudButton> *@
+                @*     </ActivatorContent> *@
+                @*     <ChildContent> *@
+                @*         <MudMenuItem Href="/.auth/login/aad">Microsoft</MudMenuItem> *@
+                @*         <MudMenuItem Href="/.auth/login/github">Github</MudMenuItem> *@
+                @*         <MudMenuItem Href="/.auth/login/twitter">Twitter</MudMenuItem> *@
+                @* *@
+                @*     </ChildContent> *@
+                @* </MudMenu> *@
+
             </NotAuthorized>
         </AuthorizeView>
         
