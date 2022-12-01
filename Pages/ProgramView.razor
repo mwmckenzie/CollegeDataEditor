@@ -5,9 +5,12 @@
 
 @attribute [Authorize]
 
-@inject ViewModelService ViewModelService
-@inject NavigationManager NavigationManager
-
+@inject ViewModelService _viewModelService
+@inject NavigationManager _navigationManager
+@inject DbService _dbService
+@inject ISnackbar _snackbar
+@inject LookupService _lookupService
+@inject IDialogService _dialogService
 
 
 <MudGrid Class="mt-16">
@@ -38,7 +41,8 @@
     {
         <MudItem md="10" xs="12">
             <ProgramDetails SummerProgram="_programViewModel.SummerProgram"
-                            IsSideView="false"/>
+                            IsSideView="false"
+                            OnDeleteClickCallback="ArchiveSelected"/>
         </MudItem>
     }
 </MudGrid>
@@ -57,13 +61,47 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        _programViewModel = ViewModelService.ProgramVM;
+        _programViewModel = _viewModelService.ProgramVM;
+        _programViewModel.dbService = _dbService;
     }
 
     private void NavigateToProgramBrowser()
     {
-        NavigationManager.NavigateTo("ProgramBrowser");
+        _navigationManager.NavigateTo("ProgramBrowser");
     }
     
+    private async void ArchiveSelected()
+    {
+        var result = await ArchiveItem();
+        
+        if (result.Cancelled)
+        {
+            return;
+        }
+        _snackbar.Add($"Attempting to Archive: {_programViewModel.SummerProgram.displayName}");
+        
+        if (await _programViewModel.DeleteSelectedProgram())
+        {
+            _snackbar.Add($"Deleted: {_programViewModel.SummerProgram.displayName}");
+            _programViewModel.SummerProgram = new();
+            _viewModelService.ProgramBrowserVM.ReloadProgramsFromDb();
+            _navigationManager.NavigateTo("ProgramBrowser");
+            return;
+        }
+        _snackbar.Add($"Failed to Archive: {_programViewModel.SummerProgram.displayName}");
+    }
+
+    private async Task<DialogResult> ArchiveItem()
+    {
+        var parameters = new DialogParameters();
+
+        parameters.Add("ContentText", $"Do you really want to archive {_programViewModel.SummerProgram.TypeName()} {_programViewModel.SummerProgram.displayName}? This process is permanent.");
+        parameters.Add("ButtonText", "Archive");
+        parameters.Add("Color", Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        return await _dialogService.Show<DeleteConfimationDialog>("Archive", parameters, options).Result;
+    }
 
 }

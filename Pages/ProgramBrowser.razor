@@ -12,7 +12,7 @@
 @inject DbService _dbService
 @inject ViewModelService _viewModelService
 @inject ISnackbar _snackbar
-@inject NavigationManager navigationManager
+@inject IDialogService _dialogService
 
 <PageTitle>Summer Program DB</PageTitle>
 
@@ -84,7 +84,8 @@
     </div>
 </div>
 
-<ProgramSideView sideViewVM="@_sideVM" summerProgram="_programBrowserVM.selected"/>
+<ProgramSideView sideViewVM="@_sideVM" summerProgram="_programBrowserVM.selected"
+                 OnDeleteClickCallback="ArchiveSelected"/>
 
 @code {
 
@@ -159,4 +160,37 @@
         _programBrowserVM.OnProgramSelected -= OnProgramSelection;
     }
 
+    private async void ArchiveSelected()
+    {
+        var result = await ArchiveItem();
+        
+        if (result.Cancelled)
+        {
+            return;
+        }
+        _snackbar.Add($"Attempting to Archive: {_programBrowserVM.selected.displayName}");
+        
+        if (await _programBrowserVM.DeleteSelectedProgram())
+        {
+            _sideVM.open = false;
+            _snackbar.Add($"Deleted: {_programBrowserVM.selected.displayName}");
+            _programBrowserVM.selected = new();
+            _viewModelService.ProgramBrowserVM.ReloadProgramsFromDb();
+            return;
+        }
+        _snackbar.Add($"Failed to Archive: {_programBrowserVM.selected.displayName}");
+    }
+
+    private async Task<DialogResult> ArchiveItem()
+    {
+        var parameters = new DialogParameters();
+
+        parameters.Add("ContentText", $"Do you really want to archive {_programBrowserVM.selected.TypeName()} {_programBrowserVM.selected.displayName}? This process is permanent.");
+        parameters.Add("ButtonText", "Archive");
+        parameters.Add("Color", Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        return await _dialogService.Show<DeleteConfimationDialog>("Archive", parameters, options).Result;
+    }
 }

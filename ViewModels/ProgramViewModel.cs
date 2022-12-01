@@ -16,10 +16,18 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using CollegeDataEditor.Models;
+using CollegeDataEditor.Services;
 
 namespace CollegeDataEditor.ViewModels;
 
 public class ProgramViewModel
 {
     public SummerProgram? SummerProgram { get; set; }
+    public DbService dbService { get; set; }
+    
+    public async Task<bool> DeleteSelectedProgram()
+    {
+        dbService.SummerProgramsDb.editingItem = SummerProgram;
+        return await dbService.SummerProgramsDb.DeleteFromDbAsync();
+    }
 }

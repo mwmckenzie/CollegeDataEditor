@@ -14,4 +14,8 @@ public class SideViewViewModel
     {
         open = true;
     }
+    public void CloseSideView()
+    {
+        open = false;
+    }
 }

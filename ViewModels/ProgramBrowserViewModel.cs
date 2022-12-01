@@ -212,6 +212,12 @@ public class ProgramBrowserViewModel
         var filterId = dbItemList.First(x => x.value == filter).id;
         return filterId ?? string.Empty;
     }
+    
+    public async Task<bool> DeleteSelectedProgram()
+    {
+        dbService.SummerProgramsDb.editingItem = selected;
+        return await dbService.SummerProgramsDb.DeleteFromDbAsync();
+    }
 
     // private void OnSelectedSubjectChanged()
     // {

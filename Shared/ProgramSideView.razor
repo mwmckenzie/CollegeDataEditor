@@ -24,6 +24,9 @@
 
     [Parameter]
     public SummerProgram summerProgram { get; set; }
+    
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnDeleteClickCallback { get; set; }
 
     private void NavigateToEditor()
     {
