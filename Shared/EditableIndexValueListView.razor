@@ -35,7 +35,7 @@
                                  @bind-Value="@newListItemValue" SearchFunc="@Search1"
                                  ResetValueOnEmptyText="@_resetValueOnEmptyText"
                                  CoerceText="@_coerceText" CoerceValue="@_coerceValue"
-                                 />
+                                 @bind-Text="@newListItemText"/>
                 
                 <MudButton Color="Color.Tertiary" OnClick="AddListItem">
                     Add
@@ -76,6 +76,8 @@
     [Parameter]
     public string newListItemValue { get; set; }
     
+    public string newListItemText { get; set; }
+    
     private List<IndexedValue> displayList { get; set; } = new();
     
     private bool _resetValueOnEmptyText = true;
@@ -115,7 +117,7 @@
         var indVal = lookupList.FirstOrDefault(x => x.value == newVal);
         if (indVal?.id is null)
         {
-            indVal = AddNew(newVal);
+            indVal = AddNew(newListItemText);
             await dbContext.AddNewIndexedValueToDbAsync(indVal);
         }
         else if (idList.Contains(indVal.id))
