@@ -12,6 +12,8 @@
 @inject LookupService _lookupService
 @inject DbService _dbService
 @inject ISnackbar _snackbar
+@inject NavigationManager _navigationManager
+@inject DialogService _dialogService
 
 
 <MudGrid Class="mt-16">
@@ -296,9 +298,11 @@
         subjectValueListView.idList = programEditorVM.selectedProgram.subjectIdList;
         topicValueListView.idList = programEditorVM.selectedProgram.topicIdList;
         
-        programTypeValueListView.RefreshDisplayList();
-        subjectValueListView.RefreshDisplayList();
-        topicValueListView.RefreshDisplayList();
+        // programTypeValueListView.RefreshDisplayList();
+        // subjectValueListView.RefreshDisplayList();
+        // topicValueListView.RefreshDisplayList();
+        
+        _viewModelService.ProgramBrowserVM.ReloadProgramsFromDb();
     }
 
     private async Task OnSaveEditsToDbPressed()
@@ -354,6 +358,40 @@
         // StateHasChanged();
     }
 
+    private async void ArchiveSelected()
+    {
+        var result = await ArchiveItem();
+        
+        if (result.Cancelled)
+        {
+            return;
+        }
+        _snackbar.Add($"Attempting to Archive: {programEditorVM.selectedProgram.displayName}");
+        
+        
+
+        if (await programEditorVM.DeleteSelectedProgram())
+        {
+            _snackbar.Add($"Deleted: {programEditorVM.selectedProgram.displayName}");
+            programEditorVM.selectedProgram = new();
+            _viewModelService.ProgramBrowserVM.ReloadProgramsFromDb();
+            _navigationManager.NavigateTo("ProgramBrowser");
+            return;
+        }
+        _snackbar.Add($"Failed to Archive: {programEditorVM.selectedProgram.displayName}");
+    }
+
+    private async Task<DialogResult> ArchiveItem()
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("ContentText", $"Do you really want to archive {programEditorVM.selectedProgram.TypeName()} {programEditorVM.selectedProgram.displayName}? This process is permanent.");
+        parameters.Add("ButtonText", "Archive");
+        parameters.Add("Color", Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        return await _dialogService.Show<DeleteConfimationDialog>("Archive", parameters, options).Result;
+    }
     
 
 }

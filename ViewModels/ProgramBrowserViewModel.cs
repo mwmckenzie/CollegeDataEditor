@@ -197,7 +197,14 @@ public class ProgramBrowserViewModel
         // NotifyDataStateChanged();
     }
     
-    
+    public void ReloadProgramsFromDb()
+    {
+        programsAll = dbService.SummerProgramsDb.dbItems
+            .OrderBy(x => x.displayName)
+            .ToList();
+        LoadDefaultList();
+        NotifyDataStateChanged();
+    }
 
     private string GetFilterId(IEnumerable<IndexedValue> dbItemList)
     {

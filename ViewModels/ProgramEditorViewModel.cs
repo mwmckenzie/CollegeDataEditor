@@ -303,6 +303,18 @@ public class ProgramEditorViewModel : IDbContext
         NotifySaveToDbFailed();
         return false;
     }
+    
+    public async Task<bool> DeleteSelectedProgram()
+    {
+        dbService.SummerProgramsDb.editingItem = selectedProgram;
+        if (await dbService.SummerProgramsDb.DeleteFromDbAsync())
+        {
+            NotifyDataSavedToDb();
+            return true;
+        }
+        NotifySaveToDbFailed();
+        return false;
+    }
 
 
     protected virtual void OnNewSummerProgramSet()
