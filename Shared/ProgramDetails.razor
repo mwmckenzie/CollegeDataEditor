@@ -8,21 +8,20 @@
 
 <MudPaper Class="pa-4">
     
-    @if (IsSideView)
-    {
-        <div class="d-flex flex-grow-1 justify-start mb-4">
+    <div class="d-flex flex-grow-1 justify-space-between mb-4">
+        @if (IsSideView)
+        {
             <MudTooltip Text="Jump To Program Page">
                 <MudButton OnClick="@OnExploreClickCallback" 
                            Color="Color.Tertiary" Variant="Variant.Filled">
                     Explore
                 </MudButton>
             </MudTooltip>
-        </div>
-    }
+        }
+        <MudSpacer/>
     
-    <AuthorizeView Roles="editor">
-        <Authorized>
-            <div class="d-flex flex-grow-1 justify-end mb-4">
+        <AuthorizeView Roles="editor">
+            <Authorized>
                 <MudButtonGroup Class="" Color="Color.Primary" Variant="Variant.Filled" OverrideStyles="false">
                     <MudTooltip Text="Send To Editor">
                         <MudButton OnClick="@OnEditClickCallback">Edit</MudButton>
@@ -36,10 +35,10 @@
                         </MudButton>
                     </MudTooltip>
                 </MudButtonGroup>
-            </div>
-        </Authorized>
-    </AuthorizeView>
-
+            </Authorized>
+        </AuthorizeView>
+    </div>
+    
     <BaseInfoView baseInfoObj="@SummerProgram" objTitle="Summer Program"/>
 
     @if (SummerProgram.programTypeIdList.Count > 0)
@@ -159,7 +158,7 @@
 @if (!IsSideView)
 {
     
-    }
+}
 
 @code {
     
