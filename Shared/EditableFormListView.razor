@@ -5,30 +5,32 @@
 <MudText Class="pa-4" Typo="Typo.h6" GutterBottom="true">
     @listName List [@formList.Count]
 </MudText>
-        @foreach (var text in formList)
-        {
-            <MudListItem Icon="@itemIcons">
-                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
-                    <MudText>@text</MudText>
-                    <MudButton Color="Color.Secondary" OnClick="() => DeleteFromList(text)">
-                        Delete
-                    </MudButton>
-                </MudStack>
-                @* <MudText Class="ml-auto">$12</MudText> *@
-                @* Class="ml-auto" Style="height: 32px; width: 96px" *@
-            </MudListItem>
-        }
-        <MudListItem Icon="@itemIcons">
-            <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
-                <MudTextField @bind-Value="@newListItem"
-                              Label="@listName" Variant="Variant.Text"
-                              Class="mr-2"/>
-                <MudButton Color="Color.Tertiary" OnClick="AddListItem">
-                    Add
-                </MudButton>
-                @* <MudText Class="ml-auto">$12</MudText> *@
-            </MudStack>
-        </MudListItem>
+@foreach (var text in formList)
+{
+    <MudListItem Icon="@itemIcons">
+        <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+            <MudText Style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                @text
+            </MudText>
+            <MudButton Color="Color.Secondary" OnClick="() => DeleteFromList(text)">
+                Delete
+            </MudButton>
+        </MudStack>
+        @* <MudText Class="ml-auto">$12</MudText> *@
+        @* Class="ml-auto" Style="height: 32px; width: 96px" *@
+    </MudListItem>
+}
+<MudListItem Icon="@itemIcons">
+    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+        <MudTextField @bind-Value="@newListItem"
+                      Label="@listName" Variant="Variant.Text"
+                      Class="mr-2"/>
+        <MudButton Color="Color.Tertiary" OnClick="AddListItem">
+            Add
+        </MudButton>
+        @* <MudText Class="ml-auto">$12</MudText> *@
+    </MudStack>
+</MudListItem>
 
 @code {
     
