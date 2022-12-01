@@ -35,30 +35,36 @@
                   @bind-RowsPerPage="@_programBrowserVM.rowsPerPage"
                   Filter="new Func<SummerProgram, bool>(FilterFunc1)"
                   @bind-SelectedItem="@_programBrowserVM.selected">
-                <ToolBarContent>
-                    <MudText Typo="Typo.h6"
-                             Color="Color.Secondary">
-                        @_programBrowserVM.selectedFilterObj.value
-                    </MudText>
-                    <MudSpacer/>
-                    <MudTextField @bind-Value="@_programBrowserVM.searchString1" 
-                                  Placeholder="Search" Adornment="Adornment.Start"
-                                  AdornmentIcon="@Icons.Material.Filled.Search" 
-                                  IconSize="Size.Medium" Class="mt-0">
-                    </MudTextField>
-                </ToolBarContent>
-                <HeaderContent>
-                    <MudTh>
-                        <MudText Color="Color.Primary">Program Name</MudText>
-                    </MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd DataLabel="Name">@context.displayName</MudTd>
-                </RowTemplate>
-                <PagerContent>
-                    <MudTablePager/>
-                </PagerContent>
-            </MudTable>
+            <ToolBarContent>
+                <MudText Typo="Typo.h6"
+                         Color="Color.Secondary">
+                    @_programBrowserVM.selectedFilterObj.value
+                </MudText>
+                <MudSpacer/>
+                <MudTextField @bind-Value="@_programBrowserVM.searchString1" 
+                              Placeholder="Search" Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search" 
+                              IconSize="Size.Medium" Class="mt-0">
+                </MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>
+                    <MudText Color="Color.Primary">Program Name</MudText>
+                </MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.displayName</MudTd>
+                <MudTd>
+                    <MudButton OnClick="() => OnRowClicked(context)"
+                               Color="Color.Primary">
+                        Show
+                    </MudButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager/>
+            </PagerContent>
+        </MudTable>
     </MudItem>
     
     <MudItem xs="5">
@@ -99,6 +105,12 @@
         _programBrowserVM.SetProgramsToDisplay();
         
         return base.OnInitializedAsync();
+    }
+
+    private void OnRowClicked(SummerProgram summerProgram)
+    {
+        _programBrowserVM.selected = summerProgram;
+        _sideVM.open = true;
     }
 
     private void OnProgramSelection()

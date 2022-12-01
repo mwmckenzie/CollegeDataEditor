@@ -13,6 +13,11 @@ var http = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAd
 builder.Services.AddScoped(sp => http);
 builder.Services.AddStaticWebAppsAuthentication();
 
+builder.Services.AddOidcAuthentication(options =>
+{
+    builder.Configuration.Bind("Local", options.ProviderOptions);
+});
+
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddMudServices();

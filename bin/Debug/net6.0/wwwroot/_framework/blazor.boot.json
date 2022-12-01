@@ -218,13 +218,13 @@
       "mscorlib.dll": "sha256-cx\/3nJhFns3tZhQNQOyiRyKJESKxOjLVufzWnri6KSA=",
       "netstandard.dll": "sha256-yWufW5W4SSfjocBcWTEDqnFwTd\/VYtLMc2Y9mPmlggc=",
       "System.Private.CoreLib.dll": "sha256-H009wzPwRoDZlwvpN4KLCsUwN7Y1AmjKB3PIEHA7ObQ=",
-      "CollegeDataEditor.dll": "sha256-eE6XyQVx4j5rcOQi5b1tuh1BBu98IkIf3p+DRvd8Osk="
+      "CollegeDataEditor.dll": "sha256-EeM5WOML0aKN+QMw6fi\/92f9lI494vGyHPJq+Y02BAA="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "CollegeDataEditor.pdb": "sha256-4sJVT+ndnv5R9gjvFga\/ErtxhKTvsJYSAnfBehmaHSk="
+      "CollegeDataEditor.pdb": "sha256-BqKwhHGLqul39+0XU1GBMaik52Eu\/8iZy5aGqQFRzrg="
     },
     "runtime": {
       "dotnet.6.0.11.7vx6xbrlic.js": "sha256-F30V+6jU3jwJYFZoLuwMAqzTiOXu6q7zGgOdjYBofDI=",
