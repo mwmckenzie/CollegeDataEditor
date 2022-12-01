@@ -35,7 +35,7 @@
                                  @bind-Value="@newListItemValue" SearchFunc="@Search1"
                                  ResetValueOnEmptyText="@_resetValueOnEmptyText"
                                  CoerceText="@_coerceText" CoerceValue="@_coerceValue"
-                                 @bind-Text="@newListItemText"/>
+                                 SelectValueOnTab="_coerceValue"/>
                 
                 <MudButton Color="Color.Tertiary" OnClick="AddListItem">
                     Add
@@ -75,9 +75,7 @@
     
     [Parameter]
     public string newListItemValue { get; set; }
-    
-    public string newListItemText { get; set; }
-    
+
     private List<IndexedValue> displayList { get; set; } = new();
     
     private bool _resetValueOnEmptyText = true;
@@ -117,7 +115,7 @@
         var indVal = lookupList.FirstOrDefault(x => x.value == newVal);
         if (indVal?.id is null)
         {
-            indVal = AddNew(newListItemText);
+            indVal = AddNew(newListItemValue);
             await dbContext.AddNewIndexedValueToDbAsync(indVal);
         }
         else if (idList.Contains(indVal.id))
@@ -146,12 +144,22 @@
     
     private async Task<IEnumerable<string>> Search1(string value)
     {
-
         var values = lookupList.Select(x => x.value).ToList();
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return values;
+        }
+
+        var results = 
+            values.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+        if (!results.Contains(value))
+        {
+            results.Add(value);
+        }
+        return results;
         
-        return string.IsNullOrEmpty(value) ? 
-            values : 
-            values.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
     public void Dispose()
