@@ -76,7 +76,8 @@
     [Parameter]
     public string newListItemValue { get; set; }
 
-    private List<IndexedValue> displayList { get; set; } = new();
+    private List<IndexedValue> displayList => 
+        lookupList.Where(x => idList.Contains(x.id)).ToList();
     
     private bool _resetValueOnEmptyText = true;
     private bool _coerceText = true;
@@ -86,7 +87,7 @@
     {
         await base.OnInitializedAsync();
         await CheckIdList();
-        RefreshDisplayList();
+        //RefreshDisplayList();
     }
 
     public async Task CheckIdList()
@@ -103,11 +104,11 @@
 
 
 
-    public void RefreshDisplayList()
-    {
-        displayList = lookupList.Where(x => idList.Contains(x.id)).ToList();
-        StateHasChanged();
-    }
+    // public void RefreshDisplayList()
+    // {
+    //     displayList = lookupList.Where(x => idList.Contains(x.id)).ToList();
+    //     StateHasChanged();
+    // }
 
     private async void AddListItem()
     {
@@ -124,7 +125,7 @@
         }
         idList.Add(indVal.id);
         await dbContext.SubmitEditsToDbAsync();
-        RefreshDisplayList();
+        //RefreshDisplayList();
         
     }
 
@@ -138,7 +139,7 @@
         if (!idList.Remove(toDelete)) return;
         
         await dbContext.SubmitEditsToDbAsync();
-        RefreshDisplayList();
+        //RefreshDisplayList();
         StateHasChanged();
     }
     
