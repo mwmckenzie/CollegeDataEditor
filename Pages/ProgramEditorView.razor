@@ -293,15 +293,15 @@
     {
         programEditorVM.selectedProgram = new();
 
-        programTypeValueListView.idList = programEditorVM.selectedProgram.programTypeIdList;
-        subjectValueListView.idList = programEditorVM.selectedProgram.subjectIdList;
-        topicValueListView.idList = programEditorVM.selectedProgram.topicIdList;
+        // programTypeValueListView.idList = programEditorVM.selectedProgram.programTypeIdList;
+        // subjectValueListView.idList = programEditorVM.selectedProgram.subjectIdList;
+        // topicValueListView.idList = programEditorVM.selectedProgram.topicIdList;
         
         // programTypeValueListView.RefreshDisplayList();
         // subjectValueListView.RefreshDisplayList();
         // topicValueListView.RefreshDisplayList();
         
-        _viewModelService.ProgramBrowserVM.ReloadProgramsFromDb();
+        // _viewModelService.ProgramBrowserVM.ReloadProgramsFromDb();
     }
 
     private async Task OnSaveEditsToDbPressed()
