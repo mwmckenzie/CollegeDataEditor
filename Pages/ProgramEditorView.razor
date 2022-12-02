@@ -17,204 +17,218 @@
 
 
 <MudGrid Class="mt-16">
-    @if (programEditorVM.selectedProgram is null)
-    {
-        <MudItem xs="12">
-            <div class="d-flex flex-column align-center">
-                <MudPaper Class="pa-4 ma-2 d-flex">
-                    <MudText Class="my-4" Typo="Typo.h4" Color="Color.Primary">
-                        No Program Selected
-                    </MudText>
-                </MudPaper>
-                <MudPaper Class="pa-4 ma-2">
-                    <MudStack Row="true">
-                        <MudText Typo="Typo.h4" Color="Color.Primary">New Program?</MudText>
-                        <MudSpacer/>
-                        <MudButton Variant="Variant.Filled" 
-                                   Color="Color.Tertiary" 
-                                   OnClick="SetNewToEditor">
-                            Create
-                        </MudButton>
-                    </MudStack>
-                </MudPaper>
-            </div>
-        </MudItem>
-    }
-    else
-    {
-        <MudItem xs="8" Class="overflow-scroll">
-            <BaseInfoEditView baseInfoObj="@programEditorVM.selectedProgram"
-                              dbContext="@programEditorVM"/>
+@if (programEditorVM.selectedProgram is null)
+{
+    <MudItem xs="12">
+        <div class="d-flex flex-column align-center">
+            <MudPaper Class="pa-4 ma-2 d-flex">
+                <MudText Class="my-4" Typo="Typo.h4" Color="Color.Primary">
+                    No Program Selected
+                </MudText>
+            </MudPaper>
+            <MudPaper Class="pa-4 ma-2">
+                <MudStack Row="true">
+                    <MudText Typo="Typo.h4" Color="Color.Primary">New Program?</MudText>
+                    <MudSpacer/>
+                    <MudButton Variant="Variant.Filled" 
+                               Color="Color.Tertiary" 
+                               OnClick="SetNewToEditor">
+                        Create
+                    </MudButton>
+                </MudStack>
+            </MudPaper>
+        </div>
+    </MudItem>
+}
+else
+{
+    <MudItem xs="8" Class="overflow-scroll">
+        <BaseInfoEditView baseInfoObj="@programEditorVM.selectedProgram"
+                          dbContext="@programEditorVM"/>
             
-            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
-                Program Categories
-            </MudText>
-            <MudPaper Class="d-flex flex-column" Outlined="true">
-                <MudList Clickable="true">
+        <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
+            Program Categories
+        </MudText>
+        <MudPaper Class="d-flex flex-column" Outlined="true">
+            <MudList Clickable="true">
                     
-                    <EditableIndexValueListView idList="@programEditorVM.selectedProgram.programTypeIdList"
-                                                listName="Program Type" valueType="IndexedValueType.ProgramType"
-                                                lookupList="_lookupService.programTypes"
-                                                itemIcons="@Icons.Material.Filled.Mode"
-                                                dbContext="programEditorVM"
-                                                @ref="@programTypeValueListView"/>
+                <EditableIndexValueListView idList="@programEditorVM.selectedProgram.programTypeIdList"
+                                            listName="Program Type" valueType="IndexedValueType.ProgramType"
+                                            lookupList="_lookupService.programTypes"
+                                            itemIcons="@Icons.Material.Filled.Mode"
+                                            dbContext="programEditorVM"
+                                            @ref="@programTypeValueListView"/>
                     
-                    <MudDivider Class="my-2"/>
+                <MudDivider Class="my-2"/>
                     
-                    <EditableIndexValueListView idList="@programEditorVM.selectedProgram.subjectIdList"
-                                                listName="Subject" valueType="IndexedValueType.Subject"
-                                                lookupList="_lookupService.subjects"
-                                                itemIcons="@Icons.Material.Filled.Subject"
-                                                dbContext="programEditorVM"
-                                                @ref="subjectValueListView"/>
-                    <MudDivider Class="my-2"/>
+                <EditableIndexValueListView idList="@programEditorVM.selectedProgram.subjectIdList"
+                                            listName="Subject" valueType="IndexedValueType.Subject"
+                                            lookupList="_lookupService.subjects"
+                                            itemIcons="@Icons.Material.Filled.Subject"
+                                            dbContext="programEditorVM"
+                                            @ref="subjectValueListView"/>
+                <MudDivider Class="my-2"/>
 
-                    <EditableIndexValueListView idList="@programEditorVM.selectedProgram.topicIdList"
-                                                listName="Topic" valueType="IndexedValueType.Topic"
-                                                lookupList="_lookupService.topics"
-                                                itemIcons="@Icons.Material.Filled.Topic"
-                                                dbContext="programEditorVM"
-                                                @ref="topicValueListView"/>
-                </MudList>
-            </MudPaper>
+                <EditableIndexValueListView idList="@programEditorVM.selectedProgram.topicIdList"
+                                            listName="Topic" valueType="IndexedValueType.Topic"
+                                            lookupList="_lookupService.topics"
+                                            itemIcons="@Icons.Material.Filled.Topic"
+                                            dbContext="programEditorVM"
+                                            @ref="topicValueListView"/>
+            </MudList>
+        </MudPaper>
             
-            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
-                Program Elements
-            </MudText>
+        <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
+            Program Elements
+        </MudText>
             
-            <MudPaper Class="d-flex flex-column" Outlined="true">
-                <MudList Clickable="true">
-                    <EditableBaseInfoListView @bind-idList="@programEditorVM.selectedProgram.orgIdList"
-                                              listName="Organizations"
-                                              lookupList="_lookupService.orgs"
-                                              itemIcons="@Icons.Material.Filled.School"
-                                              dbContext="programEditorVM"/>
+        <MudPaper Class="d-flex flex-column" Outlined="true">
+            <MudList Clickable="true">
+                <EditableBaseInfoListView @bind-idList="@programEditorVM.selectedProgram.orgIdList"
+                                          listName="Organizations"
+                                          lookupList="_lookupService.orgs"
+                                          itemIcons="@Icons.Material.Filled.School"
+                                          dbContext="programEditorVM"/>
                     
-                    <MudDivider Class="my-2"/>
+                <MudDivider Class="my-2"/>
                     
-                    <EditableApplicationListView listName="Applications"
-                                                 @bind-idList="@programEditorVM.selectedProgram.applicationIdList"
-                                                 lookupList="_lookupService.applications"
-                                                 db="@programEditorVM.dbService.ApplicationsDb"
-                                                 dbContext="programEditorVM"
-                                                 itemIcons="@Icons.Material.Filled.Checklist"
-                                                 ItemClicked="OnApplicationClicked"/>
-                    
-                    <MudDivider Class="my-2"/>
-                    
-                    <EditableSessionListView listName="Session"
-                                             @bind-idList="@programEditorVM.selectedProgram.sessionIdList"
-                                             lookupList="_lookupService.sessions"
-                                             db="@programEditorVM.dbService.SessionsDb"
+                <EditableApplicationListView listName="Applications"
+                                             @bind-idList="@programEditorVM.selectedProgram.applicationIdList"
+                                             lookupList="_lookupService.applications"
+                                             db="@programEditorVM.dbService.ApplicationsDb"
                                              dbContext="programEditorVM"
-                                             itemIcons="@Icons.Material.Filled.CalendarViewWeek"
-                                             ItemClicked="OnSessionClicked"/>
+                                             itemIcons="@Icons.Material.Filled.Checklist"
+                                             ItemClicked="OnApplicationClicked"/>
                     
-                    <MudDivider Class="my-2"/>
+                <MudDivider Class="my-2"/>
+                    
+                <EditableSessionListView listName="Session"
+                                         @bind-idList="@programEditorVM.selectedProgram.sessionIdList"
+                                         lookupList="_lookupService.sessions"
+                                         db="@programEditorVM.dbService.SessionsDb"
+                                         dbContext="programEditorVM"
+                                         itemIcons="@Icons.Material.Filled.CalendarViewWeek"
+                                         ItemClicked="OnSessionClicked"/>
+                    
+                <MudDivider Class="my-2"/>
                                         
-                    <EditableStudentInfoListView listName="Student Info"
-                                                 @bind-idList="@programEditorVM.selectedProgram.studentInfoIdList"
-                                                 lookupList="_lookupService.studentInfoList"
-                                                 db="@programEditorVM.dbService.StudentInfoDb"
-                                                 dbContext="programEditorVM"
-                                                 itemIcons="@Icons.Material.Filled.EditLocation"
-                                                 ItemClicked="OnStudentInfoClicked"/>
+                <EditableStudentInfoListView listName="Student Info"
+                                             @bind-idList="@programEditorVM.selectedProgram.studentInfoIdList"
+                                             lookupList="_lookupService.studentInfoList"
+                                             db="@programEditorVM.dbService.StudentInfoDb"
+                                             dbContext="programEditorVM"
+                                             itemIcons="@Icons.Material.Filled.EditLocation"
+                                             ItemClicked="OnStudentInfoClicked"/>
                     
-                </MudList>
-            </MudPaper>
-        </MudItem>
+            </MudList>
+        </MudPaper>
+    </MudItem>
         
-        <MudItem xs="4" Class="sticky">
-            <MudText Typo="Typo.h5" GutterBottom="true">Options</MudText>
-            <MudPaper Class="d-flex flex-column" Outlined="true">
-                <MudList Clickable="true">
-                    <MudListItem>
-                        <MudButton FullWidth="true" Color="Color.Warning"
-                                   StartIcon="@Icons.Material.Filled.NewLabel"
-                                   OnClick="SetNewToEditor">
-                            New Program
-                        </MudButton>
-                        @* <div class="d-flex"> *@
-                        @*     <MudText>Save To Database</MudText> *@
-                        @*     <MudButton>Submit</MudButton> *@
-                        @*     $1$ <MudText Inline="true" Class="ml-auto"> #1# *@
-                        @*     $1$      #1# *@
-                        @*     $1$ </MudText> #1# *@
-                        @* </div> *@
-                    </MudListItem>
+    <MudItem xs="4" Class="sticky">
+        <MudText Typo="Typo.h5" GutterBottom="true">Options</MudText>
+        <MudPaper Class="d-flex flex-column" Outlined="true">
+            <MudList Clickable="true">
+                <MudListItem>
+                    <MudButton FullWidth="true" Color="Color.Warning"
+                               StartIcon="@Icons.Material.Filled.NewLabel"
+                               OnClick="SetNewToEditor">
+                        New Program
+                    </MudButton>
+                    @* <div class="d-flex"> *@
+                    @*     <MudText>Save To Database</MudText> *@
+                    @*     <MudButton>Submit</MudButton> *@
+                    @*     $1$ <MudText Inline="true" Class="ml-auto"> #1# *@
+                    @*     $1$      #1# *@
+                    @*     $1$ </MudText> #1# *@
+                    @* </div> *@
+                </MudListItem>
                     
-                    <MudListItem>
-                        <MudButton FullWidth="true" Color="Color.Primary"
-                                   StartIcon="@Icons.Material.Filled.NewLabel"
-                                   OnClick="OnSaveEditsToDbPressed">
-                            Save To Database
-                        </MudButton>
-                        @* <div class="d-flex"> *@
-                        @*     <MudText>Save To Database</MudText> *@
-                        @*     <MudButton>Submit</MudButton> *@
-                        @*     $1$ <MudText Inline="true" Class="ml-auto"> #1# *@
-                        @*     $1$      #1# *@
-                        @*     $1$ </MudText> #1# *@
-                        @* </div> *@
-                    </MudListItem>
+                <MudListItem>
+                    <MudButton FullWidth="true" Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.NewLabel"
+                               OnClick="OnSaveEditsToDbPressed">
+                        Save To Database
+                    </MudButton>
+                    @* <div class="d-flex"> *@
+                    @*     <MudText>Save To Database</MudText> *@
+                    @*     <MudButton>Submit</MudButton> *@
+                    @*     $1$ <MudText Inline="true" Class="ml-auto"> #1# *@
+                    @*     $1$      #1# *@
+                    @*     $1$ </MudText> #1# *@
+                    @* </div> *@
+                </MudListItem>
+                <MudListItem>
+                    <MudButton FullWidth="true" Color="Color.Secondary"
+                               StartIcon="@Icons.Material.Filled.Archive"
+                               OnClick="ArchiveSelected">
+                        Archive Program
+                    </MudButton>
+                    @* <div class="d-flex"> *@
+                    @*     <MudText>Save To Database</MudText> *@
+                    @*     <MudButton>Submit</MudButton> *@
+                    @*     $1$ <MudText Inline="true" Class="ml-auto"> #1# *@
+                    @*     $1$      #1# *@
+                    @*     $1$ </MudText> #1# *@
+                    @* </div> *@
+                </MudListItem>
                     
-                    @* <MudListItem Icon="@Icons.Material.Filled.AirplanemodeActive"> *@
-                    @*     <div class="d-flex"> *@
-                    @*         <MudText>Model Airplane</MudText> *@
-                    @*         <MudText Class="ml-auto">$20</MudText> *@
-                    @*     </div> *@
-                    @* </MudListItem> *@
-                    @* <MudListItem Icon="@Icons.Material.Filled.Create"> *@
-                    @*     <div class="d-flex"> *@
-                    @*         <MudText>Plastic Glue</MudText> *@
-                    @*         <MudText Class="ml-auto">$12</MudText> *@
-                    @*     </div> *@
-                    @* </MudListItem> *@
-                    @* <MudListItem Icon="@Icons.Material.Filled.ColorLens"> *@
-                    @*     <div class="d-flex"> *@
-                    @*         <MudText>Color set - Modern planes</MudText> *@
-                    @*         <MudText Class="ml-auto">$16</MudText> *@
-                    @*     </div> *@
-                    @* </MudListItem> *@
-                </MudList>
-                @* <div class="mt-auto"> *@
-                @*     <MudDivider /> *@
-                @*     <div class="d-flex pa-4"> *@
-                @*         <MudText>Total:</MudText> *@
-                @*         <MudText Class="ml-auto"><b>$53</b></MudText> *@
+                @* <MudListItem Icon="@Icons.Material.Filled.AirplanemodeActive"> *@
+                @*     <div class="d-flex"> *@
+                @*         <MudText>Model Airplane</MudText> *@
+                @*         <MudText Class="ml-auto">$20</MudText> *@
                 @*     </div> *@
-                @* </div> *@
-            </MudPaper>
+                @* </MudListItem> *@
+                @* <MudListItem Icon="@Icons.Material.Filled.Create"> *@
+                @*     <div class="d-flex"> *@
+                @*         <MudText>Plastic Glue</MudText> *@
+                @*         <MudText Class="ml-auto">$12</MudText> *@
+                @*     </div> *@
+                @* </MudListItem> *@
+                @* <MudListItem Icon="@Icons.Material.Filled.ColorLens"> *@
+                @*     <div class="d-flex"> *@
+                @*         <MudText>Color set - Modern planes</MudText> *@
+                @*         <MudText Class="ml-auto">$16</MudText> *@
+                @*     </div> *@
+                @* </MudListItem> *@
+            </MudList>
+            @* <div class="mt-auto"> *@
+            @*     <MudDivider /> *@
+            @*     <div class="d-flex pa-4"> *@
+            @*         <MudText>Total:</MudText> *@
+            @*         <MudText Class="ml-auto"><b>$53</b></MudText> *@
+            @*     </div> *@
+            @* </div> *@
+        </MudPaper>
             
-            <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
-                Update Reminder
-            </MudText>
-            <MudPaper Class="d-flex flex-column" Outlined="true">
+        <MudText Class="mt-12" Typo="Typo.h5" GutterBottom="true">
+            Update Reminder
+        </MudText>
+        <MudPaper Class="d-flex flex-column" Outlined="true">
                 
-                <MudList Clickable="true">
-                    <MudListItem>
-                        <MudCheckBox @bind-Checked="@reminderChecked"
-                                     Label="Reminder Set"/>
-                    </MudListItem>
-                    <MudListItem>
-                        <MudDatePicker PickerVariant="PickerVariant.Dialog" 
-                                       Label="Snooze Until (yyyy-MM-dd)"
-                                       @bind-Date="@reminderDate"
-                                       DateFormat="yyyy-MM-dd"
-                                       AnchorOrigin="Origin.BottomLeft"/>
-                    </MudListItem>
-                </MudList>
+            <MudList Clickable="true">
+                <MudListItem>
+                    <MudCheckBox @bind-Checked="@reminderChecked"
+                                 Label="Reminder Set"/>
+                </MudListItem>
+                <MudListItem>
+                    <MudDatePicker PickerVariant="PickerVariant.Dialog" 
+                                   Label="Snooze Until (yyyy-MM-dd)"
+                                   @bind-Date="@reminderDate"
+                                   DateFormat="yyyy-MM-dd"
+                                   AnchorOrigin="Origin.BottomLeft"/>
+                </MudListItem>
+            </MudList>
                 
-                @* <div class="mt-auto"> *@
-                @*     <MudDivider /> *@
-                @*     <div class="d-flex pa-4"> *@
-                @*         <MudText>Total:</MudText> *@
-                @*         <MudText Class="ml-auto"><b>$53</b></MudText> *@
-                @*     </div> *@
-                @* </div> *@
-            </MudPaper>
-        </MudItem>
-    }
+            @* <div class="mt-auto"> *@
+            @*     <MudDivider /> *@
+            @*     <div class="d-flex pa-4"> *@
+            @*         <MudText>Total:</MudText> *@
+            @*         <MudText Class="ml-auto"><b>$53</b></MudText> *@
+            @*     </div> *@
+            @* </div> *@
+        </MudPaper>
+    </MudItem>
+}
 </MudGrid>
 
 @if (programEditorVM.application is not null)
@@ -236,9 +250,9 @@
 @if (programEditorVM.studentInfo is not null)
 {
     <StudentInfoSideView sideViewVM="@programEditorVM.StudentInfoSideView" 
-                     StudentInfo="@programEditorVM.studentInfo"
-                     dbContext="@programEditorVM"
-                     StudentInfoChanged="StateHasChanged"/>
+                         StudentInfo="@programEditorVM.studentInfo"
+                         dbContext="@programEditorVM"
+                         StudentInfoChanged="StateHasChanged"/>
 }
 
 @code {
@@ -293,15 +307,15 @@
     {
         programEditorVM.selectedProgram = new();
 
-        // programTypeValueListView.idList = programEditorVM.selectedProgram.programTypeIdList;
-        // subjectValueListView.idList = programEditorVM.selectedProgram.subjectIdList;
-        // topicValueListView.idList = programEditorVM.selectedProgram.topicIdList;
+    // programTypeValueListView.idList = programEditorVM.selectedProgram.programTypeIdList;
+    // subjectValueListView.idList = programEditorVM.selectedProgram.subjectIdList;
+    // topicValueListView.idList = programEditorVM.selectedProgram.topicIdList;
         
-        // programTypeValueListView.RefreshDisplayList();
-        // subjectValueListView.RefreshDisplayList();
-        // topicValueListView.RefreshDisplayList();
+    // programTypeValueListView.RefreshDisplayList();
+    // subjectValueListView.RefreshDisplayList();
+    // topicValueListView.RefreshDisplayList();
         
-        // _viewModelService.ProgramBrowserVM.ReloadProgramsFromDb();
+    // _viewModelService.ProgramBrowserVM.ReloadProgramsFromDb();
     }
 
     private async Task OnSaveEditsToDbPressed()
@@ -349,12 +363,12 @@
 
     private async void OnDateChanged()
     {
-        // _snoozeDatePicker.DateChanged
-        // programEditorVM.selectedProgram.sleepUntil = _snoozeDatePicker.Date.
-        //     GetValueOrDefault(DateTime.Now);
+    // _snoozeDatePicker.DateChanged
+    // programEditorVM.selectedProgram.sleepUntil = _snoozeDatePicker.Date.
+    //     GetValueOrDefault(DateTime.Now);
         
         await programEditorVM.SubmitEditsToDbAsync();
-        // StateHasChanged();
+    // StateHasChanged();
     }
 
     private async void ArchiveSelected()
@@ -367,8 +381,6 @@
         }
         _snackbar.Add($"Attempting to Archive: {programEditorVM.selectedProgram.displayName}");
         
-        
-
         if (await programEditorVM.DeleteSelectedProgram())
         {
             _snackbar.Add($"Deleted: {programEditorVM.selectedProgram.displayName}");
