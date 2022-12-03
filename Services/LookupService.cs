@@ -152,4 +152,104 @@ public class LookupService
         }
         return list;
     }
+    
+    public List<DateRangeObj> AggregateDateRangeObjs(SummerProgram program)
+    {
+        var list = new List<DateRangeObj>();
+        if (program is null)
+        {
+            return list;
+        }
+
+        foreach (var id in program.applicationIdList)
+        {
+            var idListObj = FindApplicationById(id);
+            if (idListObj is null)
+            {
+                continue;
+            }
+            AddIdList(idListObj, list);
+        }
+        
+        foreach (var id in program.sessionIdList)
+        {
+            var idListObj = FindSessionById(id);
+            if (idListObj is null)
+            {
+                continue;
+            }
+            AddIdList(idListObj, list);
+        }
+        
+        void AddIdList(DateRangeObj dateObj, List<DateRangeObj> addToList)
+        {
+            if (dateObj is null)
+            {
+                return;
+            }
+            addToList.Add(dateObj);
+        }
+
+        return list;
+    }
+    
+    public List<DateRangeObj> AggregateSessionDateRangeObjs(SummerProgram program)
+    {
+        var list = new List<DateRangeObj>();
+        if (program is null)
+        {
+            return list;
+        }
+
+        foreach (var id in program.sessionIdList)
+        {
+            var idListObj = FindSessionById(id);
+            if (idListObj is null)
+            {
+                continue;
+            }
+            AddIdList(idListObj, list);
+        }
+        
+        void AddIdList(DateRangeObj dateObj, List<DateRangeObj> addToList)
+        {
+            if (dateObj is null)
+            {
+                return;
+            }
+            addToList.Add(dateObj);
+        }
+
+        return list;
+    }
+    
+    public List<DateRangeObj> AggregateApplicationDateRangeObjs(SummerProgram program)
+    {
+        var list = new List<DateRangeObj>();
+        if (program is null)
+        {
+            return list;
+        }
+
+        foreach (var id in program.applicationIdList)
+        {
+            var idListObj = FindApplicationById(id);
+            if (idListObj is null)
+            {
+                continue;
+            }
+            AddIdList(idListObj, list);
+        }
+
+        void AddIdList(DateRangeObj dateObj, List<DateRangeObj> addToList)
+        {
+            if (dateObj is null)
+            {
+                return;
+            }
+            addToList.Add(dateObj);
+        }
+
+        return list;
+    }
 }

@@ -57,18 +57,12 @@ public abstract class DateRangeObj : SumProgComponent {
         }
     }
 
-    public bool ActiveNow => startDateTime.Value.CompareTo(DateTime.Now) < 0 &&
-                             endDateTime.Value.CompareTo(DateTime.Now) > 0;
-
+    public bool ActiveNow => startDateTime.Value.CompareTo(DateTime.Now) <= 0 &&
+                             endDateTime.Value.CompareTo(DateTime.Now) >= 0;
+    
     public bool ActiveInRange(DateTime rangeStart, DateTime rangeEnd)
     {
-        return DateIsBetween(startDateTime.Value, rangeStart, rangeEnd)
-               || DateIsBetween(endDateTime.Value, rangeStart, rangeEnd);
-    }
-
-    public bool DateIsBetween(DateTime date, DateTime rangeStart, DateTime rangeEnd)
-    {
-        return date.CompareTo(rangeStart) >= 0 && date.CompareTo(rangeEnd) <= 0;
+        return rangeEnd.CompareTo(startDateTime) >= 0 && rangeStart.CompareTo(endDateTime) <= 0;
     }
     
     protected override void OnBaseUpdate()

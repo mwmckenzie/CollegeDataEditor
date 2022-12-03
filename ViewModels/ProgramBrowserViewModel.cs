@@ -53,6 +53,8 @@ public class ProgramBrowserViewModel
     public bool striped { get; set; }
     public bool bordered { get; set; }
     
+    public int activeTab { get; set; } = 1;
+    
     public string searchString1 { get; set; } = string.Empty;
     private string _selectedFilter = string.Empty;
     private IndexedValue _selectedFilterObj = new();
@@ -166,6 +168,34 @@ public class ProgramBrowserViewModel
             OnSelectedFilterObjChanged();
         }
     }
+    
+    public bool filterByHasFutureDates
+    {
+        get => _filterByHasFutureDates;
+        set { _filterByHasFutureDates = value;
+            OnSelectedFilterObjChanged();
+        }
+
+    }
+
+    public bool filterByMissingFutureDates
+    {
+        get => _filterByMissingFutureDates;
+        set { _filterByMissingFutureDates = value;
+            OnSelectedFilterObjChanged();
+    
+        }
+    }
+
+    public bool filterByActiveApps
+    {
+        get => _filterByActiveApps;
+        set
+        {
+            _filterByActiveApps = value;
+            OnSelectedFilterObjChanged();
+        } 
+    }
 
     private IndexedValue _selectedSubjFilter = new();
     public IndexedValue selectedSubjFilter
@@ -228,10 +258,13 @@ public class ProgramBrowserViewModel
     private bool _filterByTag = true;
     private bool _filterByProgramType = true;
     private bool _filterByOrg = true;
-    private bool _filterByDate = true;
+    private bool _filterByDate = false;
     private bool _filterBySchool = true;
     private bool _filterByAlarm = false;
-
+    private bool _filterByHasFutureDates = false;
+    private bool _filterByMissingFutureDates = false;
+    private bool _filterByActiveApps = false; 
+    
     public IndexedValue selectedProgramTypeFilter
     {
         get => _selectedProgramTypeFilter;
@@ -338,13 +371,71 @@ public class ProgramBrowserViewModel
 
         if (!string.IsNullOrWhiteSpace(_selectedProgramTypeFilter.id) && filterByProgramType)
         {
-            programsToDisplay = programsAll.
+            filteredPrograms = filteredPrograms.
                 Where(x => 
                     x.programTypeIdList
                         .Contains(_selectedProgramTypeFilter.id))
                 .ToList();
             changesMade = true;
-
+        }
+        
+        if (filterByAlarm)
+        {
+            filteredPrograms = filteredPrograms.
+                Where(x => 
+                    x.sleepUntil.Value.CompareTo(DateTime.Now) <= 0)
+                .ToList();
+            changesMade = true;
+        }
+        
+        if (filterByDate)
+        {
+            filteredPrograms = filteredPrograms.
+                Where(x => 
+                    lookUpService.AggregateDateRangeObjs(x)
+                        .Any(y => y.ActiveInRange(dateRange.Start.Value, dateRange.End.Value)))
+                .ToList();
+            changesMade = true;
+            
+        }
+        
+        if (filterByHasFutureDates)
+        {
+            var future = 
+                new DateRange(new DateTime(2023, 3, 1), 
+                    new DateTime(2023, 10, 1));
+            
+            filteredPrograms = filteredPrograms.
+                Where(x => 
+                    lookUpService.AggregateSessionDateRangeObjs(x)
+                        .Any(y => y.ActiveInRange(future.Start.Value, future.End.Value)))
+                .ToList();
+            changesMade = true;
+        }
+        
+        if (filterByMissingFutureDates)
+        {
+            var future = 
+                new DateRange(new DateTime(2023, 3, 1), 
+                    new DateTime(2023, 10, 1));
+            
+            filteredPrograms = filteredPrograms.
+                Where(x => 
+                    lookUpService.AggregateSessionDateRangeObjs(x)
+                        .All(y => y.ActiveInRange(future.Start.Value, future.End.Value) == false))
+                .ToList();
+            changesMade = true;
+        }
+        
+        if (filterByActiveApps)
+        {
+            filteredPrograms = filteredPrograms.
+                Where(x => 
+                    lookUpService.AggregateApplicationDateRangeObjs(x)
+                        .Any(y => y.ActiveNow))
+                .ToList();
+            changesMade = true;
+            
         }
 
         if (changesMade)

@@ -128,69 +128,93 @@
     
     
     <MudItem xs="5">
-        <MudPaper Elevation="2" Style="margin-bottom: 10px;">
-            <MudStack Row="true" Justify="Justify.SpaceEvenly" Class="py-4">
-                <MudText Typo="Typo.h5">Filter</MudText>
-                <MudButton Color="Color.Secondary" OnClick="OnClearFilterClicked">
-                    Clear
-                </MudButton>
-            </MudStack>
-            <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-2">
-                <MudTabPanel Text="Subject">
-                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
-                        <MudText Typo="Typo.h6">Enabled</MudText>
-                        <MudSwitch @bind-Checked="_programBrowserVM.filterBySubject"
-                                   Color="Color.Tertiary"/>
-                    </MudStack>
-                    <FilterChipContainer _programBrowserVM="@_programBrowserVM"
-                                         filterType="FilterType.Subject"/>
-                    @* <ProgramFilterBar/> *@
-                </MudTabPanel>
-                <MudTabPanel Text="Topic">
-                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
-                        <MudText Typo="Typo.h6">Enabled</MudText>
-                        <MudSwitch @bind-Checked="_programBrowserVM.filterByTopic"
-                                   Color="Color.Tertiary"/>
-                    </MudStack>
-                    <FilterChipContainer _programBrowserVM="@_programBrowserVM"
-                                         filterType="FilterType.Topic"/>
-                    @* <ProgramFilterBar/> *@
-                </MudTabPanel>
-                <MudTabPanel Text="Tag">
-                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
-                        <MudText Typo="Typo.h6">Enabled</MudText>
-                        <MudSwitch @bind-Checked="_programBrowserVM.filterByTag"
-                                   Color="Color.Tertiary"/>
-                    </MudStack>
-                    <FilterChipContainer _programBrowserVM="@_programBrowserVM"
-                                         filterType="FilterType.Tag"/>
-                    @* <ProgramFilterBar/> *@
-                </MudTabPanel>
-                <MudTabPanel Text="Program Type">
-                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
-                        <MudText Typo="Typo.h6">Enabled</MudText>
-                        <MudSwitch @bind-Checked="_programBrowserVM.filterByProgramType"
-                                   Color="Color.Tertiary"/>
-                    </MudStack>
-                    <FilterChipContainer _programBrowserVM="@_programBrowserVM"
-                                         filterType="FilterType.ProgramType"/>
-                    @* <ProgramFilterBar/> *@
-                </MudTabPanel>
-                <MudTabPanel Text="Dates">
-                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
-                        <MudText Typo="Typo.h6">Enabled</MudText>
-                        <MudSwitch @bind-Checked="_programBrowserVM.filterByDate"
-                                   Color="Color.Tertiary"/>
-                    </MudStack>
-                    <MudDateRangePicker Label="Basic range picker"
-                                        @bind-DateRange="_programBrowserVM.dateRange"/>
-                </MudTabPanel>
-                <MudTabPanel Text="School"/>
-                <MudTabPanel Text="Org"/>
-                <MudTabPanel Text="Alarm"/>
-            </MudTabs>
-        </MudPaper>
-    </MudItem>
+            <MudPaper Elevation="2" Style="margin-bottom: 10px;">
+                <MudStack Row="true" Justify="Justify.SpaceEvenly" Class="py-4">
+                    <MudText Typo="Typo.h5">Filter</MudText>
+                    <MudButton Color="Color.Secondary" OnClick="OnClearFilterClicked">
+                        Clear
+                    </MudButton>
+                </MudStack>
+                <MudTabs Rounded="true" 
+                         ApplyEffectsToContainer="true" 
+                         PanelClass="pa-2"
+                         @bind-ActivePanelIndex="@_programBrowserVM.activeTab">
+                    <MudTabPanel Text="Subject">
+                        <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                            <MudText Typo="Typo.h6">Enabled</MudText>
+                            <MudSwitch @bind-Checked="_programBrowserVM.filterBySubject"
+                                       Color="Color.Tertiary"/>
+                        </MudStack>
+                        <FilterChipContainer _programBrowserVM="@_programBrowserVM"
+                                             filterType="FilterType.Subject"/>
+                        @* <ProgramFilterBar/> *@
+                    </MudTabPanel>
+                    <MudTabPanel Text="Topic">
+                        <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                            <MudText Typo="Typo.h6">Enabled</MudText>
+                            <MudSwitch @bind-Checked="_programBrowserVM.filterByTopic"
+                                       Color="Color.Tertiary"/>
+                        </MudStack>
+                        <FilterChipContainer _programBrowserVM="@_programBrowserVM"
+                                             filterType="FilterType.Topic"/>
+                        @* <ProgramFilterBar/> *@
+                    </MudTabPanel>
+                    <MudTabPanel Text="Tag">
+                        <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                            <MudText Typo="Typo.h6">Enabled</MudText>
+                            <MudSwitch @bind-Checked="_programBrowserVM.filterByTag"
+                                       Color="Color.Tertiary"/>
+                        </MudStack>
+                        <FilterChipContainer _programBrowserVM="@_programBrowserVM"
+                                             filterType="FilterType.Tag"/>
+                        @* <ProgramFilterBar/> *@
+                    </MudTabPanel>
+                    <MudTabPanel Text="Program Type">
+                        <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                            <MudText Typo="Typo.h6">Enabled</MudText>
+                            <MudSwitch @bind-Checked="_programBrowserVM.filterByProgramType"
+                                       Color="Color.Tertiary"/>
+                        </MudStack>
+                        <FilterChipContainer _programBrowserVM="@_programBrowserVM"
+                                             filterType="FilterType.ProgramType"/>
+                        @* <ProgramFilterBar/> *@
+                    </MudTabPanel>
+                    <MudTabPanel Text="Dates">
+                        <MudStack Spacing="8" Class="pa-4">
+                            <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                                <MudText Typo="Typo.h6">Date Range Search</MudText>
+                                <MudSwitch @bind-Checked="_programBrowserVM.filterByDate"
+                                           Color="Color.Tertiary"/>
+                            </MudStack>
+                            <MudDateRangePicker Label="Search Dates"
+                                                @bind-DateRange="_programBrowserVM.dateRange"/>
+                            <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                                <MudText Typo="Typo.h6">Expired Alarms</MudText>
+                                <MudSwitch @bind-Checked="_programBrowserVM.filterByAlarm"
+                                           Color="Color.Tertiary"/>
+                            </MudStack>
+                            <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                                <MudText Typo="Typo.h6">Active Applications</MudText>
+                                <MudSwitch @bind-Checked="_programBrowserVM.filterByActiveApps"
+                                           Color="Color.Tertiary"/>
+                            </MudStack>
+                            <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                                <MudText Typo="Typo.h6">2023 Programs</MudText>
+                                <MudSwitch @bind-Checked="_programBrowserVM.filterByHasFutureDates"
+                                           Color="Color.Tertiary"/>
+                            </MudStack>
+                            <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                                <MudText Typo="Typo.h6">Programs Missing 2023 Info</MudText>
+                                <MudSwitch @bind-Checked="_programBrowserVM.filterByMissingFutureDates"
+                                           Color="Color.Tertiary"/>
+                            </MudStack>
+                        </MudStack>
+                    </MudTabPanel>
+                    <MudTabPanel Text="School"/>
+                    <MudTabPanel Text="Org"/>
+                </MudTabs>
+            </MudPaper>
+        </MudItem>
     
 </MudGrid>
 
