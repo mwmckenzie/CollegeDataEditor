@@ -15,10 +15,9 @@ public abstract class DateRangeObj : SumProgComponent {
             {
                 startDateTime = result;
             }
-            
         }
-        
     }
+    
     public string? endDate
     {
         get => endDateTime.ToString();
@@ -61,13 +60,23 @@ public abstract class DateRangeObj : SumProgComponent {
     public bool ActiveNow => startDateTime.Value.CompareTo(DateTime.Now) < 0 &&
                              endDateTime.Value.CompareTo(DateTime.Now) > 0;
 
+    public bool ActiveInRange(DateTime rangeStart, DateTime rangeEnd)
+    {
+        return DateIsBetween(startDateTime.Value, rangeStart, rangeEnd)
+               || DateIsBetween(endDateTime.Value, rangeStart, rangeEnd);
+    }
+
+    public bool DateIsBetween(DateTime date, DateTime rangeStart, DateTime rangeEnd)
+    {
+        return date.CompareTo(rangeStart) >= 0 && date.CompareTo(rangeEnd) <= 0;
+    }
+    
     protected override void OnBaseUpdate()
     {
         base.OnBaseUpdate();
         UpdateNamesWithDateSuffix();
     }
     
-
     private void UpdateNamesWithDateSuffix()
     {
         AppendDateToDisplayName();

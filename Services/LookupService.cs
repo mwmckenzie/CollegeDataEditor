@@ -91,4 +91,65 @@ public class LookupService
     }
     
     public StudentInfo FindStudentInfoById(string searchId) => FindById(studentInfoList, searchId);
+    
+    public List<string> ProgramAggregateTagIdList(SummerProgram program)
+    {
+        var list = new List<string>();
+        if (program is null)
+        {
+            return list;
+        }
+        
+        AddIdList(program.tagIdList, list);
+        
+        foreach (var id in program.applicationIdList)
+        {
+            var idListObj = FindApplicationById(id);
+            if (idListObj is null)
+            {
+                continue;
+            }
+            AddIdList(idListObj.tagIdList, list);
+        }
+        
+        foreach (var id in program.sessionIdList)
+        {
+            var idListObj = FindSessionById(id);
+            if (idListObj is null)
+            {
+                continue;
+            }
+            AddIdList(idListObj.tagIdList, list);
+        }
+        
+        foreach (var id in program.studentInfoIdList)
+        {
+            var idListObj = FindStudentInfoById(id);
+            if (idListObj is null)
+            {
+                continue;
+            }
+            AddIdList(idListObj.tagIdList, list);
+        }
+        
+        foreach (var id in program.orgIdList)
+        {
+            var idListObj = FindOrgById(id);
+            if (idListObj is null)
+            {
+                continue;
+            }
+            AddIdList(idListObj.tagIdList, list);
+        }
+        
+        void AddIdList(List<string> idList, List<string> addToList)
+        {
+            if (idList is null || idList.Count < 1)
+            {
+                return;
+            }
+            addToList.AddRange(idList);
+        }
+        return list;
+    }
 }

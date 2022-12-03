@@ -11,13 +11,13 @@
 
 <MudPaper Style="padding: 15px"  >
     
-    @if (selected != null) {
-        <div class="d-flex flex-column align-center">
-            <MudText>
-                You selected <MudText Color="@selected.Color" Inline="true">@selected.Text</MudText>.
-            </MudText>
-        </div>
-    }
+    @* @if (selected != null) { *@
+    @*     <div class="d-flex flex-column align-center"> *@
+    @*         <MudText> *@
+    @*             You selected <MudText Color="@selected.Color" Inline="true">@selected.Text</MudText>. *@
+    @*         </MudText> *@
+    @*     </div> *@
+    @* } *@
     
     <MudChipSet @bind-SelectedChip="@selected" Filter="true"
                 Mandatory="@mandatory"
@@ -33,9 +33,10 @@
         @foreach (var filter in _filterObjs)
         {
             <MudChip 
-                     Value="filter" Text="@filter.value" 
-                     Color="Color.Primary"
-                     OnClick="@(e => _programBrowserVM.selectedFilterObj = filter)">
+                Value="filter" Text="@filter.value" 
+                Color="Color.Primary"
+                @* OnClick="@(e => _programBrowserVM.selectedFilterObj = filter)"> *@
+                OnClick="@(e => SetFilteredObj(filter))">
                 @filter.value
             </MudChip>
         }
@@ -61,6 +62,7 @@
 
     private bool mandatory = true;
     private MudChip selected;
+    
 
     protected override async Task OnInitializedAsync() {
         await base.OnInitializedAsync();
@@ -94,6 +96,34 @@
                 //_filters = _dbService.TagDb.dbItems.Select(x => x.value).ToList();
                 _filterObjs = _dbService.TagDb.dbItems;
                 _filterObjs = SortAscending(_filterObjs);
+                break;
+            case FilterType.Org:
+                break;
+            case FilterType.State:
+                break;
+            case FilterType.Residence:
+                break;
+            case FilterType.Citizenship:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SetFilteredObj(IndexedValue selectedObj)
+    {
+        switch (filterType) {
+            case FilterType.Subject:
+                _programBrowserVM.selectedSubjFilter = selectedObj;
+                break;
+            case FilterType.Topic:
+                _programBrowserVM.selectedTopicFilter = selectedObj;
+                break;
+            case FilterType.ProgramType:
+                _programBrowserVM.selectedProgramTypeFilter = selectedObj;
+                break;
+            case FilterType.Tag:
+                _programBrowserVM.selectedTagFilter = selectedObj;
                 break;
             case FilterType.Org:
                 break;

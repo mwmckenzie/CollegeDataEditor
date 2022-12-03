@@ -11,9 +11,14 @@
     <MudText Typo="Typo.h4">@baseInfoObj.displayName</MudText>
     @if (!string.IsNullOrEmpty(baseInfoObj.url)) {
         <MudStack Row="true" Spacing="3" Class="my-1">
-            <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
-            <MudLink Href="@baseInfoObj.url" Target="_blank" Typo="Typo.body1">@baseInfoObj.url</MudLink>
-        </MudStack>
+                    <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
+                    <MudLink Href="@baseInfoObj.url" 
+                             Target="_blank" 
+                             Typo="Typo.body1"
+                             Style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        @baseInfoObj.url
+                    </MudLink>
+                </MudStack>
     }
 
         @* <MudStack Row="true" Justify="Justify.SpaceBetween"> *@
