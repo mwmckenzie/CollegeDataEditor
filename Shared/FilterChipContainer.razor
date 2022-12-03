@@ -11,10 +11,10 @@
 
 <MudPaper Style="padding: 15px"  >
     
-    @* @if (selected != null) { *@
+    @* @if (!string.IsNullOrWhiteSpace(selectedDisplayText)) { *@
     @*     <div class="d-flex flex-column align-center"> *@
     @*         <MudText> *@
-    @*             You selected <MudText Color="@selected.Color" Inline="true">@selected.Text</MudText>. *@
+    @*             You have selected <MudText Color="@selected.Color" Inline="true">@selectedDisplayText</MudText>. *@
     @*         </MudText> *@
     @*     </div> *@
     @* } *@
@@ -30,13 +30,15 @@
         @*     </MudChip> *@
         @* } *@
         
+        @* Note: Saved From Old Chip Filtering *@
+        @* OnClick="@(e => _programBrowserVM.selectedFilterObj = filter)"> *@
+        
         @foreach (var filter in _filterObjs)
         {
             <MudChip 
-                Value="filter" Text="@filter.value" 
-                Color="Color.Primary"
-                @* OnClick="@(e => _programBrowserVM.selectedFilterObj = filter)"> *@
-                OnClick="@(e => SetFilteredObj(filter))">
+                     Value="filter" Text="@filter.value" 
+                     Color="Color.Primary"
+                     OnClick="@(e => SetFilteredObj(filter))">
                 @filter.value
             </MudChip>
         }
@@ -56,17 +58,49 @@
     [Parameter]
     public bool showSelected { get; set; }
 
-    private ProgramBrowserViewModel _programBrowserVM;
+    [Parameter]
+    public ProgramBrowserViewModel _programBrowserVM { get; set; }
+    
     //private List<string> _filters = new();
     private List<IndexedValue> _filterObjs = new();
 
     private bool mandatory = true;
     private MudChip selected;
-    
+
+    // private void SetSelectedText()
+    // {
+    //     selectedDisplayText = string.Empty;
+    //
+    //     switch (filterType) {
+    //         case FilterType.Subject:
+    //             selectedDisplayText = _programBrowserVM.selectedSubjFilter.value ?? string.Empty;
+    //             break;
+    //         case FilterType.Topic:
+    //             selectedDisplayText = _programBrowserVM.selectedTopicFilter.value ?? string.Empty;
+    //             break;
+    //         case FilterType.ProgramType:
+    //             selectedDisplayText = _programBrowserVM.selectedProgramTypeFilter.value ?? string.Empty;
+    //             break;
+    //         case FilterType.Tag:
+    //             selectedDisplayText = _programBrowserVM.selectedTagFilter.value ?? string.Empty;
+    //             break;
+    //         case FilterType.Org:
+    //             break;
+    //         case FilterType.State:
+    //             break;
+    //         case FilterType.Residence:
+    //             break;
+    //         case FilterType.Citizenship:
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
     protected override async Task OnInitializedAsync() {
+        _programBrowserVM ??= _viewModelService.ProgramBrowserVM;
+        
         await base.OnInitializedAsync();
-        _programBrowserVM = _viewModelService.ProgramBrowserVM;
         await LoadFilterListAsync();
     }
 
@@ -109,7 +143,8 @@
                 break;
         }
     }
-
+    
+    
     private void SetFilteredObj(IndexedValue selectedObj)
     {
         switch (filterType) {
@@ -136,34 +171,7 @@
             default:
                 break;
         }
+        
     }
-    
-    
-    // private void OnFilterValueChanged() {
-    //     switch (filterType) {
-    //         case FilterType.Subject:
-    //             _filters = programDataService.subjects.ToList();
-    //             break;
-    //         case FilterType.Topic:
-    //             _filters = programDataService.topics.ToList();
-    //             break;
-    //         case FilterType.ProgramType:
-    //             _filters = programDataService.programTypes.ToList();
-    //             break;
-    //         case FilterType.Tag:
-    //             _filters = programDataService.tags.ToList();
-    //             break;
-    //         case FilterType.Org:
-    //             break;
-    //         case FilterType.State:
-    //             break;
-    //         case FilterType.Residence:
-    //             break;
-    //         case FilterType.Citizenship:
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
 
 }

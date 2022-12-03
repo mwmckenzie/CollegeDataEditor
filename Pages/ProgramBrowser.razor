@@ -23,71 +23,72 @@
 
 <MudPaper Style="padding: 15px; margin-top: 10px; margin-bottom: 10px;">
     <MudStack Row="true" Justify="Justify.SpaceBetween">
-            <MudStack Row="true" AlignItems="AlignItems.Center">
-                <MudText Typo="Typo.h5">Programs in Database:</MudText>
-                <MudChip Color="Color.Primary">@_programBrowserVM.programCount</MudChip>
-            </MudStack>
-            <MudSpacer/>
-            <MudTextField @bind-Value="@_programBrowserVM.searchString1"
-                          Placeholder="Search" Adornment="Adornment.Start"
-                          AdornmentIcon="@Icons.Material.Filled.Search"
-                          IconSize="Size.Medium" Class="mt-0"
-                          Clearable="true"
-                          OnClearButtonClick="OnClearTextSearchField">
-            </MudTextField>
+        <MudStack Row="true" AlignItems="AlignItems.Center">
+            <MudText Typo="Typo.h5">Programs in Database:</MudText>
+            <MudChip Color="Color.Primary">@_programBrowserVM.programCount</MudChip>
         </MudStack>
+        <MudSpacer/>
+        <MudTextField @bind-Value="@_programBrowserVM.searchString1"
+                      Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium" Class="mt-0"
+                      Clearable="true"
+                      OnClearButtonClick="OnClearTextSearchField">
+        </MudTextField>
+    </MudStack>
+    
 </MudPaper>
 
 <MudGrid>
     <MudItem xs="7">
         
         @if (_programBrowserVM.hasActiveFilter)
-                {
-                    <MudPaper Class="mb-2 pa-4">
-                        <MudStack Spacing="2">
-                            @if (_programBrowserVM.hasSubjFilter)
-                            {
-                                <MudText Typo="Typo.h6"
-                                         Color="Color.Tertiary">
-                                    <MudText Color="Color.Primary" Inline="true">
-                                        Subject:
-                                    </MudText>
-                                    @_programBrowserVM.selectedSubjFilter.value
-                                </MudText>
-                            }
-                            @if (_programBrowserVM.hasTopicFilter)
-                            {
-                                <MudText Typo="Typo.h6"
-                                         Color="Color.Tertiary">
-                                    <MudText Color="Color.Primary" Inline="true">
-                                        Topic:
-                                    </MudText>
-                                    @_programBrowserVM.selectedTopicFilter.value
-                                </MudText>
-                            }
-                            @if (_programBrowserVM.hasTagFilter)
-                            {
-                                <MudText Typo="Typo.h6"
-                                         Color="Color.Tertiary">
-                                    <MudText Color="Color.Primary" Inline="true">
-                                        Tag:
-                                    </MudText>
-                                    @_programBrowserVM.selectedTagFilter.value
-                                </MudText>
-                            }
-                            @if (_programBrowserVM.hasProgTypeFilter)
-                            {
-                                <MudText Typo="Typo.h6"
-                                         Color="Color.Tertiary">
-                                    <MudText Color="Color.Primary" Inline="true">
-                                        Program:
-                                    </MudText>
-                                    @_programBrowserVM.selectedProgramTypeFilter.value
-                                </MudText>
-                            }
-                        </MudStack>
-                    </MudPaper>
-                }
+        {
+            <MudPaper Class="mb-2 pa-4">
+                <MudStack Spacing="2">
+                    @if (_programBrowserVM.hasSubjFilter)
+                    {
+                        <MudText Typo="Typo.h6"
+                                 Color="Color.Tertiary">
+                            <MudText Color="Color.Primary" Inline="true">
+                                Subject:
+                            </MudText>
+                            @_programBrowserVM.selectedSubjFilter.value
+                        </MudText>
+                    }
+                    @if (_programBrowserVM.hasTopicFilter)
+                    {
+                        <MudText Typo="Typo.h6"
+                                 Color="Color.Tertiary">
+                            <MudText Color="Color.Primary" Inline="true">
+                                Topic:
+                            </MudText>
+                            @_programBrowserVM.selectedTopicFilter.value
+                        </MudText>
+                    }
+                    @if (_programBrowserVM.hasTagFilter)
+                    {
+                        <MudText Typo="Typo.h6"
+                                 Color="Color.Tertiary">
+                            <MudText Color="Color.Primary" Inline="true">
+                                Tag:
+                            </MudText>
+                            @_programBrowserVM.selectedTagFilter.value
+                        </MudText>
+                    }
+                    @if (_programBrowserVM.hasProgTypeFilter)
+                    {
+                        <MudText Typo="Typo.h6"
+                                 Color="Color.Tertiary">
+                            <MudText Color="Color.Primary" Inline="true">
+                                Program:
+                            </MudText>
+                            @_programBrowserVM.selectedProgramTypeFilter.value
+                        </MudText>
+                    }
+                </MudStack>
+            </MudPaper>
+        }
         
         <MudTable Items="@_programBrowserVM.programsToDisplay"
                   Dense="@_programBrowserVM.dense"
@@ -98,16 +99,12 @@
                   Filter="new Func<SummerProgram, bool>(FilterFunc1)"
                   @bind-SelectedItem="@_programBrowserVM.selected">
             @* <ToolBarContent> *@
-            @*     <MudText Typo="Typo.h6" *@
-            @*              Color="Color.Secondary"> *@
-            @*         @_programBrowserVM.selectedFilterObj.value *@
-            @*     </MudText> *@
-            @*     <MudSpacer/> *@
-            @*     <MudTextField @bind-Value="@_programBrowserVM.searchString1" *@
-            @*                   Placeholder="Search" Adornment="Adornment.Start" *@
-            @*                   AdornmentIcon="@Icons.Material.Filled.Search" *@
-            @*                   IconSize="Size.Medium" Class="mt-0"> *@
-            @*     </MudTextField> *@
+            @*     $1$ <MudSpacer/> #1# *@
+            @*     $1$ <MudTextField @bind-Value="@_programBrowserVM.searchString1"  #1# *@
+            @*     $1$               Placeholder="Search" Adornment="Adornment.Start" #1# *@
+            @*     $1$               AdornmentIcon="@Icons.Material.Filled.Search"  #1# *@
+            @*     $1$               IconSize="Size.Medium" Class="mt-0"> #1# *@
+            @*     $1$ </MudTextField> #1# *@
             @* </ToolBarContent> *@
             <HeaderContent>
                 <MudTh>
@@ -129,44 +126,71 @@
         </MudTable>
     </MudItem>
     
+    
     <MudItem xs="5">
-            <MudPaper Elevation="2" Style="margin-bottom: 10px;">
-                <MudStack Row="true" Justify="Justify.SpaceEvenly" Class="py-4">
-                    <MudText Typo="Typo.h5">Filter</MudText>
-                    <MudButton Color="Color.Secondary" OnClick="OnClearFilterClicked">
-                        Clear
-                    </MudButton>
-                </MudStack>
-                <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-2">
-                    <MudTabPanel Text="Subject">
-                        <FilterChipContainer _programBrowserVM="@_programBrowserVM" 
-                                             filterType="FilterType.Subject"/>
-                        @* <ProgramFilterBar/> *@
-                    </MudTabPanel>
-                    <MudTabPanel Text="Topic">
-                        <FilterChipContainer _programBrowserVM="@_programBrowserVM" 
-                                             filterType="FilterType.Topic"/>
-                        @* <ProgramFilterBar/> *@
-                    </MudTabPanel>
-                    <MudTabPanel Text="Tag">
-                        <FilterChipContainer _programBrowserVM="@_programBrowserVM" 
-                                             filterType="FilterType.Tag"/>
-                        @* <ProgramFilterBar/> *@
-                    </MudTabPanel>
-                    <MudTabPanel Text="Program Type">
-                        <FilterChipContainer _programBrowserVM="@_programBrowserVM" 
-                                             filterType="FilterType.ProgramType"/>
-                        @* <ProgramFilterBar/> *@
-                    </MudTabPanel>
-                    <MudTabPanel Text="Dates"/>
-                    <MudDateRangePicker Label="Basic range picker" 
+        <MudPaper Elevation="2" Style="margin-bottom: 10px;">
+            <MudStack Row="true" Justify="Justify.SpaceEvenly" Class="py-4">
+                <MudText Typo="Typo.h5">Filter</MudText>
+                <MudButton Color="Color.Secondary" OnClick="OnClearFilterClicked">
+                    Clear
+                </MudButton>
+            </MudStack>
+            <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-2">
+                <MudTabPanel Text="Subject">
+                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                        <MudText Typo="Typo.h6">Enabled</MudText>
+                        <MudSwitch @bind-Checked="_programBrowserVM.filterBySubject"
+                                   Color="Color.Tertiary"/>
+                    </MudStack>
+                    <FilterChipContainer _programBrowserVM="@_programBrowserVM"
+                                         filterType="FilterType.Subject"/>
+                    @* <ProgramFilterBar/> *@
+                </MudTabPanel>
+                <MudTabPanel Text="Topic">
+                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                        <MudText Typo="Typo.h6">Enabled</MudText>
+                        <MudSwitch @bind-Checked="_programBrowserVM.filterByTopic"
+                                   Color="Color.Tertiary"/>
+                    </MudStack>
+                    <FilterChipContainer _programBrowserVM="@_programBrowserVM"
+                                         filterType="FilterType.Topic"/>
+                    @* <ProgramFilterBar/> *@
+                </MudTabPanel>
+                <MudTabPanel Text="Tag">
+                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                        <MudText Typo="Typo.h6">Enabled</MudText>
+                        <MudSwitch @bind-Checked="_programBrowserVM.filterByTag"
+                                   Color="Color.Tertiary"/>
+                    </MudStack>
+                    <FilterChipContainer _programBrowserVM="@_programBrowserVM"
+                                         filterType="FilterType.Tag"/>
+                    @* <ProgramFilterBar/> *@
+                </MudTabPanel>
+                <MudTabPanel Text="Program Type">
+                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                        <MudText Typo="Typo.h6">Enabled</MudText>
+                        <MudSwitch @bind-Checked="_programBrowserVM.filterByProgramType"
+                                   Color="Color.Tertiary"/>
+                    </MudStack>
+                    <FilterChipContainer _programBrowserVM="@_programBrowserVM"
+                                         filterType="FilterType.ProgramType"/>
+                    @* <ProgramFilterBar/> *@
+                </MudTabPanel>
+                <MudTabPanel Text="Dates">
+                    <MudStack Row="true" Justify="Justify.FlexStart" Spacing="4">
+                        <MudText Typo="Typo.h6">Enabled</MudText>
+                        <MudSwitch @bind-Checked="_programBrowserVM.filterByDate"
+                                   Color="Color.Tertiary"/>
+                    </MudStack>
+                    <MudDateRangePicker Label="Basic range picker"
                                         @bind-DateRange="_programBrowserVM.dateRange"/>
-                    <MudTabPanel Text="School"/>
-                    <MudTabPanel Text="Org"/>
-                    <MudTabPanel Text="Alarm"/>
-                </MudTabs>
-            </MudPaper>
-        </MudItem>
+                </MudTabPanel>
+                <MudTabPanel Text="School"/>
+                <MudTabPanel Text="Org"/>
+                <MudTabPanel Text="Alarm"/>
+            </MudTabs>
+        </MudPaper>
+    </MudItem>
     
 </MudGrid>
 
@@ -189,6 +213,14 @@
 
     private ProgramBrowserViewModel _programBrowserVM;
     private SideViewViewModel _sideVM = new();
+    
+    public string str { get; set; } = "on";
+
+    private void OnClearFilterClicked()
+    {
+        _programBrowserVM.selectedFilterObj = new IndexedValue();
+        _programBrowserVM.ClearSelectedFilter();
+    }
     
     protected override Task OnInitializedAsync() {
         
@@ -258,7 +290,7 @@
         _programBrowserVM.OnDefaultListDisplay -= OnDefaultListDisplayed;
         _programBrowserVM.OnProgramSelected -= OnProgramSelection;
     }
-
+    
     private async void ArchiveSelected()
     {
         var result = await ArchiveItem();
@@ -292,13 +324,7 @@
 
         return await _dialogService.Show<DeleteConfimationDialog>("Archive", parameters, options).Result;
     }
-    
-    private void OnClearFilterClicked()
-    {
-        _programBrowserVM.selectedFilterObj = new IndexedValue();
-        _programBrowserVM.ClearSelectedFilter();
-    }
-    
+
     private void OnClearTextSearchField()
     {
         _programBrowserVM.searchString1 = string.Empty;

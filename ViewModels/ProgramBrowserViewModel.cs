@@ -23,7 +23,6 @@ namespace CollegeDataEditor.ViewModels;
 
 public class ProgramBrowserViewModel
 {
-    
     public event Action? OnValueChange;
     public event Action? OnDefaultListDisplay;
     public event Action? OnProgramSelected;
@@ -57,7 +56,6 @@ public class ProgramBrowserViewModel
     public string searchString1 { get; set; } = string.Empty;
     private string _selectedFilter = string.Empty;
     private IndexedValue _selectedFilterObj = new();
-    
     public IndexedValue selectedFilterObj
     {
         get => _selectedFilterObj;
@@ -88,15 +86,86 @@ public class ProgramBrowserViewModel
         = new DateRange(DateTime.Now.Date, DateTime.Now.AddDays(5).Date);
 
     public int programCount => programsAll.Count;
-    
-    public bool filterBySubject { get; set; } = true;
-    public bool filterByTopic { get; set; } = true;
-    public bool filterByTag { get; set; } = true;
-    public bool filterByProgramType { get; set; } = true;
-    public bool filterByOrg { get; set; } = true;
-    public bool filterByDate { get; set; } = true;
-    public bool filterBySchool { get; set; } = true;
-    public bool filterByAlarm { get; set; } = false;
+
+    public bool filterBySubject
+    {
+        get => _filterBySubject;
+        set
+        {
+            _filterBySubject = value;
+            OnSelectedFilterObjChanged();
+        }
+    }
+
+    public bool filterByTopic
+    {
+        get => _filterByTopic;
+        set
+        {
+            _filterByTopic = value;
+            OnSelectedFilterObjChanged();
+        }
+    }
+
+    public bool filterByTag
+    {
+        get => _filterByTag;
+        set 
+    {
+        _filterByTag = value;
+        OnSelectedFilterObjChanged();
+    }
+    }
+
+    public bool filterByProgramType
+    {
+        get => _filterByProgramType;
+        set
+        {
+            _filterByProgramType = value;
+            OnSelectedFilterObjChanged();
+        }
+    }
+
+    public bool filterByOrg
+    {
+        get => _filterByOrg;
+        set
+        {
+            _filterByOrg = value;
+            OnSelectedFilterObjChanged();
+        }
+    }
+
+    public bool filterByDate
+    {
+        get => _filterByDate;
+        set
+        {
+            _filterByDate = value;
+            OnSelectedFilterObjChanged();
+        }
+    }
+
+    public bool filterBySchool
+    {
+        get => _filterBySchool;
+        set
+        {
+            _filterBySchool = value;
+            OnSelectedFilterObjChanged();
+        }
+    }
+
+    public bool filterByAlarm
+    {
+        get => _filterByAlarm;
+        set
+        {
+            _filterByAlarm = value;
+            OnSelectedFilterObjChanged();
+        }
+    }
 
     private IndexedValue _selectedSubjFilter = new();
     public IndexedValue selectedSubjFilter
@@ -154,6 +223,15 @@ public class ProgramBrowserViewModel
     }
 
     private IndexedValue _selectedProgramTypeFilter = new();
+    private bool _filterBySubject = true;
+    private bool _filterByTopic = true;
+    private bool _filterByTag = true;
+    private bool _filterByProgramType = true;
+    private bool _filterByOrg = true;
+    private bool _filterByDate = true;
+    private bool _filterBySchool = true;
+    private bool _filterByAlarm = false;
+
     public IndexedValue selectedProgramTypeFilter
     {
         get => _selectedProgramTypeFilter;
@@ -181,6 +259,7 @@ public class ProgramBrowserViewModel
     
     public bool hasActiveFilter => hasOrgFilter || hasSubjFilter || hasTagFilter 
                                    || hasTopicFilter || hasProgTypeFilter;
+
     
     private void NotifyDataStateChanged() {
         OnValueChange?.Invoke();
@@ -310,48 +389,13 @@ public class ProgramBrowserViewModel
         // }
     }
     
-    // private void OnSelectedFilterChanged() {
-    //     if (FiltersAreInvalid() || dbService is null) {
-    //         LoadDefaultList();
-    //         return;
-    //     }
-    //
-    //     var filterId = string.Empty;
-    //     switch (selectedFilterType) {
-    //         case "Subject":
-    //             filterId = GetFilterId(dbService.SubjectsDb.dbItems);
-    //             programsToDisplay = programsAll.
-    //                 Where(x => 
-    //                     x.subjectIdList.Contains(filterId)).ToList();
-    //             NotifyDataStateChanged();
-    //             break;
-    //         case "Topic":
-    //             filterId = GetFilterId(dbService.TopicsDb.dbItems);
-    //             programsToDisplay = programsAll.
-    //                 Where(x => 
-    //                     x.topicIdList.Contains(filterId)).ToList();
-    //             NotifyDataStateChanged();
-    //             break;
-    //         case "Tag":
-    //             filterId = GetFilterId(dbService.TagDb.dbItems);
-    //             programsToDisplay = programsAll.
-    //                 Where(x => 
-    //                     x.tagIdList.Contains(filterId)).ToList();
-    //             NotifyDataStateChanged();
-    //             break;
-    //         default:
-    //             LoadDefaultList();
-    //             break;
-    //     }
-    // }
-
     private void LoadDefaultList()
     {
         programsToDisplay = programsAll;
         NotifyDefaultListDisplay();
         // NotifyDataStateChanged();
     }
-    
+
     public void ReloadProgramsFromDb()
     {
         programsAll = dbService.SummerProgramsDb.dbItems
@@ -360,7 +404,7 @@ public class ProgramBrowserViewModel
         LoadDefaultList();
         NotifyDataStateChanged();
     }
-
+    
     private string GetFilterId(IEnumerable<IndexedValue> dbItemList)
     {
         var filter = selectedFilter;
@@ -396,4 +440,5 @@ public class ProgramBrowserViewModel
     //     //     programDataService.programList.Where(x => x.topicIdList.Contains(topicId)).ToList();
     //     // StateHasChanged();
     // }
+
 }
