@@ -1,26 +1,41 @@
 ﻿@page "/login-providers"
 
-@{
+<MudPaper Height="80vh" Class="d-flex flex-column flex-grow-1 align-content-space-between py-3">
+    
+    <MudText Typo="Typo.h1" Align="Align.Center" Class="pa-8">
+        Login
+    </MudText>
 
-    var providers = new Dictionary<string, string[]>
-    {
-        { "github", new string[3]{ "github", "github", "GitHub"}}, 
-        { "twitter", new string[3]{ "twitter","twitter", "Twitter" }},
-        { "microsoft", new string[3]{ "windows", "aad", "Azure AD" }}
-    };
-}
-
-<h1>Login</h1>
-
-<div class="container">
-    @foreach(var provider in providers)
-    {
-        <div class="row">
-            <div class="col-sm-12 col-md-9 col-lg-6">
-                <a class="btn btn-block btn-lg btn-social btn-@provider.Key" href="/.auth/login/@provider.Value[1]">
+    <MudStack Class="d-flex flex-grow-1 pa-8" AlignItems="AlignItems.Center" Justify="Justify.Center">
+        @foreach(var provider in providers)
+        {
+            <MudPaper Typo="Typo.h1" Align="Align.Center">
+                <MudButton StartIcon="@provider.Value[3]" 
+                           href="@providerPath(provider.Value)"
+                           Class="pa-4"
+                           Color="Color.Primary"
+                           IconColor="Color.Inherit">
                     <span class="fa fa-@provider.Value[0]"></span> Sign in with @provider.Value[2]
-                </a>
-            </div>
-        </div>
-    }
-</div>
+                </MudButton>
+                @* <a class="btn btn-block btn-lg btn-social btn-@provider.Key" href="/.auth/login/@provider.Value[1]"> *@
+                @* </a> *@
+            </MudPaper>
+        }
+    </MudStack>
+</MudPaper>
+
+@code
+{
+    Dictionary<string, string[]> providers = new Dictionary<string, string[]>
+    {
+        { "github", new string[4]{ "github", "github", "GitHub", Icons.Custom.Brands.GitHub}}, 
+        { "twitter", new string[4]{ "twitter","twitter", "Twitter", Icons.Custom.Brands.Twitter }},
+        { "microsoft", new string[4]{ "windows", "aad", "Azure AD", Icons.Custom.Brands.Microsoft }}
+    };
+
+    private string providerPath(string[] provider)
+    {
+        return $"/.auth/login/{provider[1]}";
+    } 
+
+}

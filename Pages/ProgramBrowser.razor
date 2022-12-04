@@ -198,12 +198,16 @@
                                                 @bind-DateRange="_programBrowserVM.dateRange"/>
                             <MudDivider DividerType="DividerType.FullWidth"/>
     
-                            <MudStack Row="true" Justify="Justify.SpaceBetween" Spacing="4">
-                                <MudText Typo="Typo.h6">Expired Alarms</MudText>
-                                <MudSwitch @bind-Checked="_programBrowserVM.filterByAlarm"
-                                           Color="Color.Tertiary"/>
-                            </MudStack>
-    
+                            <AuthorizeView Roles="editor">
+                                <Authorized>
+                                    <MudStack Row="true" Justify="Justify.SpaceBetween" Spacing="4">
+                                        <MudText Typo="Typo.h6">Expired Alarms</MudText>
+                                        <MudSwitch @bind-Checked="_programBrowserVM.filterByAlarm"
+                                                   Color="Color.Tertiary"/>
+                                    </MudStack>
+                                </Authorized>
+                            </AuthorizeView>
+                            
                             <MudStack Row="true" Justify="Justify.SpaceBetween" Spacing="4">
                                 <MudText Typo="Typo.h6">Active Applications</MudText>
                                 <MudSwitch @bind-Checked="_programBrowserVM.filterByActiveApps"
@@ -214,13 +218,17 @@
                                 <MudSwitch @bind-Checked="_programBrowserVM.filterByHasFutureDates"
                                            Color="Color.Tertiary"/>
                             </MudStack>
-    
-                            <MudStack Row="true" Justify="Justify.SpaceBetween" Spacing="4">
-                                <MudText Typo="Typo.h6">No 2023 Dates</MudText>
-                                <MudSwitch @bind-Checked="_programBrowserVM.filterByMissingFutureDates"
-                                           Color="Color.Tertiary"/>
-                            </MudStack>
-    
+                            
+                            <AuthorizeView Roles="editor">
+                                <Authorized>
+                                    <MudStack Row="true" Justify="Justify.SpaceBetween" Spacing="4">
+                                        <MudText Typo="Typo.h6">No 2023 Dates</MudText>
+                                        <MudSwitch @bind-Checked="_programBrowserVM.filterByMissingFutureDates"
+                                                   Color="Color.Tertiary"/>
+                                    </MudStack>
+                                </Authorized>
+                            </AuthorizeView>
+
                         </MudStack>
                     </MudTabPanel>
     
