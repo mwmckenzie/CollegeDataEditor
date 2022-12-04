@@ -53,7 +53,7 @@ public class ProgramBrowserViewModel
     public bool striped { get; set; }
     public bool bordered { get; set; }
     
-    public int activeTab { get; set; } = 1;
+    public int activeTab { get; set; } = 0;
     
     public string searchString1 { get; set; } = string.Empty;
     private string _selectedFilter = string.Empty;
