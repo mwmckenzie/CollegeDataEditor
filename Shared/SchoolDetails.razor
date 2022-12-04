@@ -8,11 +8,20 @@
     <MudPaper Class="pa-4 mb-4">
         <MudText Typo="Typo.h3">@school.Name</MudText>
         <MudStack Row="true" Justify="Justify.SpaceBetween">
-            <MudText Typo="Typo.body1" Color="Color.Tertiary">@lookUps.GetStateFullNameByFip(school.StateFips)</MudText>
-            <MudStack Row="true" Spacing="3">
-                <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
-                <MudLink Href="@school.SchoolUrl" Target="_blank" Typo="Typo.body1">@lookUps.ShortenUrl(school.SchoolUrl)</MudLink>
-            </MudStack>
+            <MudText Typo="Typo.body1" Color="Color.Tertiary">
+                @lookUps.GetStateFullNameByFip(school.StateFips)
+            </MudText>
+            @if (!string.IsNullOrWhiteSpace(school.SchoolUrl))
+            {
+                <MudStack Row="true" Spacing="3">
+                    <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
+                    <MudLink Href="@school.SchoolUrl.FixUrlPrefix()" Target="_blank" Typo="Typo.body1">
+                        @school.SchoolUrl.ShortenUrl()
+                    </MudLink>
+                </MudStack>
+            }
+            
+            
         </MudStack>
     </MudPaper>
 
@@ -49,16 +58,18 @@
         <MudText Typo="Typo.h6">@lookUps.GetOwnership(school.Ownership)</MudText>
         <MudText Typo="Typo.h6">Online Only: @lookUps.GetYesNo(school.OnlineOnly)</MudText>
 
-        @if (school.Alias != string.Empty) {
+        @if (!string.IsNullOrWhiteSpace(school.Alias)) {
             <MudText Typo="Typo.subtitle2" Class="mt-4" Color="Color.Tertiary">Nicknames</MudText>
             <MudText Typo="Typo.body1">@school.Alias</MudText>
         }
 
-        @if (school.PriceCalculatorUrl != string.Empty) {
+        @if (!string.IsNullOrEmpty(school.PriceCalculatorUrl)) {
             <MudText Typo="Typo.subtitle2" Class="mt-4" Color="Color.Tertiary">Price Calculator</MudText>
             <MudStack Row="true" Spacing="3">
                 <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
-                <MudLink Href="@school.PriceCalculatorUrl" Target="_blank" Typo="Typo.body1">@lookUps.ShortenUrl(school.PriceCalculatorUrl)</MudLink>
+                <MudLink Href="@school.PriceCalculatorUrl.FixUrlPrefix()" Target="_blank" Typo="Typo.body1">
+                    @school.PriceCalculatorUrl.ShortenUrl()
+                </MudLink>
             </MudStack>
         }
     </MudPaper>

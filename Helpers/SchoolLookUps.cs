@@ -216,25 +216,25 @@ public class SchoolLookUps {
     public Dictionary<int, string> mainCampus { get; }
     public Dictionary<int, string> ownership { get; }
 
-    public string ShortenUrl(string? urlIn)
-    {
-        if (urlIn is null)
-        {
-            return string.Empty;
-        }
-
-        if (!urlIn.Contains("https://"))
-        {
-            urlIn = "https://" + urlIn;
-        }
-        if (urlIn.Contains('/') && urlIn.Split('/').Length >= 4)
-        {
-            var replace = urlIn.Split('/', 4)[3];
-            return replace.Length > 0 ? urlIn.Replace(replace, string.Empty) + "..."
-                    : urlIn;
-        }
-        return urlIn;
-    } 
+    // public string ShortenUrl(string? urlIn)
+    // {
+    //     if (urlIn is null)
+    //     {
+    //         return string.Empty;
+    //     }
+    //
+    //     if (!urlIn.Contains("https://"))
+    //     {
+    //         urlIn = "https://" + urlIn;
+    //     }
+    //     if (urlIn.Contains('/') && urlIn.Split('/').Length >= 4)
+    //     {
+    //         var replace = urlIn.Split('/', 4)[3];
+    //         return replace.Length > 0 ? urlIn.Replace(replace, string.Empty) + "..."
+    //                 : urlIn;
+    //     }
+    //     return urlIn;
+    // } 
 
     public string GetRegion(int? id) {
         const string unknown = "Unknown Region";
