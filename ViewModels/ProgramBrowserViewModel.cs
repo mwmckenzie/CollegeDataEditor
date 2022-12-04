@@ -381,10 +381,7 @@ public class ProgramBrowserViewModel
         
         if (filterByAlarm)
         {
-            filteredPrograms = filteredPrograms.
-                Where(x => 
-                    x.sleepUntil.Value.CompareTo(DateTime.Now) <= 0)
-                .ToList();
+            filteredPrograms = filteredPrograms.Where(x => x.hasActiveAlarm).ToList();
             changesMade = true;
         }
         
