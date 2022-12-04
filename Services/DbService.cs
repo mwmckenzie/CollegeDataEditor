@@ -25,6 +25,8 @@ public class DbService
     public Db<Application> ApplicationsDb;
     public Db<Session> SessionsDb;
     public Db<StudentInfo> StudentInfoDb;
+
+    public Db<School> schoolsDb;
     
     private string connKey { get; set; }
 
@@ -160,6 +162,17 @@ public class DbService
             connectionStringKey = connKey,
             CooldownSeconds = 30
         };
+        
+        schoolsDb = new Db<School>
+        {
+            http = http,
+            state = DbState.Uninitialized,
+            connectionStringBase = 
+                "https://collegeprepapi.azurewebsites.net/api/school",
+            connectionStringArchive = string.Empty,
+            connectionStringKey = connKey,
+            CooldownSeconds = 30
+        };
     }
     
     
@@ -185,6 +198,7 @@ public class DbService
         await TryLoadDbAsync(ApplicationsDb, cooldownSeconds);
         await TryLoadDbAsync(SessionsDb, cooldownSeconds);
         await TryLoadDbAsync(StudentInfoDb, cooldownSeconds);
+        await TryLoadDbAsync(schoolsDb, cooldownSeconds);
 
         state = DbState.Ready;
         NotifyDbServiceStateChanged();

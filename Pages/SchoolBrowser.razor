@@ -1,0 +1,191 @@
+﻿@page "/schoolbrowser"
+
+@using CollegeDataEditor.Models
+@using CollegeDataEditor.ViewModels
+@using CollegeDataEditor.Services
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
+@implements IDisposable
+
+@inject DbService _dbService
+@inject LookupService _lookupService
+@inject ViewModelService _viewModelService
+@inject ISnackbar _snackbar
+@inject IDialogService _dialogService
+
+<PageTitle>School DB</PageTitle>
+
+<MudText Typo="Typo.h3" Class="mt-4 mb-4">College and University Database</MudText>
+
+<MudPaper Style="padding: 15px; margin-top: 10px; margin-bottom: 10px;">
+    <MudStack Row="true" AlignItems="AlignItems.Center">
+        <MudText Typo="Typo.h5">Schools in Database:</MudText>
+        <MudChip Color="Color.Primary">@_schoolBrowserVM.schoolCount</MudChip>
+    </MudStack>
+</MudPaper>
+
+<MudPaper Style="padding: 15px">
+    <MudText Typo="Typo.h4">Filter By State (@_schoolBrowserVM.stateAbbrevs.Count)</MudText>
+    <br/>
+    @foreach (var stateAbbrev in _schoolBrowserVM.stateAbbrevs.OrderBy(x => x.Value)) {
+        <MudButton Variant="Variant.Filled" style="margin: 2px;"
+                   @onclick="@(e => _schoolBrowserVM.selectedStateAbbrev = stateAbbrev)">
+            @stateAbbrev.Value
+        </MudButton>
+    }
+</MudPaper>
+
+<MudTable Items="@_schoolBrowserVM.schoolsToDisplay" 
+          @bind-Dense="@_schoolBrowserVM.dense" 
+          @bind-Hover="@_schoolBrowserVM.hover" 
+          @bind-Bordered="@_schoolBrowserVM.bordered" 
+          @bind-Striped="@_schoolBrowserVM.striped"
+          Filter="new Func<School, bool>(_schoolBrowserVM.FilterFunc1)"
+          @bind-SelectedItem="selectedItem1"
+          @bind-RowsPerPage="@_schoolBrowserVM.rowsPerPage"
+          Style="margin-top: 1em">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Current State: @_schoolBrowserVM.stateFullName</MudText>
+        <MudSpacer/>
+        <MudTextField @bind-Value="@_schoolBrowserVM.searchString1" 
+                      Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" 
+                      IconSize="Size.Medium" Class="mt-0"
+                      Clearable="true"
+                      OnClearButtonClick="OnClearTextSearchField">
+        </MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>City</MudTh>
+        <MudTh>State</MudTh>
+        <MudTh>Info Page</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="City">@context.City</MudTd>
+        <MudTd DataLabel="State">@context.State</MudTd>
+        <MudTd DataLabel="SchoolUrl">
+            <MudButton OnClick="() => OnRowClicked(context)"
+                       Color="Color.Primary">
+                Show
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager/>
+    </PagerContent>
+</MudTable>
+
+<div class="d-flex flex-wrap mt-4" style="margin-bottom: 1em">
+    <MudSwitch @bind-Checked="@_schoolBrowserVM.hover" Color="Color.Primary">Hover</MudSwitch>
+    <MudSwitch @bind-Checked="@_schoolBrowserVM.dense" Color="Color.Secondary">Dense</MudSwitch>
+    <MudSwitch @bind-Checked="@_schoolBrowserVM.striped" Color="Color.Tertiary">Striped</MudSwitch>
+    <MudSwitch @bind-Checked="@_schoolBrowserVM.bordered" Color="Color.Warning">Bordered</MudSwitch>
+    <MudSpacer/>
+    <div style="min-width:200px;">
+        <MudText Inline="true" Class="align-self-center">Selected: @selectedItem1?.Name</MudText>
+    </div>
+</div>
+
+<MudDrawer @bind-Open="@_schoolBrowserVM.open" 
+           Width="@_schoolBrowserVM.width" 
+           Height="@_schoolBrowserVM.height" 
+           Anchor="@_schoolBrowserVM.anchor" 
+           Elevation="1" 
+           Variant="@DrawerVariant.Temporary">
+    <SchoolDetails school="_schoolBrowserVM.selectedSchool"/>
+</MudDrawer>
+
+
+@code {
+
+    private SchoolBrowserViewModel _schoolBrowserVM = new();
+    
+    private School selectedItem1 {
+        get => _schoolBrowserVM.selectedSchool;
+        set {
+            _schoolBrowserVM.selectedSchool = value;
+        }
+    }
+    
+    protected override Task OnInitializedAsync()
+    {
+        _schoolBrowserVM = _viewModelService.schoolBrowserVM;
+        _schoolBrowserVM.OnDefaultListDisplay += OnDefaultListDisplayed;
+        _schoolBrowserVM.OnSchoolSelected += OnSchoolSelection;
+        
+        
+        _schoolBrowserVM.SetDb(_dbService.schoolsDb);
+        return Task.CompletedTask;
+    }
+    
+    private void OnSchoolSelection()
+    {
+        OpenDrawer(_schoolBrowserVM.anchor);
+    }
+
+    private void OnDefaultListDisplayed()
+    {
+        StateHasChanged();
+        AddSnackBarUpdate("OnDefaultListDisplayed Event Received!", Severity.Warning);
+    }
+
+    private void AddSnackBarUpdate(string text, Severity severity = Severity.Info)
+    {
+        _snackbar.Clear();
+        _snackbar.Add(text, severity, config =>
+        {
+            config.CloseAfterNavigation = true;
+            config.ShowCloseIcon = true;
+            config.VisibleStateDuration = 2;
+            config.Onclick = _ => Task.CompletedTask;
+        });
+    }
+
+    public void Dispose() {
+        _schoolBrowserVM.OnDefaultListDisplay -= OnDefaultListDisplayed;
+        _schoolBrowserVM.OnSchoolSelected -= OnSchoolSelection;
+    }
+    
+    private void OpenEndDrawer() {
+        _schoolBrowserVM.open = true;
+    }
+    
+    void OpenDrawer(Anchor anchor) {
+        _schoolBrowserVM.open = true;
+        _schoolBrowserVM.anchor = anchor;
+
+        switch (anchor) {
+            case Anchor.Start:
+                _schoolBrowserVM.width = "300px";
+                _schoolBrowserVM.height = "100%";
+                break;
+            case Anchor.End:
+                _schoolBrowserVM.width = "40%";
+                _schoolBrowserVM.height = "100%";
+                break;
+            case Anchor.Bottom:
+                _schoolBrowserVM.width = "100%";
+                _schoolBrowserVM.height = "200px";
+                break;
+            case Anchor.Top:
+                _schoolBrowserVM.width = "100%";
+                _schoolBrowserVM.height = "350px";
+                break;
+        }
+    }
+
+    private void OnRowClicked(School context)
+    {
+        _schoolBrowserVM.selectedSchool = context;
+    }
+    
+    private void OnClearTextSearchField()
+    {
+        _schoolBrowserVM.searchString1 = string.Empty;
+    }
+
+}

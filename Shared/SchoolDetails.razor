@@ -1,0 +1,76 @@
+﻿@using CollegeDataEditor.Models
+@using CollegeDataEditor.Helpers
+
+
+@if (school is not null)
+{
+    <MudPaper Class="pa-4">
+    <MudPaper Class="pa-4 mb-4">
+        <MudText Typo="Typo.h3">@school.Name</MudText>
+        <MudStack Row="true" Justify="Justify.SpaceBetween">
+            <MudText Typo="Typo.body1" Color="Color.Tertiary">@lookUps.GetStateFullNameByFip(school.StateFips)</MudText>
+            <MudStack Row="true" Spacing="3">
+                <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
+                <MudLink Href="@school.SchoolUrl" Target="_blank" Typo="Typo.body1">@lookUps.ShortenUrl(school.SchoolUrl)</MudLink>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+
+    <MudStack Row="true" Spacing="3">
+        <MudIcon Icon="@Icons.Filled.LocationOn" Color="Color.Tertiary"/>
+        <MudText class="mr-4" Typo="Typo.h6">@school.City</MudText>
+        <MudText Typo="Typo.h6">@school.State</MudText>
+        <MudText class="ml-4" Typo="Typo.h6">@school.Zip</MudText>
+    </MudStack>
+    
+    <MudStack Row="true" Spacing="3">
+        <MudIcon Icon="@Icons.Filled.Map" Color="Color.Tertiary"/>
+        <MudText Class="mr-4" Typo="Typo.h6">@lookUps.GetRegion(school.RegionId)</MudText>
+        <MudText Typo="Typo.h6">@lookUps.GetLocale(school.Locale)</MudText>
+    </MudStack>
+
+    <MudStack Row="true" Spacing="3">
+        <MudIcon Icon="@Icons.Filled.School" Color="Color.Tertiary"/>
+        <MudText Class="mr-4" Typo="Typo.h6">@lookUps.GetMainCampus(school.MainCampus)</MudText>
+        <MudText Typo="Typo.h6">Women Only: @lookUps.GetYesNo(school.WomenOnly)</MudText>
+    </MudStack>
+    
+    <MudPaper Class="mt-2 mb-2 pa-2">
+        <MudText Typo="Typo.subtitle2" Color="Color.Tertiary">Carnegie Basic</MudText>
+        <MudText Typo="Typo.h6">@lookUps.GetCarnegieBasic(school.CarnegieBasic)</MudText>
+
+        <MudText Typo="Typo.subtitle2" Class="mt-4" Color="Color.Tertiary">Carnegie Undergrad</MudText>
+        <MudText Typo="Typo.h6">@lookUps.GetCarnegieUndergrad(school.CarnegieUndergrad)</MudText>
+
+        <MudText Typo="Typo.subtitle2" Class="mt-4" Color="Color.Tertiary">Carnegie Size & Setting</MudText>
+        <MudText Typo="Typo.h6">@lookUps.GetCarnegieSizeSetting(school.CarnegieSizeSetting)</MudText>
+
+        <MudText Typo="Typo.subtitle2" Class="mt-4" Color="Color.Tertiary">Type</MudText>
+        <MudText Typo="Typo.h6">@lookUps.GetOwnership(school.Ownership)</MudText>
+        <MudText Typo="Typo.h6">Online Only: @lookUps.GetYesNo(school.OnlineOnly)</MudText>
+
+        @if (school.Alias != string.Empty) {
+            <MudText Typo="Typo.subtitle2" Class="mt-4" Color="Color.Tertiary">Nicknames</MudText>
+            <MudText Typo="Typo.body1">@school.Alias</MudText>
+        }
+
+        @if (school.PriceCalculatorUrl != string.Empty) {
+            <MudText Typo="Typo.subtitle2" Class="mt-4" Color="Color.Tertiary">Price Calculator</MudText>
+            <MudStack Row="true" Spacing="3">
+                <MudIcon Icon="@Icons.Material.Filled.Link"></MudIcon>
+                <MudLink Href="@school.PriceCalculatorUrl" Target="_blank" Typo="Typo.body1">@lookUps.ShortenUrl(school.PriceCalculatorUrl)</MudLink>
+            </MudStack>
+        }
+    </MudPaper>
+</MudPaper>
+}
+
+
+@code {
+
+    [Parameter]
+    public School school { get; set; } = new();
+    
+    [Parameter]
+    public SchoolLookUps lookUps { get; set; } = new();
+}

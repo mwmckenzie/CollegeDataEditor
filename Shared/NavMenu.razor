@@ -10,16 +10,6 @@
                     Match="NavLinkMatch.All" 
                     Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
         
-        @if (_hostEnvironment.IsDevelopment())
-        {
-            <MudNavLink Href="ProgramBrowser"
-                        Match="NavLinkMatch.Prefix"
-                        Icon="@Icons.Material.Filled.LibraryBooks">
-                Program Browser
-            </MudNavLink>
-        }
-        else
-        {
             <AuthorizeView>
                 <Authorized>
                     <MudNavLink Href="ProgramBrowser"
@@ -29,9 +19,27 @@
                     </MudNavLink>
                 </Authorized>
             </AuthorizeView>
-        }
-        
-        
+            
+            <AuthorizeView Roles="editor">
+                <Authorized>
+                    <MudNavLink Href="ProgramEditorView"
+                                Match="NavLinkMatch.Prefix"
+                                Icon="@Icons.Material.Filled.LibraryBooks">
+                        Program Editor
+                    </MudNavLink>
+                </Authorized>
+            </AuthorizeView>
+            
+            <AuthorizeView>
+                <Authorized>
+                    <MudNavLink Href="schoolbrowser"
+                                Match="NavLinkMatch.Prefix"
+                                Icon="@Icons.Material.Filled.LibraryBooks">
+                        School Browser
+                    </MudNavLink>
+                </Authorized>
+            </AuthorizeView>
+
         <AuthorizeView Roles="editor">
             <Authorized>
                 <MudNavLink Href="ProgramEditorView"
@@ -72,46 +80,6 @@
             </Authorized>
         </AuthorizeView>
         
-   @if (_hostEnvironment.IsDevelopment())
-   {
-       <MudNavLink Href="ProgramEditorView"
-                   Match="NavLinkMatch.Prefix"
-                   Icon="@Icons.Material.Filled.LibraryBooks">
-           Program Editor
-       </MudNavLink>
-       <MudNavGroup Title="Collections" Icon="@Icons.Filled.Checklist" Expanded="false">
-           <MudNavLink Href="TagEditorView"
-                       Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
-               Tag Editor
-           </MudNavLink>
-           <MudNavLink Href="SubjectEditorView"
-                       Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
-               Subject Editor
-           </MudNavLink>
-           <MudNavLink Href="TopicEditorView"
-                       Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
-               Topic Editor
-           </MudNavLink>
-           <MudNavLink Href="OrgTypeEditorView"
-                       Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
-               Org Type Editor
-           </MudNavLink>
-           <MudNavLink Href="ProgramTypeEditorView"
-                       Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
-               Program Type Editor
-           </MudNavLink>
-           <MudNavLink Href="CitizenshipEditorView"
-                       Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
-               Citizenship Editor
-           </MudNavLink>
-           <MudNavLink Href="ResidenceEditorView"
-                       Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">
-               Residence Editor
-           </MudNavLink>
-       </MudNavGroup>
-   }     
-        
-
         
     </MudNavMenu>
     <MudElement Class="pa-4 mt-auto">
