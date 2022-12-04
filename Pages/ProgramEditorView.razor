@@ -274,12 +274,18 @@ else
         } 
     }
 
+    private DateTime _reminderDate = DateTime.Now;
     private DateTime? reminderDate
     {
-        get => programEditorVM.selectedProgram.sleepUntil;
+        get => _reminderDate;
         set
         {
-            programEditorVM.selectedProgram.sleepUntil = value;
+            if (value is null)
+            {
+                return;
+            }
+            _reminderDate = value.Value;
+            programEditorVM.selectedProgram.sleepUntil = _reminderDate;
             OnDateChanged();
         } 
     }
@@ -291,6 +297,11 @@ else
         programEditorVM.dbService = _dbService;
         programEditorVM.OnSuccessfulSaveToDb += OnSaveToDbSuccess;
         programEditorVM.OnUnsuccessfulSaveToDb += OnSaveToDbFailed;
+        
+        if (programEditorVM?.selectedProgram is not null)
+        {
+            reminderDate = programEditorVM.selectedProgram.sleepUntil;
+        }
     }
 
     private void OnSaveToDbFailed(string s)
