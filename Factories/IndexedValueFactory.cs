@@ -48,6 +48,13 @@ public class IndexedValueFactory : Factory
             case IndexedValueType.OrgType:
                 val.typeName = "OrgType";
                 break;
+            case IndexedValueType.Citizenship:
+                val.typeName = "Citizenship";
+                break;
+            case IndexedValueType.Residence:
+                val.typeName = "Residence";
+                break;
+            case IndexedValueType.None:
             default:
                 throw new ArgumentOutOfRangeException(nameof(valueType), valueType, null);
         }
