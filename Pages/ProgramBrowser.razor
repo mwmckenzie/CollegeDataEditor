@@ -317,8 +317,20 @@
     private bool FilterFunc(SummerProgram program, string searchString) {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
+
+        var orgList = program.orgIdList.ConvertAll(x => _lookupService.FindOrgById(x));
         return program.name is not null 
-               && program.name.Contains(searchString, StringComparison.OrdinalIgnoreCase);
+               && (program.name.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+                   || program.aliasList
+                       .Any(x => x.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                   || program.urlList
+                       .Any(x => x.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                   || orgList
+                       .Any(x => x.name.Contains(searchString, StringComparison.OrdinalIgnoreCase) || 
+                                 x.displayName.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                 x.aliasList
+                                     .Any(y => y.Contains(searchString, StringComparison.OrdinalIgnoreCase)))
+                   );
     }
     
     private void AddSnackBarUpdate(string text, Severity severity = Severity.Info)

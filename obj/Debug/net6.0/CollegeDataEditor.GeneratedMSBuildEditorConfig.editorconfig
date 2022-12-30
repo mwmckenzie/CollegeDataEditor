@@ -60,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbmNlRWRpdG9yVmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/CSharp/CollegeDataEditor/Pages/SchoolBrowser.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Nob29sQnJvd3Nlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/CSharp/CollegeDataEditor/Pages/SubjectEditorView.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3ViamVjdEVkaXRvclZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -172,8 +176,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFByb2dyYW1TaWRlVmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/CSharp/CollegeDataEditor/Shared/SchoolShortView.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFNjaG9vbFNob3J0Vmlldy5yYXpvcg==
+[F:/CSharp/CollegeDataEditor/Shared/SchoolDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFNjaG9vbERldGFpbHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/CSharp/CollegeDataEditor/Shared/SessionSideView.razor]
