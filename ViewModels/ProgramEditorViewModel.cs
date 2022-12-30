@@ -263,6 +263,15 @@ public class ProgramEditorViewModel : IDbContext
                 dbService.OrgTypesDb.editingItem = indexedValue;
                 await dbService.OrgTypesDb.SubmitToDbAsync();
                 break;
+            case IndexedValueType.Citizenship:
+                dbService.CitizenshipsDb.editingItem = indexedValue;
+                await dbService.CitizenshipsDb.SubmitToDbAsync();
+                break;
+            case IndexedValueType.Residence:
+                dbService.ResidencesDb.editingItem = indexedValue;
+                await dbService.ResidencesDb.SubmitToDbAsync();
+                break;
+            case IndexedValueType.None:
             default:
                 return;
         }
