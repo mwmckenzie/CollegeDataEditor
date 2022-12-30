@@ -42,6 +42,7 @@ public class LookupService
     public List<Session> sessions => dbService.SessionsDb.dbItems;
     public List<StudentInfo> studentInfoList => dbService.StudentInfoDb.dbItems;
 
+    public List<School> schools => dbService.schoolsDb.dbItems;
 
     public IndexedValue FindById(List<IndexedValue> list, string searchId)
     {
@@ -91,6 +92,13 @@ public class LookupService
     }
     
     public StudentInfo FindStudentInfoById(string searchId) => FindById(studentInfoList, searchId);
+    
+    public School FindById(List<School> list, string searchId)
+    {
+        return list.FirstOrDefault(x => x.id.Equals(searchId, StringComparison.Ordinal));
+    }
+
+    public School FindSchoolById(string searchId) => FindById(schools, searchId);
     
     public List<string> ProgramAggregateTagIdList(SummerProgram program)
     {

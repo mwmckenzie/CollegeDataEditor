@@ -84,14 +84,23 @@ else
             
         <MudPaper Class="d-flex flex-column" Outlined="true">
             <MudList Clickable="true">
+                
+                <EditableSchoolListView @bind-idList="@programEditorVM.selectedProgram.schoolIdList"
+                                        listName="Schools"
+                                        lookupList="_lookupService.schools"
+                                        itemIcons="@Icons.Material.Filled.School"
+                                        dbContext="programEditorVM"/>
+                                
+                <MudDivider Class="my-2"/>
+                
                 <EditableBaseInfoListView @bind-idList="@programEditorVM.selectedProgram.orgIdList"
                                           listName="Organizations"
                                           lookupList="_lookupService.orgs"
                                           itemIcons="@Icons.Material.Filled.School"
                                           dbContext="programEditorVM"/>
-                    
+
                 <MudDivider Class="my-2"/>
-                    
+
                 <EditableApplicationListView listName="Applications"
                                              @bind-idList="@programEditorVM.selectedProgram.applicationIdList"
                                              lookupList="_lookupService.applications"
@@ -99,9 +108,9 @@ else
                                              dbContext="programEditorVM"
                                              itemIcons="@Icons.Material.Filled.Checklist"
                                              ItemClicked="OnApplicationClicked"/>
-                    
+
                 <MudDivider Class="my-2"/>
-                    
+
                 <EditableSessionListView listName="Session"
                                          @bind-idList="@programEditorVM.selectedProgram.sessionIdList"
                                          lookupList="_lookupService.sessions"
@@ -109,9 +118,9 @@ else
                                          dbContext="programEditorVM"
                                          itemIcons="@Icons.Material.Filled.CalendarViewWeek"
                                          ItemClicked="OnSessionClicked"/>
-                    
+
                 <MudDivider Class="my-2"/>
-                                        
+
                 <EditableStudentInfoListView listName="Student Info"
                                              @bind-idList="@programEditorVM.selectedProgram.studentInfoIdList"
                                              lookupList="_lookupService.studentInfoList"
@@ -119,7 +128,7 @@ else
                                              dbContext="programEditorVM"
                                              itemIcons="@Icons.Material.Filled.EditLocation"
                                              ItemClicked="OnStudentInfoClicked"/>
-                    
+
             </MudList>
         </MudPaper>
     </MudItem>

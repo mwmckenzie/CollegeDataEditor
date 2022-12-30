@@ -85,6 +85,15 @@
             }
         </MudPaper>
     }
+    
+    @if (SummerProgram.schoolIdList.Count > 0)
+        {
+            foreach (var schoolId in SummerProgram.schoolIdList)
+            {
+                <SchoolDetails school="@LookupService.FindSchoolById(schoolId)"/>
+            }
+        }
+    
 
     @if (SummerProgram.orgIdList.Count > 0)
     {
