@@ -93,6 +93,14 @@
             <OrgView org="@LookupService.FindOrgById(orgId)"/>
         }
     }
+    
+    @if (SummerProgram.studentInfoIdList.Count > 0)
+        {
+            foreach (var studentInfoId in SummerProgram.studentInfoIdList)
+            {
+                <StudentInfoView studentInfo="@LookupService.FindStudentInfoById(studentInfoId)"/>
+            }
+        }
 
     @if (!IsSideView)
     {

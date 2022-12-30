@@ -1,0 +1,84 @@
+﻿@using CollegeDataEditor.Models
+@using CollegeDataEditor.Services
+
+@inject LookupService lookupService
+
+<MudPaper Class="my-2 pa-4">
+    
+    <BaseInfoView baseInfoObj="@studentInfo" objTitle="Student Info"/>
+
+    @if (studentInfo.ageMin + studentInfo.ageMax > 0)
+    {
+        <MudPaper Class="my-2 pa-2">
+            <MudText Typo="Typo.h6">Age Requirements</MudText>
+            <MudDivider Class="my-2"/>
+            <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
+                <MudText Typo="Typo.h6">@studentInfo.ageMin to @studentInfo.ageMax</MudText>
+            </MudStack>
+        </MudPaper>
+    }
+    
+    @if (studentInfo.classYearMin + studentInfo.classYearMax > 0)
+    {
+        <MudPaper Class="my-2 pa-2">
+                <MudText Typo="Typo.h6">Class Year Requirements</MudText>
+                <MudDivider Class="my-2"/>
+                <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
+                    <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
+                    <MudText Typo="Typo.h6">@studentInfo.classYearMin to @studentInfo.classYearMax</MudText>
+                </MudStack>
+            </MudPaper>
+    }
+    
+    
+    @if (hasCitizenships) {
+        
+            <MudPaper Class="my-2 pa-2">
+                <MudText Typo="Typo.h6">Citizenship Requirement</MudText>
+                <MudDivider Class="my-2"/>
+                @foreach (var text in studentInfo.citizenshipIdList)
+                {
+                    <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
+                        <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
+                        <MudText Typo="Typo.h6">
+                            @lookupService.citizenshipList.FirstOrDefault(x => x.id == text).value
+                        </MudText>
+                    </MudStack>
+                }
+            </MudPaper>
+    }
+    
+    @if (hasResidences) {
+        
+            <MudPaper Class="my-2 pa-2">
+                <MudText Typo="Typo.h6">Residence Requirement</MudText>
+                <MudDivider Class="my-2"/>
+                @foreach (var text in studentInfo.residenceIdList)
+                {
+                    <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">
+                        <MudIcon Icon="@Icons.Filled.Label"></MudIcon>
+                        <MudText Typo="Typo.h6">
+                            @lookupService.residences.FirstOrDefault(x => x.id == text).value
+                        </MudText>
+                    </MudStack>
+                }
+            </MudPaper>
+        
+    }
+    
+    
+</MudPaper>
+
+
+@code {
+    
+    [Parameter]
+    public StudentInfo? studentInfo { get; set; }
+
+    private bool hasCitizenships => studentInfo is {citizenshipIdList.Count: > 0 };
+    private bool hasResidences => studentInfo is {residenceIdList.Count: > 0 };
+    
+    
+
+}
